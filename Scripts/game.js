@@ -45,11 +45,13 @@ var game = (function () {
         else {
             enemy3.y += 2.5;
         }
+        enemy1.position = new objects.Vector2(enemy1.x, enemy1.y);
+        enemy2.position = new objects.Vector2(enemy2.x, enemy2.y);
         enemy3.position = new objects.Vector2(enemy3.x, enemy3.y);
         console.log("player: " + player.x + " " + player.y);
         console.log(enemy3.x, enemy3.y);
-        // managers.Collision.AABBCheck(player, enemy1);
-        // managers.Collision.AABBCheck(player, enemy2);
+        managers.Collision.AABBCheck(player, enemy1);
+        managers.Collision.AABBCheck(player, enemy2);
         managers.Collision.AABBCheck(player, enemy3);
         player.Update();
         stage.update();

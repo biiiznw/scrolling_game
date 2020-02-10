@@ -9,7 +9,7 @@ module objects
         // CONSTRUCTOR
         constructor()
         {
-            super("./Assets/images/placeholder.png", 0, 0, true);
+            super("./Assets/images/placeholder1.png", 0, 0, true);
 
             this.Start();
         }
