@@ -10,6 +10,7 @@ var game = (function () {
     var enemy1;
     var enemy2;
     var enemy3;
+    var background;
     /**
      * Perform Initialization in the Start function
      *
@@ -62,6 +63,8 @@ var game = (function () {
      */
     function Main() {
         console.log("%c Main Started", "color: green; font-size:16px;");
+        background = new createjs.Bitmap('./Assets/images/background.png');
+        stage.addChild(background);
         // startLabel = new objects.Label("The Game", "80px","Consolas", "#000000", 320, 200, true);
         // stage.addChild(startLabel);
         // startButton = new objects.Button("./Assets/images/startButton.png", 320, 400, true);

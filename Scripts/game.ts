@@ -9,6 +9,7 @@ let game = (function(){
     let enemy1:objects.Enemy;
     let enemy2:objects.Enemy;
     let enemy3:objects.Enemy;
+    let background:createjs.Bitmap;
 
 
     /**
@@ -74,7 +75,8 @@ let game = (function(){
     function Main():void
     {
         console.log(`%c Main Started`, "color: green; font-size:16px;");
-
+        background = new createjs.Bitmap('./Assets/images/background.png');
+        stage.addChild(background);
         // startLabel = new objects.Label("The Game", "80px","Consolas", "#000000", 320, 200, true);
         // stage.addChild(startLabel);
 
