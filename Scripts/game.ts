@@ -11,6 +11,8 @@ let game = (function(){
     let enemy3:objects.Enemy;
     let background:createjs.Bitmap;
 
+    // comments from Tom
+
 
     /**
      * Perform Initialization in the Start function
