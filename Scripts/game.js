@@ -11,6 +11,7 @@ var game = (function () {
     var enemy2;
     var enemy3;
     var background;
+    // comments from Tom
     /**
      * Perform Initialization in the Start function
      *
