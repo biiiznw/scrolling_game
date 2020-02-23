@@ -11,6 +11,10 @@ var game = (function () {
     var enemy2;
     var enemy3;
     var background;
+    var assetManifast = [
+        // {id: "placeholder", src: "./Assets/images/placeholder.png"},
+        { id: "startButton", src: "./Assets/images/startButton.png" },
+    ];
     // comments from Tom
     /**
      * Perform Initialization in the Start function

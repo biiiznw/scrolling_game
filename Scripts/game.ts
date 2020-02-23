@@ -11,6 +11,15 @@ let game = (function(){
     let enemy3:objects.Enemy;
     let background:createjs.Bitmap;
 
+    let assetManifast = [
+        // {id: "placeholder", src: "./Assets/images/placeholder.png"},
+        {id: "startButton", src: "./Assets/images/startButton.png"},
+        // {id: "nextButton", src: "./Assets/images/nextButton.png"},
+        // {id: "backButton", src: "./Assets/images/backButton.png"},
+        // {id: "ocean", src: "./Assets/images/ocean.gif"},
+        // {id: "plane", src: "./Assets/images/plane.png"}
+    ];
+
     // comments from Tom
 
 
