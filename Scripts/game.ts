@@ -10,9 +10,10 @@ let game = (function(){
     let enemy2:objects.Enemy;
     let enemy3:objects.Enemy;
     let background:createjs.Bitmap;
+    let assets: createjs.LoadQueue;  
 
     let assetManifast = [
-        // {id: "placeholder", src: "./Assets/images/placeholder.png"},
+        {id: "placeholder", src: "./Assets/images/placeholder.png"},
         {id: "startButton", src: "./Assets/images/startButton.png"},
         // {id: "nextButton", src: "./Assets/images/nextButton.png"},
         // {id: "backButton", src: "./Assets/images/backButton.png"},
@@ -21,6 +22,15 @@ let game = (function(){
     ];
 
     // comments from Tom
+    function Preload():void
+    {
+        assets = new createjs.LoadQueue();
+        config.Game.ASSETS = assets; // create a global reference
+        assets.installPlugin(createjs.Sound);
+        assets.loadManifest(assetManifast);
+
+        assets.on("complete", Start);
+    }
 
 
     /**
@@ -122,6 +132,6 @@ let game = (function(){
     
     }
 
-    window.addEventListener("load", Start);
+    window.addEventListener("load", Preload);
 
 })();

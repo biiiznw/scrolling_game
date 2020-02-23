@@ -11,11 +11,19 @@ var game = (function () {
     var enemy2;
     var enemy3;
     var background;
+    var assets;
     var assetManifast = [
-        // {id: "placeholder", src: "./Assets/images/placeholder.png"},
+        { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
     ];
     // comments from Tom
+    function Preload() {
+        assets = new createjs.LoadQueue();
+        config.Game.ASSETS = assets; // create a global reference
+        assets.installPlugin(createjs.Sound);
+        assets.loadManifest(assetManifast);
+        assets.on("complete", Start);
+    }
     /**
      * Perform Initialization in the Start function
      *
@@ -93,6 +101,6 @@ var game = (function () {
         enemy3.position = new objects.Vector2(enemy3.x, enemy3.y);
         stage.addChild(enemy3);
     }
-    window.addEventListener("load", Start);
+    window.addEventListener("load", Preload);
 })();
 //# sourceMappingURL=game.js.map
