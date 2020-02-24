@@ -16,16 +16,14 @@ var scenes;
 (function (scenes) {
     var End = /** @class */ (function (_super) {
         __extends(End, _super);
-        // PRIVATE INSTANCE MEMBERS
-        // private endLabel:objects.Label;
         // private _backButton:objects.Button;
         // private  _ocean:objects.Ocean;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function End() {
             var _this = _super.call(this) || this;
-            // // initialization
-            // this.endLabel = new objects.Label();
+            // initialization
+            _this.endLabel = new objects.Label();
             // this._backButton = new objects.Button();
             // this._ocean = new objects.Ocean();
             _this.Start();
@@ -33,7 +31,7 @@ var scenes;
         }
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            // this.endLabel = new objects.Label("End Scene", "80px","Consolas", "#FFFF00", 320, 200, true);
+            this.endLabel = new objects.Label("End Scene", "80px", "Consolas", "#FFFF00", 320, 200, true);
             // this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
             this.Main();
         };
@@ -42,7 +40,7 @@ var scenes;
         };
         End.prototype.Main = function () {
             // this.addChild(this._ocean);
-            // this.addChild(this.endLabel);
+            this.addChild(this.endLabel);
             // this.addChild(this._backButton);
             // this._backButton.on("click", function() {
             //    config.Game.SCENE_STATE = scenes.State.PLAY;

@@ -36,8 +36,9 @@ var managers;
                 object1TopLeft.y + object1.height > object2TopLeft.y) {
                 if (!object2.isColliding) {
                     // console.log("Collision!");
-                    alert("You died!");
-                    object2.isColliding = true;
+                    //alert("You died!")
+                    config.Game.SCENE_STATE = scenes.State.END;
+                    //object2.isColliding = true;
                 }
             }
             else {

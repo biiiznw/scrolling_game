@@ -14,11 +14,11 @@ module objects
          * @memberof Label
          */
         constructor(
-            labelString:string, 
-            fontSize:string, 
-            fontFamily:string, 
-            fontColour:string, 
-            x:number, y:number, isCentered:boolean)
+            labelString:string = "unknown label", 
+            fontSize:string = "20px", 
+            fontFamily:string = "Consolas", 
+            fontColour:string = "#000000", 
+            x:number = 0, y:number = 0, isCentered:boolean = false)
         {
             super(labelString, fontSize + " " + fontFamily, fontColour);
 

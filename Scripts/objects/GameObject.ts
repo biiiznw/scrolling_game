@@ -112,17 +112,17 @@ module objects
             super(imagePath);
             this.isColliding = false;
 
-            this.position = new Vector2(x, y);
+            // this.position = new Vector2(x, y);
 
-            // wait for the  image to load before calculating its width and height
-            this.image.addEventListener('load', ()=>{
+            // // wait for the  image to load before calculating its width and height
+            // this.image.addEventListener('load', ()=>{
                 this.width = this.getBounds().width;
                 this.height = this.getBounds().height;
                 this.halfWidth = this.width * 0.5;
                 this.halfHeight = this.height * 0.5;
 
                 this.isCentered = centered;
-            });
+            // });
 
             // set the GameObject's position
             this.position = new Vector2(x, y);

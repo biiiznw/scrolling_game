@@ -20,7 +20,7 @@ var objects;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Player() {
-            var _this = _super.call(this, "./Assets/images/placeholder.png", 0, 0, true) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("placeholder"), 0, 0, true) || this;
             _this.Start();
             return _this;
         }
@@ -31,7 +31,10 @@ var objects;
         Player.prototype.Start = function () {
         };
         Player.prototype.Update = function () {
-            this.position = new objects.Vector2(this.stage.mouseX, this.stage.mouseY);
+            var mouseX = config.Game.STAGE.mouseX;
+            var mouseY = config.Game.STAGE.mouseY;
+            this.position = new objects.Vector2(mouseX, mouseY);
+            //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
         };
         Player.prototype.Reset = function () {
         };

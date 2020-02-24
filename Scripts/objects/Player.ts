@@ -9,7 +9,7 @@ module objects
         // CONSTRUCTOR
         constructor()
         {
-            super("./Assets/images/placeholder.png", 0, 0, true);
+            super(config.Game.ASSETS.getResult("placeholder"),0,0,true);
 
             this.Start();
         }
@@ -25,7 +25,11 @@ module objects
         }
 
         public Update(): void {
-            this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
+            let mouseX = config.Game.STAGE.mouseX;
+            let mouseY = config.Game.STAGE.mouseY;
+
+            this.position = new Vector2(mouseX, mouseY);
+            //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
         }
 
         public Reset(): void {

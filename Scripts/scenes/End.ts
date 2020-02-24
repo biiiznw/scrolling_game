@@ -3,7 +3,7 @@ module scenes
     export class End extends objects.Scene
     {
         // PRIVATE INSTANCE MEMBERS
-        // private endLabel:objects.Label;
+        private endLabel:objects.Label;
         // private _backButton:objects.Button;
         // private  _ocean:objects.Ocean;
 
@@ -14,8 +14,8 @@ module scenes
         {
             super();
 
-            // // initialization
-            // this.endLabel = new objects.Label();
+            // initialization
+            this.endLabel = new objects.Label();
             // this._backButton = new objects.Button();
             // this._ocean = new objects.Ocean();
 
@@ -26,7 +26,7 @@ module scenes
 
         public Start(): void 
         {
-            // this.endLabel = new objects.Label("End Scene", "80px","Consolas", "#FFFF00", 320, 200, true);
+            this.endLabel = new objects.Label("End Scene", "80px","Consolas", "#FFFF00", 320, 200, true);
             // this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
            
             this.Main();
@@ -40,7 +40,7 @@ module scenes
         public Main(): void {
             // this.addChild(this._ocean);
             
-            // this.addChild(this.endLabel);
+            this.addChild(this.endLabel);
     
             // this.addChild(this._backButton);
     

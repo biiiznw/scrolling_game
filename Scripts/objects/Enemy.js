@@ -20,7 +20,7 @@ var objects;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Enemy() {
-            var _this = _super.call(this, "./Assets/images/placeholder1.png", 0, 0, true) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("placeholder1"), 0, 0, true) || this;
             _this.Start();
             return _this;
         }

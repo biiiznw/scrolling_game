@@ -1,19 +1,22 @@
 //IIFE -- Immediately Invoked Function Expression
 // mean? is an anonymous self-executing function
-let game = (function(){
+let game1 = (function(){
     let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
     let stage:createjs.Stage;
-    let startLabel:objects.Label;
-    let startButton:objects.Button;
-    let player:objects.Player;
-    let enemy1:objects.Enemy;
-    let enemy2:objects.Enemy;
-    let enemy3:objects.Enemy;
-    let background:createjs.Bitmap;
-    let assets: createjs.LoadQueue;  
+    // let startLabel:objects.Label;
+    // let startButton:objects.Button;
+    // let player:objects.Player;
+    // let enemy1:objects.Enemy;
+    // let enemy2:objects.Enemy;
+    // let enemy3:objects.Enemy;
+    // let background:createjs.Bitmap;
+    let assets: createjs.LoadQueue; 
+    let currentSceneState: scenes.State;
+    let currentScene: objects.Scene;  
 
     let assetManifast = [
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
+        {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "startButton", src: "./Assets/images/startButton.png"},
         // {id: "nextButton", src: "./Assets/images/nextButton.png"},
         // {id: "backButton", src: "./Assets/images/backButton.png"},
@@ -25,7 +28,7 @@ let game = (function(){
     function Preload():void
     {
         assets = new createjs.LoadQueue();
-        config.Game.ASSETS = assets; // create a global reference
+        config.Game.ASSETS = assets;
         assets.installPlugin(createjs.Sound);
         assets.loadManifest(assetManifast);
 
@@ -41,10 +44,13 @@ let game = (function(){
     {
         console.log(`%c Game Started`, "color: blue; font-size:20px;");
         stage = new createjs.Stage(canvas);
+        config.Game.STAGE = stage; // create a reference to the Global Stage
         createjs.Ticker.framerate = 60; // declare the framerate as 60FPS
         createjs.Ticker.on('tick', Update);
         stage.enableMouseOver(20);
-        Main();
+
+        currentSceneState = scenes.State.NO_SCENE;
+        config.Game.SCENE_STATE = scenes.State.START;
     }
 
     /**
@@ -53,39 +59,12 @@ let game = (function(){
      */
     function Update():void
     {
-
-        if (enemy1.y == 480)
+        if(currentSceneState != config.Game.SCENE_STATE)
         {
-            enemy1.y = 100;
-        } else
-        {
-            enemy1.y += 1;
+            Main();
         }
 
-        if (enemy2.y == 480)
-        {
-            enemy2.y = 50;
-        } else
-        {
-            enemy2.y += 2;
-        }
-
-        if (enemy3.y == 480)
-        {
-            enemy3.y = 50;
-        } else
-        {
-            enemy3.y += 2.5;
-        }
-        enemy1.position = new objects.Vector2(enemy1.x, enemy1.y);
-        enemy2.position = new objects.Vector2(enemy2.x, enemy2.y);
-        enemy3.position = new objects.Vector2(enemy3.x, enemy3.y);
-        console.log("player: " + player.x + " " +player.y);
-        console.log(enemy3.x, enemy3.y);
-        managers.Collision.AABBCheck(player, enemy1);
-        managers.Collision.AABBCheck(player, enemy2);
-        managers.Collision.AABBCheck(player, enemy3);
-        player.Update();
+        currentScene.Update();
         stage.update();
     }
 
@@ -95,41 +74,34 @@ let game = (function(){
      */
     function Main():void
     {
-        console.log(`%c Main Started`, "color: green; font-size:16px;");
-        background = new createjs.Bitmap('./Assets/images/background.png');
-        stage.addChild(background);
-        // startLabel = new objects.Label("The Game", "80px","Consolas", "#000000", 320, 200, true);
-        // stage.addChild(startLabel);
+        console.log(`%c Switching Scenes`, "color: green; font-size:16px;");
 
-       
+        // cleanup
+        if(currentSceneState != scenes.State.NO_SCENE)
+        {
+            currentScene.removeAllChildren();
+            stage.removeAllChildren();
+        }
 
-        // startButton = new objects.Button("./Assets/images/startButton.png", 320, 400, true);
-        // stage.addChild(startButton);
+        // state machine
+        switch(config.Game.SCENE_STATE)
+        {
+            case scenes.State.START:
+                currentScene = new scenes.Start();
+                break;
+            case scenes.State.PLAY:
+                currentScene = new scenes.Play();
+                break;
+            case scenes.State.END:
+                currentScene = new scenes.End();
+                break;
 
-        // startButton.on("click", function() {
-        //    console.log("Start Clicked!");
-        // });
+        }
 
-       
-        player = new objects.Player();
-        stage.addChild(player);
-        enemy1 = new objects.Enemy();
-        enemy1.x = 150;
-        enemy1.y = 100;
-        stage.addChild(enemy1);
+        // add the scene to the stage and setup the current scene
+        stage.addChild(currentScene);
+        currentSceneState = config.Game.SCENE_STATE;
 
-        enemy2 = new objects.Enemy();
-        enemy2.x = 280;
-        enemy2.y = 50;
-        stage.addChild(enemy2);
-
-        enemy3 = new objects.Enemy();
-        enemy3.x = 450;
-        enemy3.y = 70;
-        enemy3.position = new objects.Vector2(enemy3.x, enemy3.y);
-        stage.addChild(enemy3);
-
-    
     }
 
     window.addEventListener("load", Preload);
