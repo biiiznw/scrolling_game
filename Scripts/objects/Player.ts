@@ -3,6 +3,7 @@ module objects
     export class Player extends GameObject
     {
         // PRIVATE INSTANCE MEMBERS
+        
 
         // PUBLIC PROPERTIES
 

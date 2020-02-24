@@ -35,6 +35,7 @@ module scenes
         }
         
         public Main(): void {
+            this.addChild(this._background);
             this.addChild(this._startButton);
     
             this._startButton.on("click", function() {

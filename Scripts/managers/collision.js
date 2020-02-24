@@ -20,6 +20,8 @@ var managers;
         Collision.AABBCheck = function (object1, object2) {
             var object1Offset = new objects.Vector2(0, 0);
             var object2Offset = new objects.Vector2(0, 0);
+            var count = 0;
+            var co = 0;
             if (object1.isCentered) {
                 object1Offset.x = object1.halfWidth;
                 object1Offset.y = object1.halfHeight;
@@ -38,12 +40,21 @@ var managers;
                     // console.log("Collision!");
                     //alert("You died!")
                     config.Game.SCENE_STATE = scenes.State.END;
+                    // count += 1;
+                    // console.log("CCC " +count);
+                    //if(count == 3) config.Game.SCENE_STATE = scenes.State.END;
+                    //else object2.isColliding = true;
                     //object2.isColliding = true;
                 }
             }
             else {
                 object2.isColliding = false;
             }
+        };
+        Collision.Reset = function (object2) {
+            // if(!object2.isColliding){
+            //     object2.
+            // }
         };
         return Collision;
     }());

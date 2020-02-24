@@ -18,7 +18,7 @@ let game1 = (function(){
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "startButton", src: "./Assets/images/startButton.png"},
-        {id: "background", src: "./Assets/images/background.png"},
+        {id: "background", src: "./Assets/images/background.gif"},
         // {id: "backButton", src: "./Assets/images/backButton.png"},
         // {id: "ocean", src: "./Assets/images/ocean.gif"},
         // {id: "plane", src: "./Assets/images/plane.png"}

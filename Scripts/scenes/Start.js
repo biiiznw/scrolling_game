@@ -36,6 +36,7 @@ var scenes;
             this._background.Update();
         };
         Start.prototype.Main = function () {
+            this.addChild(this._background);
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
                 config.Game.SCENE_STATE = scenes.State.PLAY;

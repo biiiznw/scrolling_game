@@ -1,19 +1,25 @@
-module objects {
-    export class Background extends objects.GameObject {
-
+module objects
+{
+    export class Background extends GameObject
+    {
         // private instance menbers
         private _verticalSpeed?: number; // 5 px per frame
-        
+
+        //public properities
+
         //constructor
         constructor(){
-            super(config.Game.ASSETS.getResult("ocean"));
+            super(config.Game.ASSETS.getResult("background"));
             this.Start();
         }
-        protected _checkBounds(): void {
+
+        //provate method
+        protected _checkBounds():void{
             if(this.position.y >= 0)
             {
                 this.Reset();
             }
+
         }
 
         private _move():void
@@ -22,25 +28,25 @@ module objects {
             this.position = Vector2.add(this.position, this.velocity);
         }
 
-        public Start(): void 
+        //public method
+        public Start():void
         {
             this._verticalSpeed = 5;
             this.velocity = new Vector2(0, this._verticalSpeed);
             this.Reset();
+
         }
-        public Update(): void 
+
+        public Update():void
         {
             this._move();
             this._checkBounds();
-        }
-        public Reset(): void 
-        {
-            this.position.y = -960;
-        }
-        // public Destroy(): void {
 
-        // }
+        }
 
-        
+        public Reset():void{
+            this.position.y = -1520;
+
+        }
     }
 }

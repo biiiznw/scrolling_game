@@ -31,7 +31,7 @@ var scenes;
         }
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this.endLabel = new objects.Label("End Scene", "80px", "Consolas", "#FFFF00", 320, 200, true);
+            this.endLabel = new objects.Label("Game Over", "80px", "Consolas", "#000000", 320, 200, true);
             // this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
             this.Main();
         };

@@ -16,12 +16,14 @@ var objects;
 (function (objects) {
     var Background = /** @class */ (function (_super) {
         __extends(Background, _super);
+        //public properities
         //constructor
         function Background() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("ocean")) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("background")) || this;
             _this.Start();
             return _this;
         }
+        //provate method
         Background.prototype._checkBounds = function () {
             if (this.position.y >= 0) {
                 this.Reset();
@@ -30,6 +32,7 @@ var objects;
         Background.prototype._move = function () {
             this.position = objects.Vector2.add(this.position, this.velocity);
         };
+        //public method
         Background.prototype.Start = function () {
             this._verticalSpeed = 5;
             this.velocity = new objects.Vector2(0, this._verticalSpeed);
@@ -40,7 +43,7 @@ var objects;
             this._checkBounds();
         };
         Background.prototype.Reset = function () {
-            this.position.y = -960;
+            this.position.y = -1520;
         };
         return Background;
     }(objects.GameObject));

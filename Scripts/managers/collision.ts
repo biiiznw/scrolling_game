@@ -26,6 +26,8 @@ module managers
         {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
+            let count:number = 0;
+            let co:number = 0;
 
             if(object1.isCentered)
             {
@@ -52,6 +54,11 @@ module managers
                     // console.log("Collision!");
                     //alert("You died!")
                     config.Game.SCENE_STATE = scenes.State.END;
+                    // count += 1;
+                    // console.log("CCC " +count);
+
+                    //if(count == 3) config.Game.SCENE_STATE = scenes.State.END;
+                    //else object2.isColliding = true;
                     //object2.isColliding = true;
                 }
             }
@@ -59,6 +66,13 @@ module managers
             {
                 object2.isColliding = false;
             }
+        }
+
+        public static Reset(object2:objects.GameObject){
+            // if(!object2.isColliding){
+            //     object2.
+            // }
+
         }
 
        
