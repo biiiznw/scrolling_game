@@ -42,7 +42,7 @@ module scenes
 
             // //declear the enemies array
             this._ememies = new Array<objects.Enemy>();
-            this._enemyNum =3;
+            this._enemyNum =2;
             //add enemies
             for(let count = 0; count < this._enemyNum; count++)
             {
@@ -87,9 +87,12 @@ module scenes
             // managers.Collision.AABBCheck(this._player, this._enemy1);
             // managers.Collision.AABBCheck(this._player, this._enemy2);
             //managers.Collision.AABBCheck(this._player, this._ememies[10]);
+
             this._player.Update();
             this._ememies.forEach(enemy => {
                 enemy.Update();
+                //check collision player and enemies
+                managers.Collision.Check(this._player, enemy);
             });
 
             //this._enemy1.Update();

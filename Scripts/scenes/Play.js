@@ -38,7 +38,7 @@ var scenes;
             // this._enemy1 = new objects.Enemy;
             // //declear the enemies array
             this._ememies = new Array();
-            this._enemyNum = 3;
+            this._enemyNum = 2;
             //add enemies
             for (var count = 0; count < this._enemyNum; count++) {
                 this._ememies[count] = new objects.Enemy();
@@ -55,6 +55,7 @@ var scenes;
             // {
             //     this._enemy1.y += 1;
             // }
+            var _this = this;
             // if (this._enemy2.y == 480)
             // {
             //     this._enemy2.y = 50;
@@ -80,6 +81,8 @@ var scenes;
             this._player.Update();
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
+                //check collision player and enemies
+                managers.Collision.Check(_this._player, enemy);
             });
             //this._enemy1.Update();
             // this._enemy2.Update();

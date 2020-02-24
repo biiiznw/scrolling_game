@@ -130,7 +130,6 @@ module objects
                 this.height = this.getBounds().height;
                 this.halfWidth = this.width * 0.5;
                 this.halfHeight = this.height * 0.5;
-
                 this.isCentered = centered;
             // });
 

@@ -2,6 +2,28 @@ module objects
 {
     export class Collision
     {
+        public static Check(object1: objects.GameObject, object2: objects.GameObject,)
+        {
+    
+            let P1: calculate.Vec2 = new calculate.Vec2(object1.x, object1.y);
+            let P2: calculate.Vec2 = new calculate.Vec2(object2.x, object2.y);
+
+            if(calculate.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight))
+            {
+                if(!object2.isColliding)
+                {
+                    console.log("Collision!!! " + object2.name);
+                    object2.isColliding = true;
+                }
+                
+            }
+            else
+            {
+                object2.isColliding = false;
+            }
+
+        }//end check 
+
         public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject)
         {
             let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
