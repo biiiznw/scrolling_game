@@ -22,15 +22,18 @@ var scenes;
             var _this = _super.call(this) || this;
             // initialization
             _this._startButton = new objects.Button();
+            _this._background = new objects.Background();
             _this.Start();
             return _this;
         }
         // PUBLIC METHODS
         Start.prototype.Start = function () {
+            this._background = new objects.Background();
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
             this.Main();
         };
         Start.prototype.Update = function () {
+            this._background.Update();
         };
         Start.prototype.Main = function () {
             this.addChild(this._startButton);

@@ -139,6 +139,11 @@ var objects;
             var Ys = (P2.y - P1.y);
             return Xs * Xs + Ys * Ys;
         };
+        Vector2.add = function (lhs, rhs) {
+            var dx = lhs.x + rhs.x;
+            var dy = lhs.y + rhs.y;
+            return new Vector2(dx, dy);
+        };
         Vector2.subtract = function (lhs, rhs) {
             var dx = lhs.x - rhs.x;
             var dy = lhs.y - rhs.y;

@@ -18,7 +18,7 @@ let game1 = (function(){
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "startButton", src: "./Assets/images/startButton.png"},
-        // {id: "nextButton", src: "./Assets/images/nextButton.png"},
+        {id: "background", src: "./Assets/images/background.png"},
         // {id: "backButton", src: "./Assets/images/backButton.png"},
         // {id: "ocean", src: "./Assets/images/ocean.gif"},
         // {id: "plane", src: "./Assets/images/plane.png"}
@@ -31,7 +31,6 @@ let game1 = (function(){
         config.Game.ASSETS = assets;
         assets.installPlugin(createjs.Sound);
         assets.loadManifest(assetManifast);
-
         assets.on("complete", Start);
     }
 

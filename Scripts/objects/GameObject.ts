@@ -10,6 +10,7 @@ module objects
         private _isColliding:boolean = false;
         private _isCentered:boolean = false;
         private _position:Vector2 = new Vector2(0, 0);
+        private _velocity:Vector2 = new Vector2(0, 0);
 
         // PROPERTIES
         get width():number
@@ -72,6 +73,15 @@ module objects
             this._position = newPosition;
             this.x = newPosition.x;
             this.y = newPosition.y;
+        }
+
+        get velocity():Vector2
+        {
+            return this._velocity;
+        }
+
+        set velocity(newVelocity:Vector2){
+            this._velocity = newVelocity;
         }
 
         get isCentered():boolean

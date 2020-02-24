@@ -39,6 +39,7 @@ var objects;
             _this._isColliding = false;
             _this._isCentered = false;
             _this._position = new objects.Vector2(0, 0);
+            _this._velocity = new objects.Vector2(0, 0);
             _this.isColliding = false;
             // this.position = new Vector2(x, y);
             // // wait for the  image to load before calculating its width and height
@@ -112,6 +113,16 @@ var objects;
                 this._position = newPosition;
                 this.x = newPosition.x;
                 this.y = newPosition.y;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "velocity", {
+            get: function () {
+                return this._velocity;
+            },
+            set: function (newVelocity) {
+                this._velocity = newVelocity;
             },
             enumerable: true,
             configurable: true

@@ -170,6 +170,13 @@ module objects
             return  Xs * Xs + Ys * Ys;
         }
 
+        public static add(lhs:Vector2, rhs:Vector2):Vector2{
+            let dx = lhs.x + rhs.x;
+            let dy = lhs.y + rhs.y;
+            return new Vector2(dx, dy);
+        }
+
+
         public static subtract(lhs:Vector2, rhs:Vector2):Vector2
         {
             let dx = lhs.x - rhs.x;
