@@ -13,9 +13,10 @@ var game1 = (function () {
         { id: "background", src: "./Assets/images/background.gif" },
         { id: "enemy", src: "./Assets/images/enemy.png" },
         { id: "player", src: "./Assets/images/Player.png" },
+        { id: "firstScreen", src: "./Assets/images/firstScreen.png" },
         //buttons
         { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "returnButton", src: "./Assets/images/startButton.png" },
+        { id: "returnButton", src: "./Assets/images/restartButton.png" },
         //Sounds
         { id: "playSound", src: "./Assets/sounds/space.wav" },
         { id: "startSound", src: "./Assets/sounds/space.wav" },

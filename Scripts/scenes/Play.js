@@ -53,6 +53,7 @@ var scenes;
         };
         Play.prototype.Update = function () {
             var _this = this;
+            this._background.Update();
             this._player.Update();
             this._ememies.forEach(function (enemy) {
                 enemy.Update();

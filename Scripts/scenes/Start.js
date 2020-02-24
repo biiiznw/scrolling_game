@@ -23,12 +23,14 @@ var scenes;
             // initialization
             _this._startButton = new objects.Button();
             _this._background = new objects.Background();
+            _this._firstSceen = new objects.Button();
             _this.Start();
             return _this;
         }
         // PUBLIC METHODS
         Start.prototype.Start = function () {
             this._background = new objects.Background();
+            this._firstSceen = new objects.Button(config.Game.ASSETS.getResult("firstScreen"), 320, 240, true);
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
             createjs.Sound.play("startSound");
             this.Main();
@@ -38,6 +40,7 @@ var scenes;
         };
         Start.prototype.Main = function () {
             this.addChild(this._background);
+            this.addChild(this._firstSceen);
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
                 config.Game.SCENE_STATE = scenes.State.PLAY;

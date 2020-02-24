@@ -63,6 +63,7 @@ module scenes
         
         public Update(): void 
         {
+            this._background.Update();
             this._player.Update();
             this._ememies.forEach(enemy => {
                 enemy.Update();
