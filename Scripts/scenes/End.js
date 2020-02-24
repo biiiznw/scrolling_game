@@ -16,7 +16,6 @@ var scenes;
 (function (scenes) {
     var End = /** @class */ (function (_super) {
         __extends(End, _super);
-        // private _backButton:objects.Button;
         // private  _ocean:objects.Ocean;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
@@ -24,15 +23,17 @@ var scenes;
             var _this = _super.call(this) || this;
             // initialization
             _this.endLabel = new objects.Label();
-            // this._backButton = new objects.Button();
+            _this._background = new objects.Background();
+            _this._backButton = new objects.Button();
             // this._ocean = new objects.Ocean();
             _this.Start();
             return _this;
         }
         // PUBLIC METHODS
         End.prototype.Start = function () {
-            this.endLabel = new objects.Label("Game Over", "80px", "Consolas", "#000000", 320, 200, true);
-            // this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
+            this._background = new objects.Background();
+            this.endLabel = new objects.Label("Game Over", "80px", "Consolas", "#FFFFFF", 320, 200, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
             this.Main();
         };
         End.prototype.Update = function () {
@@ -40,11 +41,13 @@ var scenes;
         };
         End.prototype.Main = function () {
             // this.addChild(this._ocean);
+            this.addChild(this._background);
             this.addChild(this.endLabel);
-            // this.addChild(this._backButton);
-            // this._backButton.on("click", function() {
-            //    config.Game.SCENE_STATE = scenes.State.PLAY;
-            // });
+            this.addChild(this._backButton);
+            this._backButton.on("click", function () {
+                config.Game.SCENE_STATE = scenes.State.PLAY;
+                createjs.Sound.stop();
+            });
         };
         return End;
     }(objects.Scene));

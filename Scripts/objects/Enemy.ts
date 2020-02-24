@@ -12,7 +12,7 @@ module objects
         // CONSTRUCTOR
         constructor()
         {
-            super((config.Game.ASSETS.getResult("placeholder1")));
+            super((config.Game.ASSETS.getResult("enemy")));
 
             this.Start();
         }

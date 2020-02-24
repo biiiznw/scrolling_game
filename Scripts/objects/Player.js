@@ -20,7 +20,7 @@ var objects;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Player() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("placeholder"), 0, 0, true) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 0, 0, true) || this;
             _this.Start();
             return _this;
         }

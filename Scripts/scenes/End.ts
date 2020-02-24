@@ -3,8 +3,9 @@ module scenes
     export class End extends objects.Scene
     {
         // PRIVATE INSTANCE MEMBERS
+        private _background: objects.Background;
         private endLabel:objects.Label;
-        // private _backButton:objects.Button;
+        private _backButton:objects.Button;
         // private  _ocean:objects.Ocean;
 
         // PUBLIC PROPERTIES
@@ -16,7 +17,8 @@ module scenes
 
             // initialization
             this.endLabel = new objects.Label();
-            // this._backButton = new objects.Button();
+            this._background = new objects.Background();
+            this._backButton = new objects.Button();
             // this._ocean = new objects.Ocean();
 
             this.Start();
@@ -26,8 +28,9 @@ module scenes
 
         public Start(): void 
         {
-            this.endLabel = new objects.Label("Game Over", "80px","Consolas", "#000000", 320, 200, true);
-            // this._backButton = new objects.Button(config.Game.ASSETS.getResult("backButton"), 320, 400, true);
+            this._background = new objects.Background();
+            this.endLabel = new objects.Label("Game Over", "80px","Consolas", "#FFFFFF", 320, 200, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
            
             this.Main();
         }        
@@ -39,14 +42,15 @@ module scenes
         
         public Main(): void {
             // this.addChild(this._ocean);
-            
+            this.addChild(this._background);
             this.addChild(this.endLabel);
     
-            // this.addChild(this._backButton);
+            this.addChild(this._backButton);
     
-            // this._backButton.on("click", function() {
-            //    config.Game.SCENE_STATE = scenes.State.PLAY;
-            // });
+            this._backButton.on("click", function() {
+                config.Game.SCENE_STATE = scenes.State.PLAY;
+                createjs.Sound.stop();
+            });
         }
 
         

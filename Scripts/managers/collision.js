@@ -4,6 +4,20 @@ var managers;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
+        Collision.Check = function (object1, object2) {
+            var P1 = new calculate.Vec2(object1.x, object1.y);
+            var P2 = new calculate.Vec2(object2.x, object2.y);
+            if (calculate.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
+                if (!object2.isColliding) {
+                    console.log("Collision!!! ");
+                    object2.isColliding = true;
+                    config.Game.SCENE_STATE = scenes.State.END;
+                }
+            }
+            else {
+                object2.isColliding = false;
+            }
+        }; //end check
         Collision.squaredRadiusCheck = function (object1, object2) {
             var sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
             var radii = object1.halfWidth + object2.halfWidth;
@@ -40,21 +54,11 @@ var managers;
                     // console.log("Collision!");
                     //alert("You died!")
                     config.Game.SCENE_STATE = scenes.State.END;
-                    // count += 1;
-                    // console.log("CCC " +count);
-                    //if(count == 3) config.Game.SCENE_STATE = scenes.State.END;
-                    //else object2.isColliding = true;
-                    //object2.isColliding = true;
                 }
             }
             else {
                 object2.isColliding = false;
             }
-        };
-        Collision.Reset = function (object2) {
-            // if(!object2.isColliding){
-            //     object2.
-            // }
         };
         return Collision;
     }());

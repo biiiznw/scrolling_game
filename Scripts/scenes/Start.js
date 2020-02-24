@@ -30,6 +30,7 @@ var scenes;
         Start.prototype.Start = function () {
             this._background = new objects.Background();
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
+            createjs.Sound.play("startSound");
             this.Main();
         };
         Start.prototype.Update = function () {
@@ -40,6 +41,7 @@ var scenes;
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
                 config.Game.SCENE_STATE = scenes.State.PLAY;
+                createjs.Sound.stop();
             });
         };
         return Start;

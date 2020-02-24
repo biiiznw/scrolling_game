@@ -25,7 +25,7 @@ module scenes
         {
             this._background = new objects.Background();
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
-           
+            createjs.Sound.play("startSound");
             this.Main();
         }        
         
@@ -40,6 +40,7 @@ module scenes
     
             this._startButton.on("click", function() {
                config.Game.SCENE_STATE = scenes.State.PLAY;
+               createjs.Sound.stop();
             });
         }
 

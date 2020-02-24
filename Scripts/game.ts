@@ -3,13 +3,6 @@
 let game1 = (function(){
     let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
     let stage:createjs.Stage;
-    // let startLabel:objects.Label;
-    // let startButton:objects.Button;
-    // let player:objects.Player;
-    // let enemy1:objects.Enemy;
-    // let enemy2:objects.Enemy;
-    // let enemy3:objects.Enemy;
-    // let background:createjs.Bitmap;
     let assets: createjs.LoadQueue; 
     let currentSceneState: scenes.State;
     let currentScene: objects.Scene;  
@@ -17,11 +10,17 @@ let game1 = (function(){
     let assetManifast = [
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
-        {id: "startButton", src: "./Assets/images/startButton.png"},
         {id: "background", src: "./Assets/images/background.gif"},
-        // {id: "backButton", src: "./Assets/images/backButton.png"},
-        // {id: "ocean", src: "./Assets/images/ocean.gif"},
-        // {id: "plane", src: "./Assets/images/plane.png"}
+        {id: "enemy", src: "./Assets/images/enemy.png"},
+        {id: "player", src: "./Assets/images/Player.png"},
+        //buttons
+        {id: "startButton", src: "./Assets/images/startButton.png"},
+        {id: "returnButton", src: "./Assets/images/startButton.png"},
+
+        //Sounds
+        { id: "playSound", src: "./Assets/sounds/space.wav" },
+        {id: "startSound", src: "./Assets/sounds/space.wav"},
+        {id: "crashSound", src: "./Assets/sounds/crash.wav"}
     ];
 
     // comments from Tom

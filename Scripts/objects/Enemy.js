@@ -20,7 +20,7 @@ var objects;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Enemy() {
-            var _this = _super.call(this, (config.Game.ASSETS.getResult("placeholder1"))) || this;
+            var _this = _super.call(this, (config.Game.ASSETS.getResult("enemy"))) || this;
             _this._dy = 0; //speed
             _this._dx = 0;
             _this.Start();

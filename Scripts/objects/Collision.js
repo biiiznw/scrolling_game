@@ -4,19 +4,6 @@ var objects;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
-        Collision.Check = function (object1, object2) {
-            var P1 = new calculate.Vec2(object1.x, object1.y);
-            var P2 = new calculate.Vec2(object2.x, object2.y);
-            if (calculate.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
-                if (!object2.isColliding) {
-                    console.log("Collision!!! " + object2.name);
-                    object2.isColliding = true;
-                }
-            }
-            else {
-                object2.isColliding = false;
-            }
-        }; //end check 
         Collision.squaredRadiusCheck = function (object1, object2) {
             var sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
             var radii = object1.halfWidth + object2.halfWidth;
