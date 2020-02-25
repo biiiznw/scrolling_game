@@ -16,16 +16,24 @@ var objects;
 (function (objects) {
     var Enemy = /** @class */ (function (_super) {
         __extends(Enemy, _super);
-        // PRIVATE INSTANCE MEMBERS
-        // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Enemy() {
             var _this = _super.call(this, (config.Game.ASSETS.getResult("enemy"))) || this;
+            _this._died = false;
             _this._dy = 0; //speed
             _this._dx = 0;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Enemy.prototype, "died", {
+            // PRIVATE INSTANCE MEMBERS
+            // PUBLIC PROPERTIES
+            set: function (status) {
+                this._died = status;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // PRIVATE METHODS
         Enemy.prototype._checkBounds = function () {
             if (this.x >= 640 - this.halfWidth) {
@@ -41,8 +49,10 @@ var objects;
             this.Reset();
         };
         Enemy.prototype.Update = function () {
-            this.Move();
-            this._checkBounds();
+            if (!this._died) {
+                this.Move();
+                this._checkBounds();
+            }
         };
         Enemy.prototype.Reset = function () {
             this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
@@ -53,6 +63,7 @@ var objects;
         Enemy.prototype.Move = function () {
             this.x += this._dx;
             this.y += this._dy;
+            this.position = new objects.Vector2(this.x, this.y);
         };
         return Enemy;
     }(objects.GameObject));

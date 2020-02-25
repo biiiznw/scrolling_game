@@ -28,6 +28,7 @@ var scenes;
             _this._ememies = new Array();
             _this._background = new objects.Background();
             _this._playBackSound = new createjs.PlayPropsConfig();
+            _this._bullets = new Array();
             //this._collision = new createjs.Sound();
             _this.Start();
             return _this;
@@ -52,18 +53,21 @@ var scenes;
             this.Main();
         };
         Play.prototype.Update = function () {
-            var _this = this;
             this._background.Update();
             this._player.Update();
-            this._ememies.forEach(function (enemy) {
-                enemy.Update();
-                //check collision player and enemies
-                managers.Collision.Check(_this._player, enemy);
-                if (enemy.isColliding) {
-                    createjs.Sound.play("crashSound");
-                    //createjs.Sound.stop();
-                }
-            });
+            // this._ememies.forEach(enemy => {
+            //     enemy.Update();
+            //     //check collision player and enemies
+            //     managers.Collision.AABBCheck(enemy, this._player);
+            //     if(this._player.isColliding)
+            //     {
+            //         console.log("debug: Player collision");
+            //         createjs.Sound.play("./Assets/sounds/crash.wav");
+            //         config.Game.SCENE_STATE = scenes.State.END;
+            //         //createjs.Sound.stop();
+            //     }
+            // });
+            this.UpdatePosition();
             //this._enemy1.Update();
             // this._enemy2.Update();
         };
@@ -77,7 +81,47 @@ var scenes;
             this._ememies.forEach(function (enemy) {
                 _this.addChild(enemy);
             });
+            this._player.addEventListener("click", function () {
+                console.log("click");
+                var bullet = new objects.Button(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
+                _this._bullets.push(bullet);
+                _this.addChild(bullet);
+                // this.Update();
+            });
         }; //end public Main() method
+        Play.prototype.UpdatePosition = function () {
+            var _this = this;
+            this._ememies.forEach(function (enemy) {
+                enemy.Update();
+                _this._bullets.forEach(function (value) {
+                    value.y -= 5;
+                    value.position.y -= 5;
+                    if (value.y >= 470) {
+                        _this.removeChild(value);
+                    }
+                    managers.Collision.AABBCheck(enemy, value);
+                    if (value.isColliding) {
+                        enemy.position = new objects.Vector2(-100, -200);
+                        enemy.died = true;
+                        _this.removeChild(enemy);
+                        createjs.Sound.play("./Assets/sounds/crash.wav");
+                    }
+                });
+                //check collision player and enemies
+                managers.Collision.AABBCheck(enemy, _this._player);
+                if (_this._player.isColliding) {
+                    console.log("debug: Player collision");
+                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    config.Game.SCENE_STATE = scenes.State.END;
+                    //createjs.Sound.stop();
+                }
+                // managers.Collision.AABBCheck(value, this._testButton);
+                // if(this._testButton.isColliding) {
+                //     this.removeChild(this._testButton);
+                //     this._testButton.position = new objects.Vector2(-100,-200);
+                // }
+            });
+        };
         return Play;
     }(objects.Scene)); //end class
     scenes.Play = Play;

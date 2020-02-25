@@ -14,13 +14,14 @@ var game1 = (function () {
         { id: "enemy", src: "./Assets/images/enemy.png" },
         { id: "player", src: "./Assets/images/Player.png" },
         { id: "firstScreen", src: "./Assets/images/firstScreen.png" },
+        { id: "beam1", src: "./Assets/images/beam1.png" },
         //buttons
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },
         //Sounds
         { id: "playSound", src: "./Assets/sounds/space.wav" },
         { id: "startSound", src: "./Assets/sounds/space.wav" },
-        { id: "crashSound", src: "./Assets/sounds/crash.wav" }
+        { id: "crashSound", src: "./Assets/sounds/crash.wav" },
     ];
     // comments from Tom
     function Preload() {

@@ -2,12 +2,16 @@ module objects
 {
     export class Enemy extends GameObject
     {
+        private _died:boolean = false;
         private _dy: number =0; //speed
         private _dx:number =0;
         
         // PRIVATE INSTANCE MEMBERS
 
         // PUBLIC PROPERTIES
+        set died(status:boolean) {
+            this._died = status;
+        }
 
         // CONSTRUCTOR
         constructor()
@@ -37,8 +41,11 @@ module objects
         }
 
         public Update(): void {
-            this.Move();
-            this._checkBounds();
+            if(!this._died) {
+                this.Move();
+                this._checkBounds();
+            }
+            
         }
 
         public Reset(): void {
@@ -52,6 +59,7 @@ module objects
         {
             this.x += this._dx;
             this.y += this._dy;
+            this.position = new Vector2(this.x, this.y);
         }
     }
 }

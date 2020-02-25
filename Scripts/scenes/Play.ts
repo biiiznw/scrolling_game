@@ -13,6 +13,7 @@ module scenes
         private _enemyNum?:number;
         private _ememies:objects.Enemy[];
         private _playBackSound: createjs.PlayPropsConfig;
+        private _bullets: Array<objects.Button>;
         //private _collision: createjs.Sound;
         //private _background:createjs.Bitmap;
 
@@ -29,6 +30,7 @@ module scenes
             this._ememies = new Array<objects.Enemy>();
             this._background = new objects.Background();
             this._playBackSound= new createjs.PlayPropsConfig();
+            this._bullets = new Array<objects.Button>();
             //this._collision = new createjs.Sound();
 
 
@@ -65,16 +67,20 @@ module scenes
         {
             this._background.Update();
             this._player.Update();
-            this._ememies.forEach(enemy => {
-                enemy.Update();
-                //check collision player and enemies
-                managers.Collision.Check(this._player, enemy);
-                if(enemy.isColliding)
-                {
-                    createjs.Sound.play("crashSound");
-                    //createjs.Sound.stop();
-                }
-            });
+            // this._ememies.forEach(enemy => {
+            //     enemy.Update();
+            //     //check collision player and enemies
+            //     managers.Collision.AABBCheck(enemy, this._player);
+            //     if(this._player.isColliding)
+            //     {
+            //         console.log("debug: Player collision");
+                    
+            //         createjs.Sound.play("./Assets/sounds/crash.wav");
+            //         config.Game.SCENE_STATE = scenes.State.END;
+            //         //createjs.Sound.stop();
+            //     }
+            // });
+            this.UpdatePosition();
             //this._enemy1.Update();
             // this._enemy2.Update();
         }
@@ -88,7 +94,51 @@ module scenes
             this._ememies.forEach(enemy => {
                 this.addChild(enemy);
             });
+
+            this._player.addEventListener("click", () =>{
+                console.log("click");
+                let bullet = new objects.Button(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+                this._bullets.push(bullet);
+                this.addChild(bullet);
+                // this.Update();
+            })
         }//end public Main() method
+        public UpdatePosition() {
+                this._ememies.forEach(enemy => {
+                   enemy.Update();
+                   this._bullets.forEach((value) => {
+                    value.y -= 5;
+                    value.position.y -= 5;
+                    if(value.y >= 470) {
+                        this.removeChild(value);
+                    }
+                    managers.Collision.AABBCheck(enemy, value);
+                    if(value.isColliding) {
+                        enemy.position = new objects.Vector2(-100,-200);
+                        enemy.died = true;
+                        this.removeChild(enemy);
+                        createjs.Sound.play("./Assets/sounds/crash.wav");
+
+                    }
+            });
+            //check collision player and enemies
+            managers.Collision.AABBCheck(enemy, this._player);
+            if(this._player.isColliding)
+            {
+                console.log("debug: Player collision");
+                
+                createjs.Sound.play("./Assets/sounds/crash.wav");
+                config.Game.SCENE_STATE = scenes.State.END;
+                //createjs.Sound.stop();
+            }
+                    
+                // managers.Collision.AABBCheck(value, this._testButton);
+                // if(this._testButton.isColliding) {
+                //     this.removeChild(this._testButton);
+                //     this._testButton.position = new objects.Vector2(-100,-200);
+                // }
+            })
+        }
     }//end class
 }//end module
             //Update

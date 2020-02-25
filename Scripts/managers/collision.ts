@@ -72,9 +72,10 @@ module managers
             {
                 if(!object2.isColliding)
                 {
-                    // console.log("Collision!");
+                    console.log("Collision!");
+                    object2.isColliding = true;
                     //alert("You died!")
-                    config.Game.SCENE_STATE = scenes.State.END;
+                    // config.Game.SCENE_STATE = scenes.State.END;
                 }
             }
             else
