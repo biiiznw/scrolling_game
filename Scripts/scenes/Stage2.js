@@ -14,11 +14,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Play = /** @class */ (function (_super) {
-        __extends(Play, _super);
+    var Stage2 = /** @class */ (function (_super) {
+        __extends(Stage2, _super);
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Play() {
+        function Stage2() {
             var _this = _super.call(this) || this;
             // initialization
             _this._player = new objects.Player;
@@ -33,7 +33,7 @@ var scenes;
         }
         // PUBLIC METHODS
         //initilize 
-        Play.prototype.Start = function () {
+        Stage2.prototype.Start = function () {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
             //unlimited background sound
@@ -50,14 +50,14 @@ var scenes;
             // this.nextButton = new objects.Button(config.Game.ASSETS.getResult("nextButton"), 320, 400, true);
             this.Main();
         };
-        Play.prototype.Update = function () {
+        Stage2.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
             //this._enemy1.Update();
             // this._enemy2.Update();
         };
-        Play.prototype.Main = function () {
+        Stage2.prototype.Main = function () {
             var _this = this;
             // adds background to the stage
             this.addChild(this._background);
@@ -75,7 +75,7 @@ var scenes;
                 // this.Update();
             });
         }; //end public Main() method
-        Play.prototype.UpdatePosition = function () {
+        Stage2.prototype.UpdatePosition = function () {
             var _this = this;
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
@@ -103,9 +103,9 @@ var scenes;
                 }
             });
         };
-        return Play;
+        return Stage2;
     }(objects.Scene)); //end class
-    scenes.Play = Play;
+    scenes.Stage2 = Stage2;
 })(scenes || (scenes = {})); //end module
 //Update
 // if (this._enemy1.y == 480)
@@ -151,4 +151,4 @@ var scenes;
 // this._enemy3.y = 70;
 // this._enemy3.position = new objects.Vector2(this._enemy3.x, this._enemy3.y);
 // this.addChild(this._enemy3);
-//# sourceMappingURL=Play.js.map
+//# sourceMappingURL=Stage2.js.map

@@ -1,6 +1,6 @@
 module scenes
 {
-    export class Play extends objects.Scene
+    export class Stage2 extends objects.Scene
     {
         // PRIVATE INSTANCE MEMBERS
        
@@ -112,7 +112,6 @@ module scenes
             if(this._player.isColliding)
             {
                 console.log("debug: Player collision");
-                
                 createjs.Sound.play("./Assets/sounds/crash.wav");
                 config.Game.SCENE_STATE = scenes.State.END;
                 //createjs.Sound.stop();

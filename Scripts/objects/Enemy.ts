@@ -8,6 +8,7 @@ module objects
         
         // PRIVATE INSTANCE MEMBERS
 
+        
         // PUBLIC PROPERTIES
         set died(status:boolean) {
             this._died = status;
