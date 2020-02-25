@@ -41,7 +41,7 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             //this._collision = new createjs.Sound;
             this._ememies = new Array();
-            this._enemyNum = 2;
+            this._enemyNum = 4;
             //add enemies
             for (var count = 0; count < this._enemyNum; count++) {
                 this._ememies[count] = new objects.Enemy();
@@ -79,18 +79,20 @@ var scenes;
             var _this = this;
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
-                _this._bullets.forEach(function (value) {
-                    value.y -= 5;
-                    value.position.y -= 5;
-                    if (value.y >= 470) {
-                        _this.removeChild(value);
+                _this._bullets.forEach(function (bullet) {
+                    bullet.y -= 2;
+                    bullet.position.y -= 2;
+                    if (bullet.y <= 0) {
+                        _this.removeChild(bullet);
                     }
-                    managers.Collision.AABBCheck(enemy, value);
-                    if (value.isColliding) {
+                    managers.Collision.AABBCheck(enemy, bullet);
+                    if (bullet.isColliding) {
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         _this.removeChild(enemy);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
+                        bullet.position = new objects.Vector2(-200, -200);
+                        _this.removeChild(bullet);
                     }
                 });
                 //check collision player and enemies

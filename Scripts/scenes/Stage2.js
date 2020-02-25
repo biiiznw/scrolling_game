@@ -79,18 +79,20 @@ var scenes;
             var _this = this;
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
-                _this._bullets.forEach(function (value) {
-                    value.y -= 5;
-                    value.position.y -= 5;
-                    if (value.y >= 470) {
-                        _this.removeChild(value);
+                _this._bullets.forEach(function (bullet) {
+                    bullet.y -= 5;
+                    bullet.position.y -= 5;
+                    if (bullet.y <= 100) {
+                        _this.removeChild(bullet);
                     }
-                    managers.Collision.AABBCheck(enemy, value);
-                    if (value.isColliding) {
+                    managers.Collision.AABBCheck(enemy, bullet);
+                    if (bullet.isColliding) {
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         _this.removeChild(enemy);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
+                        bullet.position = new objects.Vector2(-200, -200);
+                        _this.removeChild(bullet);
                     }
                 });
                 //check collision player and enemies

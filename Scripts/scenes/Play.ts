@@ -50,7 +50,7 @@ module scenes
             //this._collision = new createjs.Sound;
 
             this._ememies = new Array<objects.Enemy>();
-            this._enemyNum =2;
+            this._enemyNum =4;
             //add enemies
             for(let count = 0; count < this._enemyNum; count++)
             {
@@ -92,19 +92,20 @@ module scenes
         public UpdatePosition() {
                 this._ememies.forEach(enemy => {
                    enemy.Update();
-                   this._bullets.forEach((value) => {
-                    value.y -= 5;
-                    value.position.y -= 5;
-                    if(value.y >= 470) {
-                        this.removeChild(value);
+                   this._bullets.forEach((bullet) => {
+                    bullet.y -= 2;
+                    bullet.position.y -= 2;
+                    if(bullet.y <= 0) {
+                        this.removeChild(bullet);
                     }
-                    managers.Collision.AABBCheck(enemy, value);
-                    if(value.isColliding) {
+                    managers.Collision.AABBCheck(enemy, bullet);
+                    if(bullet.isColliding) {
                         enemy.position = new objects.Vector2(-100,-200);
                         enemy.died = true;
                         this.removeChild(enemy);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
-
+                        bullet.position = new objects.Vector2(-200,-200);
+                        this.removeChild(bullet);
                     }
             });
             //check collision player and enemies
@@ -112,7 +113,6 @@ module scenes
             if(this._player.isColliding)
             {
                 console.log("debug: Player collision");
-                
                 createjs.Sound.play("./Assets/sounds/crash.wav");
                 config.Game.SCENE_STATE = scenes.State.END;
                 //createjs.Sound.stop();

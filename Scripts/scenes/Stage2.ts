@@ -92,19 +92,20 @@ module scenes
         public UpdatePosition() {
                 this._ememies.forEach(enemy => {
                    enemy.Update();
-                   this._bullets.forEach((value) => {
-                    value.y -= 5;
-                    value.position.y -= 5;
-                    if(value.y >= 470) {
-                        this.removeChild(value);
+                   this._bullets.forEach((bullet) => {
+                    bullet.y -= 5;
+                    bullet.position.y -= 5;
+                    if(bullet.y <= 100) {
+                        this.removeChild(bullet);
                     }
-                    managers.Collision.AABBCheck(enemy, value);
-                    if(value.isColliding) {
+                    managers.Collision.AABBCheck(enemy, bullet);
+                    if(bullet.isColliding) {
                         enemy.position = new objects.Vector2(-100,-200);
                         enemy.died = true;
                         this.removeChild(enemy);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
-
+                        bullet.position = new objects.Vector2(-200,-200);
+                        this.removeChild(bullet);
                     }
             });
             //check collision player and enemies
