@@ -24,7 +24,6 @@ module objects
 
         private _move():void
         {
-
             this.position = Vector2.add(this.position, this.velocity);
         }
 
@@ -45,7 +44,7 @@ module objects
         }
 
         public Reset():void{
-            this.position.y = -1520;
+            this.position.y = -1200;
 
         }
     }

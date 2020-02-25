@@ -27,7 +27,7 @@ var scenes;
             _this._background = new objects.Background();
             _this._playBackSound = new createjs.PlayPropsConfig();
             _this._bullets = new Array();
-            //this._collision = new createjs.Sound();
+            _this._enemybullets = new Array();
             _this.Start();
             return _this;
         }
@@ -39,23 +39,18 @@ var scenes;
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
-            //this._collision = new createjs.Sound;
             this._ememies = new Array();
             this._enemyNum = 4;
             //add enemies
             for (var count = 0; count < this._enemyNum; count++) {
                 this._ememies[count] = new objects.Enemy();
             }
-            // this._enemy2 = new objects.Enemy;
-            // this.nextButton = new objects.Button(config.Game.ASSETS.getResult("nextButton"), 320, 400, true);
             this.Main();
         };
         Play.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
-            //this._enemy1.Update();
-            // this._enemy2.Update();
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -66,10 +61,13 @@ var scenes;
             this.addChild(this._player);
             this._ememies.forEach(function (enemy) {
                 _this.addChild(enemy);
+                enemy.addEventListener("tick", function () {
+                    //enemyBullet
+                });
             });
             this._player.addEventListener("click", function () {
                 console.log("click");
-                var bullet = new objects.Button(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
+                var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
                 _this._bullets.push(bullet);
                 _this.addChild(bullet);
                 // this.Update();
@@ -90,16 +88,16 @@ var scenes;
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         _this.removeChild(enemy);
-                        createjs.Sound.play("./Assets/sounds/crash.wav");
+                        //createjs.Sound.play("./Assets/sounds/crash.wav");
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
                     }
                 });
                 //check collision player and enemies
-                managers.Collision.AABBCheck(enemy, _this._player);
+                managers.Collision.Check(enemy, _this._player);
                 if (_this._player.isColliding) {
                     console.log("debug: Player collision");
-                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    //createjs.Sound.play("./Assets/sounds/crash.wav");
                     config.Game.SCENE_STATE = scenes.State.END;
                     //createjs.Sound.stop();
                 }

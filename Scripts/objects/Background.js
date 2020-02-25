@@ -43,7 +43,7 @@ var objects;
             this._checkBounds();
         };
         Background.prototype.Reset = function () {
-            this.position.y = -1520;
+            this.position.y = -1200;
         };
         return Background;
     }(objects.GameObject));

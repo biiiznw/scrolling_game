@@ -39,7 +39,7 @@ var objects;
             if (this.x >= 640 - this.halfWidth) {
                 this.x = 640 - this.halfWidth;
             }
-            if (this.y >= 480 + this.height) {
+            if (this.y >= 800 + this.height) {
                 this.Reset();
             }
         };

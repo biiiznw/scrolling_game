@@ -15,6 +15,7 @@ var game1 = (function () {
         { id: "player", src: "./Assets/images/Player.png" },
         { id: "firstScreen", src: "./Assets/images/firstScreen.png" },
         { id: "beam1", src: "./Assets/images/beam1.png" },
+        { id: "beam2", src: "./Assets/images/enemyBeam01.png" },
         //buttons
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },

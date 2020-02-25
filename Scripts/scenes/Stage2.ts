@@ -50,7 +50,7 @@ module scenes
             //this._collision = new createjs.Sound;
 
             this._ememies = new Array<objects.Enemy>();
-            this._enemyNum =2;
+            this._enemyNum =3;
             //add enemies
             for(let count = 0; count < this._enemyNum; count++)
             {

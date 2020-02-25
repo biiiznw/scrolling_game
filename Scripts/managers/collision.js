@@ -11,7 +11,8 @@ var managers;
                 if (!object2.isColliding) {
                     console.log("Collision!!! ");
                     object2.isColliding = true;
-                    config.Game.SCENE_STATE = scenes.State.END;
+                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    // config.Game.SCENE_STATE = scenes.State.END;
                 }
             }
             else {
@@ -53,6 +54,7 @@ var managers;
                 if (!object2.isColliding) {
                     console.log("Collision!");
                     object2.isColliding = true;
+                    createjs.Sound.play("./Assets/sounds/crash.wav");
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;
                 }

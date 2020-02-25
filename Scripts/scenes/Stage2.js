@@ -41,7 +41,7 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             //this._collision = new createjs.Sound;
             this._ememies = new Array();
-            this._enemyNum = 2;
+            this._enemyNum = 3;
             //add enemies
             for (var count = 0; count < this._enemyNum; count++) {
                 this._ememies[count] = new objects.Enemy();
