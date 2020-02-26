@@ -39,13 +39,16 @@ var scenes;
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
-            this._ememies = new Array();
-            this._enemyNum = 4;
-            //add enemies
-            for (var count = 0; count < this._enemyNum; count++) {
+            // this._ememies = new Array<objects.Enemy>();
+            // this._enemyNum =4;
+            //Add ememies
+            this.AddEnemies(4);
+            this.Main();
+        };
+        Play.prototype.AddEnemies = function (EnemyNum) {
+            for (var count = 0; count < EnemyNum; count++) {
                 this._ememies[count] = new objects.Enemy();
             }
-            this.Main();
         };
         Play.prototype.Update = function () {
             this._background.Update();
@@ -59,16 +62,7 @@ var scenes;
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-            this._ememies.forEach(function (enemy) {
-                _this.addChild(enemy);
-                enemy.on("tick", function () {
-                    if (enemy.canShoot()) {
-                        var bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
-                        _this._enemybullets.push(bullet1);
-                        _this.addChild(bullet1);
-                    }
-                });
-            });
+            this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", function () {
                 console.log("click");
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
@@ -87,6 +81,15 @@ var scenes;
                     if (bullet.y >= 800) {
                         _this.removeChild(bullet);
                     }
+                    managers.Collision.AABBCheck(_this._player, bullet);
+                    if (bullet.isColliding) {
+                        _this._player.position = new objects.Vector2(-100, -200);
+                        _this._player.died = true;
+                        _this.removeChild(_this._player);
+                        bullet.position = new objects.Vector2(-200, -200);
+                        _this.removeChild(bullet);
+                        //config.Game.SCENE_STATE = scenes.State.END;
+                    }
                 });
                 _this._bullets.forEach(function (bullet) {
                     bullet.y -= 2;
@@ -99,7 +102,6 @@ var scenes;
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         _this.removeChild(enemy);
-                        //createjs.Sound.play("./Assets/sounds/crash.wav");
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
                     }
@@ -114,6 +116,20 @@ var scenes;
                 }
             });
         }; //end update positon
+        // Shot fire gun from enemies
+        Play.prototype.FireGun = function (newArray, bullArray) {
+            var _this = this;
+            newArray.forEach(function (enemy) {
+                _this.addChild(enemy);
+                enemy.on("tick", function () {
+                    if (enemy.canShoot()) {
+                        var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        bullArray.push(bullet);
+                        _this.addChild(bullet);
+                    }
+                });
+            });
+        }; //end public FireGun
         return Play;
     }(objects.Scene)); //end class
     scenes.Play = Play;

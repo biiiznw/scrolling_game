@@ -16,14 +16,22 @@ var objects;
 (function (objects) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
-        // PRIVATE INSTANCE MEMBERS
-        // PUBLIC PROPERTIES
         // CONSTRUCTOR
         function Player() {
             var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 0, 0, true) || this;
+            // PRIVATE INSTANCE MEMBERS
+            _this._died = false;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Player.prototype, "died", {
+            // PUBLIC PROPERTIES
+            set: function (status) {
+                this._died = status;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // PRIVATE METHODS
         Player.prototype._checkBounds = function () {
         };

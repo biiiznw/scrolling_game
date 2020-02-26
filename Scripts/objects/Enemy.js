@@ -23,6 +23,7 @@ var objects;
             _this._dy = 0; //speed
             _this._dx = 0;
             _this.canFire = true;
+            _this.maxTime = 0;
             _this._enemybullets = new Array();
             _this.Start();
             return _this;

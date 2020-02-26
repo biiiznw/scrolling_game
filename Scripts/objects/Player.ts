@@ -3,9 +3,12 @@ module objects
     export class Player extends GameObject
     {
         // PRIVATE INSTANCE MEMBERS
-        
+        private _died:boolean = false;
 
         // PUBLIC PROPERTIES
+        set died(status:boolean) {
+            this._died = status;
+        }
 
         // CONSTRUCTOR
         constructor()

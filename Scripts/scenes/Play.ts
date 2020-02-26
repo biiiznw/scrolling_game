@@ -12,7 +12,7 @@ module scenes
         private _playBackSound: createjs.PlayPropsConfig;
         private _bullets: Array<objects.Bullet>;
         private _enemybullets: Array<objects.Bullet>;
-       
+
 
         // PUBLIC PROPERTIES
 
@@ -29,6 +29,7 @@ module scenes
             this._bullets = new Array<objects.Bullet>();
             this._enemybullets = new Array<objects.Bullet>();
 
+
             this.Start();
         }
 
@@ -43,44 +44,34 @@ module scenes
             //unlimited background sound
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
-
-            this._ememies = new Array<objects.Enemy>();
-            this._enemyNum =4;
-            //add enemies
-            for(let count = 0; count < this._enemyNum; count++)
+            // this._ememies = new Array<objects.Enemy>();
+            // this._enemyNum =4;
+            //Add ememies
+            this.AddEnemies(4);
+            this.Main();
+        }
+        
+        public AddEnemies(EnemyNum:number):void{
+            for(let count = 0; count < EnemyNum; count++)
             {
                 this._ememies[count] = new objects.Enemy();
             }
-            this.Main();
-        }        
+        }
         
         public Update(): void 
-        {            
+        {   
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
         }
-        
+
         public Main(): void {
             // adds background to the stage
             this.addChild(this._background);
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-
-            this._ememies.forEach(enemy => {
-                this.addChild(enemy);
-
-                enemy.on("tick", ()=>{
-                    if(enemy.canShoot())
-                    {
-                        let bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
-                        this._enemybullets.push(bullet1);
-                        this.addChild(bullet1);
-                    }
-                });
-
-            });
+            this.FireGun(this._ememies, this._enemybullets);
 
             this._player.addEventListener("click", () =>{
                 console.log("click");
@@ -88,7 +79,7 @@ module scenes
                 this._bullets.push(bullet);
                 this.addChild(bullet);
                 // this.Update();
-            })
+            });
         }//end public Main() method
 
         public UpdatePosition() 
@@ -103,6 +94,15 @@ module scenes
                     if(bullet.y >= 800) {
                         this.removeChild(bullet);
                     }
+                    managers.Collision.AABBCheck(this._player, bullet);
+                    if(bullet.isColliding) {
+                        this._player.position = new objects.Vector2(-100,-200);
+                        this._player.died = true;
+                    this.removeChild(this._player);
+                    bullet.position = new objects.Vector2(-200,-200);
+                    this.removeChild(bullet);
+                    //config.Game.SCENE_STATE = scenes.State.END;
+                    }
                 });
 
                 this._bullets.forEach((bullet) => {
@@ -116,7 +116,6 @@ module scenes
                     enemy.position = new objects.Vector2(-100,-200);
                     enemy.died = true;
                     this.removeChild(enemy);
-                    //createjs.Sound.play("./Assets/sounds/crash.wav");
                     bullet.position = new objects.Vector2(-200,-200);
                     this.removeChild(bullet);
                 }
@@ -133,6 +132,24 @@ module scenes
 
             });
         }//end update positon
+
+        // Shot fire gun from enemies
+        public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
+        {
+            newArray.forEach(enemy => {
+                this.addChild(enemy);
+                enemy.on("tick", ()=>{
+                    if(enemy.canShoot())
+                    {
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                        bullArray.push(bullet);
+                        this.addChild(bullet);
+                    }
+                });
+            });
+        }//end public FireGun
+
+
     }//end class
 }//end module
             //Update
