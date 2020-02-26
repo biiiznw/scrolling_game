@@ -16,8 +16,6 @@ var objects;
 (function (objects) {
     var Bullet = /** @class */ (function (_super) {
         __extends(Bullet, _super);
-        // private _fireRate:number=0;
-        // private _fireTimer:number=0;
         // constructor
         function Bullet(imagePath, x, y, isCentered) {
             if (imagePath === void 0) { imagePath = config.Game.ASSETS.getResult("beam2"); }
@@ -25,16 +23,39 @@ var objects;
             if (y === void 0) { y = 0; }
             if (isCentered === void 0) { isCentered = true; }
             var _this = _super.call(this, imagePath, x, y, isCentered) || this;
+            // private _fireRate:number=0;
+            // private _fireTimer:number=0;
+            _this._player = objects.Player;
+            _this._enemy = objects.Enemy;
             _this.Start();
             return _this;
         }
         Bullet.prototype._checkBounds = function () {
         };
         Bullet.prototype.Start = function () {
+            //this._verticalSpeed = -5;
+            //this.velocity = new Vector2(0, this._verticalSpeed);
+            //this.Direction();
+        };
+        Bullet.prototype._move = function () {
+            //this.position = Vector2.add(this.position, this.velocity);
         };
         Bullet.prototype.Update = function () {
+            //this._move();
         };
         Bullet.prototype.Reset = function () {
+        };
+        Bullet.prototype.Direction = function () {
+            // if(this._enemy)
+            // {
+            //     console.log("is enemy");
+            //     this.position = Vector2.add(this.position, this.velocity);
+            // }
+            // if(this._player)
+            // {
+            //     this.position = Vector2.add(this.position, this.velocity);
+            //     console.log("is not enemy");
+            // }
         };
         return Bullet;
     }(objects.GameObject));

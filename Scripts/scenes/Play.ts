@@ -11,7 +11,7 @@ module scenes
         private _ememies:objects.Enemy[];
         private _playBackSound: createjs.PlayPropsConfig;
         private _bullets: Array<objects.Bullet>;
-        private _enemybullets: Array<objects.Button>;
+        private _enemybullets: Array<objects.Bullet>;
        
 
         // PUBLIC PROPERTIES
@@ -27,7 +27,7 @@ module scenes
             this._background = new objects.Background();
             this._playBackSound= new createjs.PlayPropsConfig();
             this._bullets = new Array<objects.Bullet>();
-            this._enemybullets = new Array<objects.Button>();
+            this._enemybullets = new Array<objects.Bullet>();
 
             this.Start();
         }
@@ -55,7 +55,7 @@ module scenes
         }        
         
         public Update(): void 
-        {
+        {            
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
@@ -70,9 +70,16 @@ module scenes
 
             this._ememies.forEach(enemy => {
                 this.addChild(enemy);
-                enemy.addEventListener("tick", ()=>{
-                    //enemyBullet
+
+                enemy.on("tick", ()=>{
+                    if(enemy.canShoot())
+                    {
+                        let bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                        this._enemybullets.push(bullet1);
+                        this.addChild(bullet1);
+                    }
                 });
+
             });
 
             this._player.addEventListener("click", () =>{
@@ -84,24 +91,35 @@ module scenes
             })
         }//end public Main() method
 
-        public UpdatePosition() {
-                this._ememies.forEach(enemy => {
-                   enemy.Update();
-                   this._bullets.forEach((bullet) => {
-                    bullet.y -= 2;
-                    bullet.position.y -= 2;
-                    if(bullet.y <= 0) {
+        public UpdatePosition() 
+        {
+            
+            this._ememies.forEach(enemy => {
+                enemy.Update();
+
+                this._enemybullets.forEach((bullet)=>{
+                    bullet.y += 2;
+                    bullet.position.y += 2;
+                    if(bullet.y >= 800) {
                         this.removeChild(bullet);
                     }
-                    managers.Collision.AABBCheck(enemy, bullet);
-                    if(bullet.isColliding) {
-                        enemy.position = new objects.Vector2(-100,-200);
-                        enemy.died = true;
-                        this.removeChild(enemy);
-                        //createjs.Sound.play("./Assets/sounds/crash.wav");
-                        bullet.position = new objects.Vector2(-200,-200);
-                        this.removeChild(bullet);
-                    }
+                });
+
+                this._bullets.forEach((bullet) => {
+                bullet.y -= 2;
+                bullet.position.y -= 2;
+                if(bullet.y <= 0) {
+                    this.removeChild(bullet);
+                }
+                managers.Collision.AABBCheck(enemy, bullet);
+                if(bullet.isColliding) {
+                    enemy.position = new objects.Vector2(-100,-200);
+                    enemy.died = true;
+                    this.removeChild(enemy);
+                    //createjs.Sound.play("./Assets/sounds/crash.wav");
+                    bullet.position = new objects.Vector2(-200,-200);
+                    this.removeChild(bullet);
+                }
             });
             //check collision player and enemies
             managers.Collision.Check(enemy, this._player);
@@ -109,13 +127,12 @@ module scenes
             {
                 console.log("debug: Player collision");
                 //createjs.Sound.play("./Assets/sounds/crash.wav");
-                config.Game.SCENE_STATE = scenes.State.END;
+                //config.Game.SCENE_STATE = scenes.State.END;
                 //createjs.Sound.stop();
             }
-                    
-               
-            })
-        }
+
+            });
+        }//end update positon
     }//end class
 }//end module
             //Update

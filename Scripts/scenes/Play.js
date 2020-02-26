@@ -61,8 +61,12 @@ var scenes;
             this.addChild(this._player);
             this._ememies.forEach(function (enemy) {
                 _this.addChild(enemy);
-                enemy.addEventListener("tick", function () {
-                    //enemyBullet
+                enemy.on("tick", function () {
+                    if (enemy.canShoot()) {
+                        var bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        _this._enemybullets.push(bullet1);
+                        _this.addChild(bullet1);
+                    }
                 });
             });
             this._player.addEventListener("click", function () {
@@ -77,6 +81,13 @@ var scenes;
             var _this = this;
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
+                _this._enemybullets.forEach(function (bullet) {
+                    bullet.y += 2;
+                    bullet.position.y += 2;
+                    if (bullet.y >= 800) {
+                        _this.removeChild(bullet);
+                    }
+                });
                 _this._bullets.forEach(function (bullet) {
                     bullet.y -= 2;
                     bullet.position.y -= 2;
@@ -98,11 +109,11 @@ var scenes;
                 if (_this._player.isColliding) {
                     console.log("debug: Player collision");
                     //createjs.Sound.play("./Assets/sounds/crash.wav");
-                    config.Game.SCENE_STATE = scenes.State.END;
+                    //config.Game.SCENE_STATE = scenes.State.END;
                     //createjs.Sound.stop();
                 }
             });
-        };
+        }; //end update positon
         return Play;
     }(objects.Scene)); //end class
     scenes.Play = Play;

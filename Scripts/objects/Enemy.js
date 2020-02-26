@@ -22,6 +22,8 @@ var objects;
             _this._died = false;
             _this._dy = 0; //speed
             _this._dx = 0;
+            _this.canFire = true;
+            _this._enemybullets = new Array();
             _this.Start();
             return _this;
         }
@@ -34,6 +36,13 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Enemy.prototype.canShoot = function () {
+            if (this.canFire) {
+                this.canFire = false;
+                return true;
+            }
+            return false;
+        };
         // PRIVATE METHODS
         Enemy.prototype._checkBounds = function () {
             if (this.x >= 640 - this.halfWidth) {

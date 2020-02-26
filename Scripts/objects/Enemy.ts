@@ -5,6 +5,7 @@ module objects
         private _died:boolean = false;
         private _dy: number =0; //speed
         private _dx:number =0;
+        private _enemybullets: Array<objects.Bullet>;
         
         // PRIVATE INSTANCE MEMBERS
 
@@ -18,10 +19,23 @@ module objects
         constructor()
         {
             super((config.Game.ASSETS.getResult("enemy")));
+            this._enemybullets = new Array<objects.Bullet>();
 
             this.Start();
         }
 
+        private canFire: boolean = true;
+
+        public canShoot(): boolean
+        {
+            if(this.canFire)
+            {
+                this.canFire = false;
+                return true;
+            }
+            return false;
+            
+        }
         // PRIVATE METHODS
         protected _checkBounds(): void {
             if(this.x >= 640 - this.halfWidth)
@@ -62,5 +76,6 @@ module objects
             this.y += this._dy;
             this.position = new Vector2(this.x, this.y);
         }
+
     }
 }
