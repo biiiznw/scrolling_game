@@ -141,6 +141,13 @@ var scenes;
             var chopperImg7 = document.createElement('img');
             var chopperImg8 = document.createElement('img');
             var chopperImg9 = document.createElement('img');
+            var chopperImg10 = document.createElement('img');
+            var chopperImg11 = document.createElement('img');
+            var chopperImg12 = document.createElement('img');
+            var chopperImg13 = document.createElement('img');
+            var chopperImg14 = document.createElement('img');
+            var chopperImg15 = document.createElement('img');
+            var chopperImg16 = document.createElement('img');
             chopperImg1.src = "./Assets/images/e1.png";
             chopperImg2.src = "./Assets/images/e2.png";
             chopperImg3.src = "./Assets/images/e3.png";
@@ -150,18 +157,26 @@ var scenes;
             chopperImg7.src = "./Assets/images/e7.png";
             chopperImg8.src = "./Assets/images/e8.png";
             chopperImg9.src = "./Assets/images/e9.png";
+            chopperImg10.src = "./Assets/images/e10.png";
+            chopperImg11.src = "./Assets/images/e11.png";
+            chopperImg12.src = "./Assets/images/e12.png";
+            chopperImg13.src = "./Assets/images/e13.png";
+            chopperImg14.src = "./Assets/images/e14.png";
+            chopperImg15.src = "./Assets/images/e15.png";
+            chopperImg16.src = "./Assets/images/e16.png";
             var spriteSheet = new createjs.SpriteSheet({
                 images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
-                    chopperImg6, chopperImg7, chopperImg8, chopperImg9],
-                frames: { width: 150, height: 150, count: 10 },
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12, chopperImg13, chopperImg14, chopperImg15, chopperImg16],
+                frames: { width: 150, height: 150, count: 17 },
                 animations: {
-                    explore: [0, 9, false]
+                    explore: [0, 16, false]
                 }
             });
             var animation = new createjs.Sprite(spriteSheet);
             animation.x = obX - 65;
             animation.y = obY - 50;
-            animation.spriteSheet.getAnimation('explore').speed = 0.2;
+            animation.spriteSheet.getAnimation('explore').speed = 0.5;
             animation.gotoAndPlay('explore');
             this.addChild(animation);
         };
