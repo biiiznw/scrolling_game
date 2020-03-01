@@ -12,7 +12,10 @@ module scenes
         private _playBackSound: createjs.PlayPropsConfig;
         private _bullets: Array<objects.Bullet>;
         private _enemybullets: Array<objects.Bullet>;
-
+        private _bulletNum:number;
+        private _bulletNumLabel:objects.Label;
+        private _point:number;
+        private _pointLabel:objects.Label;
 
         // PUBLIC PROPERTIES
 
@@ -28,7 +31,10 @@ module scenes
             this._playBackSound= new createjs.PlayPropsConfig();
             this._bullets = new Array<objects.Bullet>();
             this._enemybullets = new Array<objects.Bullet>();
-
+            this._bulletNum = 20;
+            this._bulletNumLabel = new objects.Label();
+            this._point = 0;
+            this._pointLabel = new objects.Label();
 
             this.Start();
         }
@@ -40,7 +46,8 @@ module scenes
         {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px","Consolas", "#000000", 50, 20, true);
-
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px","Consolas", "#fff", 600, 770, true);
+            
             //unlimited background sound
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
@@ -73,8 +80,9 @@ module scenes
             this._player = new objects.Player();
             this.addChild(this._player);
             // this.FireGun(this._ememies, this._enemybullets);
-
+            this.addChild(this._bulletNumLabel);
             this._player.addEventListener("click", () =>{
+                this._bulletNum--;
                 console.log("click");
                 let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
                 this._bullets.push(bullet);
@@ -85,6 +93,10 @@ module scenes
 
         public UpdatePosition() 
         {
+            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            if(this._bulletNum == 0) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
             this._ememies.forEach(enemy => {
                 this.addChild(enemy);
                 enemy.Update();

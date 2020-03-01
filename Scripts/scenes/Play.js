@@ -28,6 +28,10 @@ var scenes;
             _this._playBackSound = new createjs.PlayPropsConfig();
             _this._bullets = new Array();
             _this._enemybullets = new Array();
+            _this._bulletNum = 20;
+            _this._bulletNumLabel = new objects.Label();
+            _this._point = 0;
+            _this._pointLabel = new objects.Label();
             _this.Start();
             return _this;
         }
@@ -36,6 +40,7 @@ var scenes;
         Play.prototype.Start = function () {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
@@ -64,7 +69,9 @@ var scenes;
             this._player = new objects.Player();
             this.addChild(this._player);
             // this.FireGun(this._ememies, this._enemybullets);
+            this.addChild(this._bulletNumLabel);
             this._player.addEventListener("click", function () {
+                _this._bulletNum--;
                 console.log("click");
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
                 _this._bullets.push(bullet);
@@ -74,6 +81,10 @@ var scenes;
         }; //end public Main() method
         Play.prototype.UpdatePosition = function () {
             var _this = this;
+            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            if (this._bulletNum == 0) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
             this._ememies.forEach(function (enemy) {
                 _this.addChild(enemy);
                 enemy.Update();
