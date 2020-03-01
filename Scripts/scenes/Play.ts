@@ -62,6 +62,7 @@ module scenes
         {   
             this._background.Update();
             this._player.Update();
+            this.updateBullet();
             this.UpdatePosition();
         }
 
@@ -84,11 +85,10 @@ module scenes
 
         public UpdatePosition() 
         {
-            
             this._ememies.forEach(enemy => {
                 enemy.Update();
                 this._enemybullets.forEach((bullet)=>{
-                    bullet.y += 2;
+                    bullet.y += 2 ;
                     bullet.position.y += 2;
                     if(bullet.y >= 800) {
                         this.removeChild(bullet);
@@ -105,11 +105,6 @@ module scenes
                 });
 
                 this._bullets.forEach((bullet) => {
-                bullet.y -= 2;
-                bullet.position.y -= 2;
-                if(bullet.y <= 0) {
-                    this.removeChild(bullet);
-                }
                 managers.Collision.AABBCheck(enemy, bullet);
                 if(bullet.isColliding) {
                     this.ExploreAnimation(enemy.x, enemy.y);
@@ -132,6 +127,17 @@ module scenes
 
             });
         }//end update positon
+
+        // update bullet's y and position
+        public updateBullet() {
+            this._bullets.forEach((bullet)=>{
+                bullet.y -= 8 ;
+                bullet.position.y -= 8;
+                if(bullet.y >= 800) {
+                    this.removeChild(bullet);
+                }
+            })
+        }
 
         // Shot fire gun from enemies
         public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void

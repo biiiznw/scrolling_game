@@ -53,6 +53,7 @@ var scenes;
         Play.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
+            this.updateBullet();
             this.UpdatePosition();
         };
         Play.prototype.Main = function () {
@@ -92,11 +93,6 @@ var scenes;
                     }
                 });
                 _this._bullets.forEach(function (bullet) {
-                    bullet.y -= 2;
-                    bullet.position.y -= 2;
-                    if (bullet.y <= 0) {
-                        _this.removeChild(bullet);
-                    }
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
                         _this.ExploreAnimation(enemy.x, enemy.y);
@@ -117,6 +113,16 @@ var scenes;
                 }
             });
         }; //end update positon
+        Play.prototype.updateBullet = function () {
+            var _this = this;
+            this._bullets.forEach(function (bullet) {
+                bullet.y -= 8;
+                bullet.position.y -= 8;
+                if (bullet.y >= 800) {
+                    _this.removeChild(bullet);
+                }
+            });
+        };
         // Shot fire gun from enemies
         Play.prototype.FireGun = function (newArray, bullArray) {
             var _this = this;
