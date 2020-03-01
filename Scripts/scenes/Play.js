@@ -21,6 +21,7 @@ var scenes;
         function Play() {
             var _this = _super.call(this) || this;
             _this._numOfEnemy = 0;
+            _this._bulletNum = 20;
             // initialization
             _this._player = new objects.Player;
             _this._level = new objects.Label;
@@ -30,6 +31,8 @@ var scenes;
             _this._bullets = new Array();
             _this._enemybullets = new Array();
             _this._numOfEnemy;
+            _this._bulletNum = 20;
+            _this._bulletNumLabel = new objects.Label();
             _this.Start();
             return _this;
         }
@@ -45,6 +48,7 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             this._ememies = new Array();
             this._enemybullets = new Array();
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -94,9 +98,11 @@ var scenes;
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
+            this.addChild(this._bulletNumLabel);
             //this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", function () {
                 console.log("click");
+                _this._bulletNum--;
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
                 _this._bullets.push(bullet);
                 _this.addChild(bullet);
@@ -239,6 +245,12 @@ var scenes;
             animation.spriteSheet.getAnimation('explore').speed = 0.5;
             animation.gotoAndPlay('explore');
             this.addChild(animation);
+        };
+        Play.prototype.WinOrLoseCondition = function () {
+            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            if (this._bulletNum == 0) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
         };
         return Play;
     }(objects.Scene)); //end class

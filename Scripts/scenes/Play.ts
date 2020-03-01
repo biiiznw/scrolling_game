@@ -12,6 +12,8 @@ module scenes
         private _bullets: Array<objects.Bullet>;
         private _enemybullets: Array<objects.Bullet>;
         private _numOfEnemy:Number =0;
+        private _bulletNum = 20;
+        private _bulletNumLabel: objects.Label;
 
 
         // PUBLIC PROPERTIES
@@ -29,6 +31,8 @@ module scenes
             this._bullets = new Array<objects.Bullet>();
             this._enemybullets = new Array<objects.Bullet>();
             this._numOfEnemy;
+            this._bulletNum = 20;
+            this._bulletNumLabel = new objects.Label();
             this.Start();
         }
 
@@ -46,6 +50,7 @@ module scenes
             createjs.Sound.play("playSound", this._playBackSound)
             this._ememies = new Array<objects.Enemy>();
             this._enemybullets = new Array<objects.Bullet>();
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -102,9 +107,11 @@ module scenes
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
+            this.addChild(this._bulletNumLabel);
             //this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", () =>{
                 console.log("click");
+                this._bulletNum--;
                 let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
                 this._bullets.push(bullet);
                 this.addChild(bullet);
@@ -261,6 +268,15 @@ module scenes
                 animation.gotoAndPlay('explore');
 
                 this.addChild(animation);
+            
+        }
+
+        public WinOrLoseCondition() {
+            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            if (this._bulletNum == 0) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
+
             
         }
 
