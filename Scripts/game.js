@@ -16,6 +16,8 @@ var game1 = (function () {
         { id: "firstScreen", src: "./Assets/images/firstScreen.png" },
         { id: "beam1", src: "./Assets/images/beam1.png" },
         { id: "beam2", src: "./Assets/images/enemyBeam01.png" },
+        // {id: "explore", src: "./Assets/images/explore.gif"},
+        // {id: "explore1", src: "./Assets/images/explore1.gif"},
         //buttons
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },

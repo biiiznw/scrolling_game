@@ -87,7 +87,6 @@ module scenes
             
             this._ememies.forEach(enemy => {
                 enemy.Update();
-
                 this._enemybullets.forEach((bullet)=>{
                     bullet.y += 2;
                     bullet.position.y += 2;
@@ -101,7 +100,7 @@ module scenes
                     this.removeChild(this._player);
                     bullet.position = new objects.Vector2(-200,-200);
                     this.removeChild(bullet);
-                    //config.Game.SCENE_STATE = scenes.State.END;
+                    config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
 
@@ -113,6 +112,7 @@ module scenes
                 }
                 managers.Collision.AABBCheck(enemy, bullet);
                 if(bullet.isColliding) {
+                    this.ExploreAnimation(enemy.x, enemy.y);
                     enemy.position = new objects.Vector2(-100,-200);
                     enemy.died = true;
                     this.removeChild(enemy);
@@ -126,7 +126,7 @@ module scenes
             {
                 console.log("debug: Player collision");
                 //createjs.Sound.play("./Assets/sounds/crash.wav");
-                //config.Game.SCENE_STATE = scenes.State.END;
+                config.Game.SCENE_STATE = scenes.State.END;
                 //createjs.Sound.stop();
             }
 
@@ -148,6 +148,45 @@ module scenes
                 });
             });
         }//end public FireGun
+
+        public ExploreAnimation(obX:number, obY:number) {
+            let chopperImg1 = document.createElement('img')
+            let chopperImg2 = document.createElement('img')
+            let chopperImg3 = document.createElement('img')
+            let chopperImg4 = document.createElement('img')
+            let chopperImg5 = document.createElement('img')
+            let chopperImg6 = document.createElement('img')
+            let chopperImg7 = document.createElement('img')
+            let chopperImg8 = document.createElement('img')
+            let chopperImg9 = document.createElement('img')
+
+            chopperImg1.src = "./Assets/images/e1.png";
+            chopperImg2.src = "./Assets/images/e2.png";
+            chopperImg3.src = "./Assets/images/e3.png";
+            chopperImg4.src = "./Assets/images/e4.png";
+            chopperImg5.src = "./Assets/images/e5.png";
+            chopperImg6.src = "./Assets/images/e6.png";
+            chopperImg7.src = "./Assets/images/e7.png";
+            chopperImg8.src = "./Assets/images/e8.png";
+            chopperImg9.src = "./Assets/images/e9.png";
+
+                let spriteSheet = new createjs.SpriteSheet({
+                    images: [ chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                        chopperImg6,chopperImg7, chopperImg8, chopperImg9],
+                    frames: { width: 150, height: 150, count: 10},
+                    animations: {
+                        explore: [0, 9, false]
+                    }
+                });
+                let animation = new createjs.Sprite(spriteSheet);
+                animation.x = obX -65;
+                animation.y = obY -50;
+                animation.spriteSheet.getAnimation('explore').speed = 0.2;
+                animation.gotoAndPlay('explore');
+
+                this.addChild(animation);
+            
+        }
 
 
     }//end class

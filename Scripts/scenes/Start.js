@@ -23,14 +23,14 @@ var scenes;
             // initialization
             _this._startButton = new objects.Button();
             _this._background = new objects.Background();
-            _this._firstSceen = new objects.Button();
+            _this._firstSceen = new objects.Image();
             _this.Start();
             return _this;
         }
         // PUBLIC METHODS
         Start.prototype.Start = function () {
             this._background = new objects.Background();
-            this._firstSceen = new objects.Button(config.Game.ASSETS.getResult("firstScreen"), 320, 240, true);
+            this._firstSceen = new objects.Image(config.Game.ASSETS.getResult("firstScreen"), 320, 240, true);
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
             createjs.Sound.play("startSound");
             this.Main();

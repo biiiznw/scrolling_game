@@ -88,7 +88,7 @@ var scenes;
                         _this.removeChild(_this._player);
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
-                        //config.Game.SCENE_STATE = scenes.State.END;
+                        config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
                 _this._bullets.forEach(function (bullet) {
@@ -99,6 +99,7 @@ var scenes;
                     }
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
+                        _this.ExploreAnimation(enemy.x, enemy.y);
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         _this.removeChild(enemy);
@@ -111,7 +112,7 @@ var scenes;
                 if (_this._player.isColliding) {
                     console.log("debug: Player collision");
                     //createjs.Sound.play("./Assets/sounds/crash.wav");
-                    //config.Game.SCENE_STATE = scenes.State.END;
+                    config.Game.SCENE_STATE = scenes.State.END;
                     //createjs.Sound.stop();
                 }
             });
@@ -130,6 +131,40 @@ var scenes;
                 });
             });
         }; //end public FireGun
+        Play.prototype.ExploreAnimation = function (obX, obY) {
+            var chopperImg1 = document.createElement('img');
+            var chopperImg2 = document.createElement('img');
+            var chopperImg3 = document.createElement('img');
+            var chopperImg4 = document.createElement('img');
+            var chopperImg5 = document.createElement('img');
+            var chopperImg6 = document.createElement('img');
+            var chopperImg7 = document.createElement('img');
+            var chopperImg8 = document.createElement('img');
+            var chopperImg9 = document.createElement('img');
+            chopperImg1.src = "./Assets/images/e1.png";
+            chopperImg2.src = "./Assets/images/e2.png";
+            chopperImg3.src = "./Assets/images/e3.png";
+            chopperImg4.src = "./Assets/images/e4.png";
+            chopperImg5.src = "./Assets/images/e5.png";
+            chopperImg6.src = "./Assets/images/e6.png";
+            chopperImg7.src = "./Assets/images/e7.png";
+            chopperImg8.src = "./Assets/images/e8.png";
+            chopperImg9.src = "./Assets/images/e9.png";
+            var spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9],
+                frames: { width: 150, height: 150, count: 10 },
+                animations: {
+                    explore: [0, 9, false]
+                }
+            });
+            var animation = new createjs.Sprite(spriteSheet);
+            animation.x = obX - 65;
+            animation.y = obY - 50;
+            animation.spriteSheet.getAnimation('explore').speed = 0.2;
+            animation.gotoAndPlay('explore');
+            this.addChild(animation);
+        };
         return Play;
     }(objects.Scene)); //end class
     scenes.Play = Play;
