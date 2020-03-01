@@ -82,6 +82,7 @@ var objects;
             this.y = -this.height;
             this._dx = Math.floor((Math.random() * 4) - 2);
             this._dy = Math.floor((Math.random() * 5) + 5);
+            this.canFire = true;
         };
         Enemy.prototype.Move = function () {
             this.x += this._dx;

@@ -75,6 +75,7 @@ var scenes;
         Play.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
+            //this.updateBullet();
             this.UpdatePosition();
             //if player kill all the enemies
             if (managers.Collision.count == this._numOfEnemy) {
@@ -123,7 +124,15 @@ var scenes;
         Play.prototype.UpdatePosition = function () {
             var _this = this;
             this._ememies.forEach(function (enemy) {
+                _this.addChild(enemy);
                 enemy.Update();
+                enemy.addEventListener("tick", function () {
+                    if (enemy.canShoot()) {
+                        var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        _this._enemybullets.push(bullet);
+                        _this.addChild(bullet);
+                    }
+                });
                 _this._enemybullets.forEach(function (bullet) {
                     _this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(_this._player, bullet);

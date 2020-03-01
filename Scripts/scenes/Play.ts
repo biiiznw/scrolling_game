@@ -81,6 +81,7 @@ module scenes
         {   
             this._background.Update();
             this._player.Update();
+            //this.updateBullet();
             this.UpdatePosition();
             //if player kill all the enemies
             if(managers.Collision.count == this._numOfEnemy)
@@ -134,7 +135,18 @@ module scenes
         public UpdatePosition() 
         {
             this._ememies.forEach(enemy => {
+                this.addChild(enemy);
                 enemy.Update();
+                
+                enemy.addEventListener("tick", ()=>{
+                
+                    if(enemy.canShoot())
+                    {
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                        this._enemybullets.push(bullet);
+                        this.addChild(bullet);
+                    }
+                });
                 this._enemybullets.forEach((bullet)=>{
                     this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(this._player, bullet);
