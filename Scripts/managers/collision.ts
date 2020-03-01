@@ -2,6 +2,9 @@ module managers
 {
     export class Collision
     {
+        static count:number = 0;
+        static attack:number = 0;
+
         public static Check(object1: objects.GameObject, object2: objects.GameObject)
         {
             let P1: calculate.Vec2 = new calculate.Vec2(object1.x, object1.y);
@@ -11,9 +14,10 @@ module managers
             {
                 if(!object2.isColliding)
                 {
-                    console.log("Collision!!! ");
+                    this.attack +=1
+                    console.log("Attack " + this.attack);
                     object2.isColliding = true;
-                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
                     // config.Game.SCENE_STATE = scenes.State.END;
                 }
             }
@@ -48,8 +52,6 @@ module managers
         {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
-            let count:number = 0;
-            let co:number = 0;
 
             if(object1.isCentered)
             {
@@ -73,9 +75,11 @@ module managers
             {
                 if(!object2.isColliding)
                 {
+                    Collision.count += 1;
                     console.log("Collision!");
                     object2.isColliding = true;
                     createjs.Sound.play("./Assets/sounds/crash.wav");
+                    console.log(Collision.count);
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;
                 }

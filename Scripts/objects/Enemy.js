@@ -25,6 +25,7 @@ var objects;
             _this.canFire = true;
             _this.maxTime = 0;
             _this._enemybullets = new Array();
+            _this._enemies = new Array();
             _this.Start();
             return _this;
         }
@@ -38,12 +39,21 @@ var objects;
             configurable: true
         });
         Enemy.prototype.canShoot = function () {
-            if (this.canFire) {
-                this.canFire = false;
-                return true;
+            if (!this.isColliding) {
+                if (this.canFire) {
+                    this.canFire = false;
+                    return true;
+                }
             }
             return false;
         };
+        //         // To start the loop
+        // var mainLoopId = setInterval(function(){
+        //     // Do your update stuff...
+        //     move();
+        // }, 40);
+        // // To stop the loop
+        // clearInterval(mainLoopId);`
         // PRIVATE METHODS
         Enemy.prototype._checkBounds = function () {
             if (this.x >= 640 - this.halfWidth) {
@@ -57,6 +67,9 @@ var objects;
         Enemy.prototype.Start = function () {
             // this._dy = 3; //speed
             this.Reset();
+            this.Main();
+        };
+        Enemy.prototype.Main = function () {
         };
         Enemy.prototype.Update = function () {
             if (!this._died) {

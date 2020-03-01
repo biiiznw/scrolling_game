@@ -20,6 +20,7 @@ var scenes;
         // CONSTRUCTOR
         function Play() {
             var _this = _super.call(this) || this;
+            _this._numOfEnemy = 0;
             // initialization
             _this._player = new objects.Player;
             _this._level = new objects.Label;
@@ -28,6 +29,7 @@ var scenes;
             _this._playBackSound = new createjs.PlayPropsConfig();
             _this._bullets = new Array();
             _this._enemybullets = new Array();
+            _this._numOfEnemy;
             _this.Start();
             return _this;
         }
@@ -36,24 +38,52 @@ var scenes;
         Play.prototype.Start = function () {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
+            //Set Number of Enemies
+            this._numOfEnemy = 5;
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
-            // this._ememies = new Array<objects.Enemy>();
+            this._ememies = new Array();
+            this._enemybullets = new Array();
             // this._enemyNum =4;
             //Add ememies
-            this.AddEnemies(4);
+            this.AddEnemies(this._numOfEnemy);
+            //this.AddEnemies(10, this._enemybullets);
             this.Main();
         };
-        Play.prototype.AddEnemies = function (EnemyNum) {
-            for (var count = 0; count < EnemyNum; count++) {
-                this._ememies[count] = new objects.Enemy();
-            }
+        Play.prototype.AddEnemies = function (number) {
+            var _this = this;
+            var createEnemy = setInterval(function () {
+                if (_this._ememies.length < number) {
+                    var enemy = new objects.Enemy();
+                    _this._ememies.push(enemy);
+                    _this.addChild(enemy);
+                    console.log("CREATE");
+                    _this.FireGun(enemy, _this._enemybullets);
+                }
+                else {
+                    clearInterval(createEnemy);
+                }
+            }, 1000);
         };
+        // public AddEnemies(EnemyNum:number):void{
+        //     for(let count = 0; count < EnemyNum; count++)
+        //     {
+        //         this._ememies[count] = new objects.Enemy();
+        //     }
+        // }
         Play.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
+            //if player kill all the enemies
+            if (managers.Collision.count == this._numOfEnemy) {
+                config.Game.SCENE_STATE = scenes.State.Stage2;
+            }
+            //if attacked more than 3 times, game over
+            if (managers.Collision.attack == 3) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -62,7 +92,7 @@ var scenes;
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-            this.FireGun(this._ememies, this._enemybullets);
+            //this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", function () {
                 console.log("click");
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
@@ -71,32 +101,43 @@ var scenes;
                 // this.Update();
             });
         }; //end public Main() method
+        Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
+            if (pick === void 0) { pick = false; }
+            //enemy direction
+            if (pick == true) {
+                eBullet.y += eSpeed;
+                eBullet.position.y += eMove;
+                if (eBullet.y >= 800) {
+                    this.removeChild(eBullet);
+                }
+            }
+            //player direction
+            else {
+                eBullet.y -= eSpeed;
+                eBullet.position.y -= eMove;
+                if (eBullet.y <= 0) {
+                    this.removeChild(eBullet);
+                }
+            }
+        };
         Play.prototype.UpdatePosition = function () {
             var _this = this;
             this._ememies.forEach(function (enemy) {
                 enemy.Update();
                 _this._enemybullets.forEach(function (bullet) {
-                    bullet.y += 2;
-                    bullet.position.y += 2;
-                    if (bullet.y >= 800) {
-                        _this.removeChild(bullet);
-                    }
-                    managers.Collision.AABBCheck(_this._player, bullet);
+                    _this.BulletSpeed(bullet, 3, 1, true);
+                    managers.Collision.Check(_this._player, bullet);
                     if (bullet.isColliding) {
                         _this._player.position = new objects.Vector2(-100, -200);
                         _this._player.died = true;
-                        _this.removeChild(_this._player);
+                        //this.removeChild(this._player);
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
-                        config.Game.SCENE_STATE = scenes.State.END;
+                        //config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
                 _this._bullets.forEach(function (bullet) {
-                    bullet.y -= 2;
-                    bullet.position.y -= 2;
-                    if (bullet.y <= 0) {
-                        _this.removeChild(bullet);
-                    }
+                    _this.BulletSpeed(bullet, 2, 2, false);
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
                         _this.ExploreAnimation(enemy.x, enemy.y);
@@ -108,29 +149,38 @@ var scenes;
                     }
                 });
                 //check collision player and enemies
-                managers.Collision.Check(enemy, _this._player);
+                //managers.Collision.Check(enemy, this._player);
                 if (_this._player.isColliding) {
                     console.log("debug: Player collision");
                     //createjs.Sound.play("./Assets/sounds/crash.wav");
-                    config.Game.SCENE_STATE = scenes.State.END;
-                    //createjs.Sound.stop();
+                    //config.Game.SCENE_STATE = scenes.State.END;
+                    //createjs.Sound.stop();//
                 }
             });
         }; //end update positon
-        // Shot fire gun from enemies
-        Play.prototype.FireGun = function (newArray, bullArray) {
+        // Shot fire until enemies are colliding
+        Play.prototype.FireGun = function (enemy, bullArray) {
             var _this = this;
-            newArray.forEach(function (enemy) {
-                _this.addChild(enemy);
-                enemy.on("tick", function () {
-                    if (enemy.canShoot()) {
+            //newArray.forEach(enemy => {
+            //this.addChild(enemy);
+            if (enemy.canShoot()) {
+                var fire_1 = setInterval(function () {
+                    if (!enemy.isColliding) {
                         var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
                         bullArray.push(bullet);
                         _this.addChild(bullet);
                     }
-                });
-            });
+                    else
+                        clearInterval(fire_1);
+                }, 500);
+            }
+            //});
         }; //end public FireGun
+        // for(var i = 0; i < 3; i++) {
+        //     (function(index) {
+        //         setTimeout(function() { alert(index); }, index*5000);
+        //     })(i);
+        // }
         Play.prototype.ExploreAnimation = function (obX, obY) {
             var chopperImg1 = document.createElement('img');
             var chopperImg2 = document.createElement('img');
@@ -184,6 +234,24 @@ var scenes;
     }(objects.Scene)); //end class
     scenes.Play = Play;
 })(scenes || (scenes = {})); //end module
+// // Shot fire until enemies are colliding
+// public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
+// {
+//     newArray.forEach(enemy => {
+//         this.addChild(enemy);
+//             if(enemy.canShoot()){
+//                 let fire = setInterval(()=>{
+//                     if(!enemy.isColliding)
+//                     {
+//                         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+//                         bullArray.push(bullet);
+//                         this.addChild(bullet);
+//                     }
+//                     else clearInterval(fire)
+//                 }, 500)
+//             }
+//     });
+// }//end public FireGun
 //Update
 // if (this._enemy1.y == 480)
 // {

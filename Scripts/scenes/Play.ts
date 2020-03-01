@@ -7,11 +7,11 @@ module scenes
         private _player:objects.Player;
         private _background: objects.Background;
         private _level:objects.Label;
-        private _enemyNum?:number;
         private _ememies:objects.Enemy[];
         private _playBackSound: createjs.PlayPropsConfig;
         private _bullets: Array<objects.Bullet>;
         private _enemybullets: Array<objects.Bullet>;
+        private _numOfEnemy:Number =0;
 
 
         // PUBLIC PROPERTIES
@@ -28,8 +28,7 @@ module scenes
             this._playBackSound= new createjs.PlayPropsConfig();
             this._bullets = new Array<objects.Bullet>();
             this._enemybullets = new Array<objects.Bullet>();
-
-
+            this._numOfEnemy;
             this.Start();
         }
 
@@ -40,29 +39,59 @@ module scenes
         {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px","Consolas", "#000000", 50, 20, true);
-
+            //Set Number of Enemies
+            this._numOfEnemy =5;
             //unlimited background sound
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
-            // this._ememies = new Array<objects.Enemy>();
+            this._ememies = new Array<objects.Enemy>();
+            this._enemybullets = new Array<objects.Bullet>();
             // this._enemyNum =4;
             //Add ememies
-            this.AddEnemies(4);
+            this.AddEnemies(this._numOfEnemy);
+            //this.AddEnemies(10, this._enemybullets);
             this.Main();
         }
-        
-        public AddEnemies(EnemyNum:number):void{
-            for(let count = 0; count < EnemyNum; count++)
-            {
-                this._ememies[count] = new objects.Enemy();
-            }
+
+        public AddEnemies(number:Number):void{
+            let createEnemy = setInterval(()=>{
+                if(this._ememies.length < number)
+                {
+                    let enemy = new objects.Enemy();
+                    this._ememies.push(enemy);
+                    this.addChild(enemy)
+                    console.log("CREATE")
+                    this.FireGun(enemy, this._enemybullets);
+                }
+                else {
+                    clearInterval(createEnemy)
+                }
+            }, 1000)
         }
+        
+        // public AddEnemies(EnemyNum:number):void{
+        //     for(let count = 0; count < EnemyNum; count++)
+        //     {
+        //         this._ememies[count] = new objects.Enemy();
+        //     }
+        // }
+
         
         public Update(): void 
         {   
             this._background.Update();
             this._player.Update();
             this.UpdatePosition();
+            //if player kill all the enemies
+            if(managers.Collision.count == this._numOfEnemy)
+            {
+                config.Game.SCENE_STATE = scenes.State.Stage2;
+            }
+            //if attacked more than 3 times, game over
+            if(managers.Collision.attack == 3)
+            {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
         }
 
         public Main(): void {
@@ -71,7 +100,7 @@ module scenes
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-            this.FireGun(this._ememies, this._enemybullets);
+            //this.FireGun(this._ememies, this._enemybullets);
 
             this._player.addEventListener("click", () =>{
                 console.log("click");
@@ -82,72 +111,91 @@ module scenes
             });
         }//end public Main() method
 
+        public BulletSpeed(eBullet:objects.Bullet, eSpeed:number, eMove:number, pick:boolean=false):void{
+            //enemy direction
+            if(pick == true)
+            {
+                eBullet.y += eSpeed;
+                eBullet.position.y += eMove;
+                if(eBullet.y >= 800) {
+                    this.removeChild(eBullet);
+                } 
+            }
+            //player direction
+            else{
+                eBullet.y -= eSpeed;
+                eBullet.position.y -= eMove;
+                if(eBullet.y <= 0) {
+                    this.removeChild(eBullet);
+                } 
+            }
+        }
+
         public UpdatePosition() 
         {
-            
             this._ememies.forEach(enemy => {
                 enemy.Update();
                 this._enemybullets.forEach((bullet)=>{
-                    bullet.y += 2;
-                    bullet.position.y += 2;
-                    if(bullet.y >= 800) {
-                        this.removeChild(bullet);
-                    }
-                    managers.Collision.AABBCheck(this._player, bullet);
+                    this.BulletSpeed(bullet, 3, 1, true);
+                    managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
                         this._player.position = new objects.Vector2(-100,-200);
                         this._player.died = true;
-                    this.removeChild(this._player);
-                    bullet.position = new objects.Vector2(-200,-200);
-                    this.removeChild(bullet);
-                    config.Game.SCENE_STATE = scenes.State.END;
+                        //this.removeChild(this._player);
+                        bullet.position = new objects.Vector2(-200,-200);
+                        this.removeChild(bullet);
+                    //config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
-
                 this._bullets.forEach((bullet) => {
-                bullet.y -= 2;
-                bullet.position.y -= 2;
-                if(bullet.y <= 0) {
-                    this.removeChild(bullet);
-                }
-                managers.Collision.AABBCheck(enemy, bullet);
-                if(bullet.isColliding) {
-                    this.ExploreAnimation(enemy.x, enemy.y);
-                    enemy.position = new objects.Vector2(-100,-200);
-                    enemy.died = true;
-                    this.removeChild(enemy);
-                    bullet.position = new objects.Vector2(-200,-200);
-                    this.removeChild(bullet);
-                }
-            });
+                    this.BulletSpeed(bullet, 2, 2, false);
+                    managers.Collision.AABBCheck(enemy, bullet);
+                    if(bullet.isColliding) {
+                        this.ExploreAnimation(enemy.x, enemy.y);
+                        enemy.position = new objects.Vector2(-100,-200);
+                        enemy.died = true;
+                        this.removeChild(enemy);
+                        bullet.position = new objects.Vector2(-200,-200);
+                        this.removeChild(bullet);
+                    }
+                });
             //check collision player and enemies
-            managers.Collision.Check(enemy, this._player);
+            //managers.Collision.Check(enemy, this._player);
             if(this._player.isColliding)
             {
                 console.log("debug: Player collision");
                 //createjs.Sound.play("./Assets/sounds/crash.wav");
-                config.Game.SCENE_STATE = scenes.State.END;
-                //createjs.Sound.stop();
+                //config.Game.SCENE_STATE = scenes.State.END;
+                //createjs.Sound.stop();//
             }
 
             });
         }//end update positon
 
-        // Shot fire gun from enemies
-        public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
+        // Shot fire until enemies are colliding
+        public FireGun(enemy:objects.Enemy, bullArray:Array<objects.Bullet>):void
         {
-            newArray.forEach(enemy => {
-                this.addChild(enemy);
-                enemy.on("tick", ()=>{
-                    if(enemy.canShoot())
-                    {
-                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
-                        bullArray.push(bullet);
-                        this.addChild(bullet);
+            //newArray.forEach(enemy => {
+                //this.addChild(enemy);
+                    if(enemy.canShoot()){
+                        let fire = setInterval(()=>{
+                            if(!enemy.isColliding)
+                            {
+                                let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                                bullArray.push(bullet);
+                                this.addChild(bullet);
+                            }
+                            else clearInterval(fire)
+                        }, 500)
                     }
-                });
-            });
+            //});
         }//end public FireGun
+
+        // for(var i = 0; i < 3; i++) {
+        //     (function(index) {
+        //         setTimeout(function() { alert(index); }, index*5000);
+        //     })(i);
+        // }
 
         public ExploreAnimation(obX:number, obY:number) {
             let chopperImg1 = document.createElement('img')
@@ -206,6 +254,26 @@ module scenes
 
     }//end class
 }//end module
+
+// // Shot fire until enemies are colliding
+// public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
+// {
+//     newArray.forEach(enemy => {
+//         this.addChild(enemy);
+//             if(enemy.canShoot()){
+//                 let fire = setInterval(()=>{
+//                     if(!enemy.isColliding)
+//                     {
+//                         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+//                         bullArray.push(bullet);
+//                         this.addChild(bullet);
+//                     }
+//                     else clearInterval(fire)
+//                 }, 500)
+//             }
+//     });
+// }//end public FireGun
+
             //Update
             // if (this._enemy1.y == 480)
             // {

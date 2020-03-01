@@ -8,6 +8,8 @@ module objects
         private canFire: boolean = true;
         private maxTime: number = 0;
         private _enemybullets: Array<objects.Bullet>;
+        private _enemies: Array<objects.Enemy>;
+
         
         // PRIVATE INSTANCE MEMBERS
 
@@ -22,19 +24,31 @@ module objects
         {
             super((config.Game.ASSETS.getResult("enemy")));
             this._enemybullets = new Array<objects.Bullet>();
+            this._enemies = new Array<objects.Enemy>();
             this.Start();
         }
 
-
         public canShoot(): boolean
         {
-            if(this.canFire)
+            if(!this.isColliding)
             {
-                this.canFire = false;
-                return true;
+                if(this.canFire){
+                    this.canFire = false;
+                    return true;
+                }
             }
             return false;
         }
+
+
+//         // To start the loop
+// var mainLoopId = setInterval(function(){
+//     // Do your update stuff...
+//     move();
+// }, 40);
+
+// // To stop the loop
+// clearInterval(mainLoopId);`
 
         // PRIVATE METHODS
         protected _checkBounds(): void {
@@ -51,9 +65,15 @@ module objects
         // PUBLIC METHODS
         public Start(): void {
             // this._dy = 3; //speed
-            this.Reset();
-            
+            this.Reset();   
+            this.Main();                    
         }
+
+        public Main(): void {
+            
+
+        }
+
 
         public Update(): void {
             if(!this._died) {

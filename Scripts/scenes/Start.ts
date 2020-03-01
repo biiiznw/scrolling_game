@@ -17,7 +17,6 @@ module scenes
             this._startButton = new objects.Button();
             this._background = new objects.Background();
             this._firstSceen = new objects.Image();
-
             this.Start();
         }
 

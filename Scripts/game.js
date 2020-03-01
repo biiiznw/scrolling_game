@@ -25,6 +25,7 @@ var game1 = (function () {
         { id: "playSound", src: "./Assets/sounds/space.wav" },
         { id: "startSound", src: "./Assets/sounds/space.wav" },
         { id: "crashSound", src: "./Assets/sounds/crash.wav" },
+        { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
     ];
     // comments from Tom
     function Preload() {
@@ -77,6 +78,9 @@ var game1 = (function () {
                 break;
             case scenes.State.PLAY:
                 currentScene = new scenes.Play();
+                break;
+            case scenes.State.Stage2:
+                currentScene = new scenes.Stage2();
                 break;
             case scenes.State.END:
                 currentScene = new scenes.End();
