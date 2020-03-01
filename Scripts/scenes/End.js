@@ -45,7 +45,7 @@ var scenes;
             this.addChild(this.endLabel);
             this.addChild(this._backButton);
             this._backButton.on("click", function () {
-                managers.Collision.attack = 0;
+                managers.Collision.live = 3;
                 managers.Collision.count = 0;
                 config.Game.SCENE_STATE = scenes.State.PLAY;
                 createjs.Sound.stop();

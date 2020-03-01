@@ -3,7 +3,7 @@ module managers
     export class Collision
     {
         static count:number = 0;
-        static attack:number = 0;
+        static live:number = 3;
 
         public static Check(object1: objects.GameObject, object2: objects.GameObject)
         {
@@ -15,8 +15,8 @@ module managers
                 
                 if(!object2.isColliding)
                 {
-                    this.attack +=1
-                    console.log("Attack " + this.attack);
+                    this.live --
+                    console.log("Attack " + this.live);
                     object2.isColliding = true;
                     createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
                     // config.Game.SCENE_STATE = scenes.State.END;

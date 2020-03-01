@@ -33,6 +33,9 @@ var scenes;
             _this._numOfEnemy;
             _this._bulletNum = 20;
             _this._bulletNumLabel = new objects.Label();
+            _this._point = 0;
+            _this._pointLabel = new objects.Label();
+            _this._liveLabel = new objects.Label();
             _this.Start();
             return _this;
         }
@@ -49,6 +52,8 @@ var scenes;
             this._ememies = new Array();
             this._enemybullets = new Array();
             this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
+            this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 590, 750, true);
+            this._liveLabel = new objects.Label("Live: 3", "20px", "Consolas", "#fff", 35, 770, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -81,15 +86,7 @@ var scenes;
             this._player.Update();
             //this.updateBullet();
             this.UpdatePosition();
-            //if player kill all the enemies
-            if (managers.Collision.count == this._numOfEnemy) {
-                config.Game.SCENE_STATE = scenes.State.Stage2;
-            }
-            //if attacked more than 3 times, game over
-            if (managers.Collision.attack == 3) {
-                this.removeChild(this._player);
-                config.Game.SCENE_STATE = scenes.State.END;
-            }
+            this.UpdateWinOrLoseCondition();
         };
         Play.prototype.Main = function () {
             var _this = this;
@@ -99,6 +96,8 @@ var scenes;
             this._player = new objects.Player();
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
+            this.addChild(this._pointLabel);
+            this.addChild(this._liveLabel);
             //this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", function () {
                 console.log("click");
@@ -161,6 +160,7 @@ var scenes;
                         _this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
+                        _this._point += 100;
                     }
                 });
                 //check collision player and enemies
@@ -246,9 +246,20 @@ var scenes;
             animation.gotoAndPlay('explore');
             this.addChild(animation);
         };
-        Play.prototype.WinOrLoseCondition = function () {
+        Play.prototype.UpdateWinOrLoseCondition = function () {
             this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
             if (this._bulletNum == 0) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
+            this._pointLabel.text = "Scores: " + this._point;
+            this._liveLabel.text = "Live: " + managers.Collision.live;
+            //if player kill all the enemies
+            if (managers.Collision.count == this._numOfEnemy) {
+                config.Game.SCENE_STATE = scenes.State.Stage2;
+            }
+            //if attacked more than 3 times, game over
+            if (managers.Collision.live == 0) {
+                this.removeChild(this._player);
                 config.Game.SCENE_STATE = scenes.State.END;
             }
         };

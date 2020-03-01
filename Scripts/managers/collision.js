@@ -9,8 +9,8 @@ var managers;
             var P2 = new calculate.Vec2(object2.x, object2.y);
             if (calculate.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
                 if (!object2.isColliding) {
-                    this.attack += 1;
-                    console.log("Attack " + this.attack);
+                    this.live--;
+                    console.log("Attack " + this.live);
                     object2.isColliding = true;
                     createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
                     // config.Game.SCENE_STATE = scenes.State.END;
@@ -65,7 +65,7 @@ var managers;
             }
         };
         Collision.count = 0;
-        Collision.attack = 0;
+        Collision.live = 3;
         return Collision;
     }());
     managers.Collision = Collision;
