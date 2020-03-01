@@ -30,8 +30,8 @@ var scenes;
         // PUBLIC METHODS
         Start.prototype.Start = function () {
             this._background = new objects.Background();
-            this._firstSceen = new objects.Image(config.Game.ASSETS.getResult("firstScreen"), 320, 240, true);
-            this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 400, true);
+            this._firstSceen = new objects.Image(config.Game.ASSETS.getResult("firstScreen"), 320, 400, true);
+            this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 580, true);
             createjs.Sound.play("startSound");
             this.Main();
         };
