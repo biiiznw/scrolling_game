@@ -6,6 +6,7 @@ let game1 = (function(){
     let assets: createjs.LoadQueue; 
     let currentSceneState: scenes.State;
     let currentScene: objects.Scene;  
+    let keyboardManager: managers.Keyboard;
 
     let assetManifast = [
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
@@ -56,6 +57,8 @@ let game1 = (function(){
 
         currentSceneState = scenes.State.NO_SCENE;
         config.Game.SCENE_STATE = scenes.State.START;
+        keyboardManager = new managers.Keyboard();
+        config.Game.keyboardManager = keyboardManager;
     }
 
     /**

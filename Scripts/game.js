@@ -7,6 +7,7 @@ var game1 = (function () {
     var assets;
     var currentSceneState;
     var currentScene;
+    var keyboardManager;
     var assetManifast = [
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "placeholder1", src: "./Assets/images/placeholder1.png" },
@@ -48,6 +49,8 @@ var game1 = (function () {
         stage.enableMouseOver(20);
         currentSceneState = scenes.State.NO_SCENE;
         config.Game.SCENE_STATE = scenes.State.START;
+        keyboardManager = new managers.Keyboard();
+        config.Game.keyboardManager = keyboardManager;
     }
     /**
      * This is the main Game Loop
