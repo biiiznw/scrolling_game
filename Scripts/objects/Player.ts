@@ -35,12 +35,12 @@ module objects
         }      
         private _move(): void
         {
-            let newPositionX = util.Math.Lerp(this.position.x, this.stage.mouseX, 0.05);
-            this.position = new Vector2(newPositionX, this._verticalPosition);
+            //let newPositionX = util.Math.Lerp(this.position.x, this.stage.mouseX, 0.05);
+            this.position = new Vector2(this.stage.mouseX, this._verticalPosition);
         }
         // PUBLIC METHODS
         public Start(): void {
-            this._verticalPosition = 430; // locked to the bottom of the screen
+            this._verticalPosition = 760; // locked to the bottom of the screen
         }
 
         public Update(): void {

@@ -44,12 +44,12 @@ var objects;
             }
         };
         Player.prototype._move = function () {
-            var newPositionX = util.Math.Lerp(this.position.x, this.stage.mouseX, 0.05);
-            this.position = new objects.Vector2(newPositionX, this._verticalPosition);
+            //let newPositionX = util.Math.Lerp(this.position.x, this.stage.mouseX, 0.05);
+            this.position = new objects.Vector2(this.stage.mouseX, this._verticalPosition);
         };
         // PUBLIC METHODS
         Player.prototype.Start = function () {
-            this._verticalPosition = 430; // locked to the bottom of the screen
+            this._verticalPosition = 760; // locked to the bottom of the screen
         };
         Player.prototype.Update = function () {
             this._move();
