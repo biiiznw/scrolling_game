@@ -47,7 +47,7 @@ module scenes
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px","Consolas", "#000000", 50, 20, true);
             this._bulletNumLabel = new objects.Label("Bullet: 20", "15px","Consolas", "#fff", 600, 770, true);
-            
+            this._pointLabel = new objects.Label("Points: 0", "15px","Consolas", "#fff", 595, 750, true);
             //unlimited background sound
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
@@ -81,6 +81,7 @@ module scenes
             this.addChild(this._player);
             // this.FireGun(this._ememies, this._enemybullets);
             this.addChild(this._bulletNumLabel);
+            this.addChild(this._pointLabel);
             this._player.addEventListener("click", () =>{
                 this._bulletNum--;
                 console.log("click");
@@ -94,6 +95,7 @@ module scenes
         public UpdatePosition() 
         {
             this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            this._pointLabel.text = "Points: " + this._point;
             if(this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
@@ -136,6 +138,7 @@ module scenes
                     this.removeChild(enemy);
                     bullet.position = new objects.Vector2(-200,-200);
                     this.removeChild(bullet);
+                    this._point += 100;
                 }
             });
             //check collision player and enemies
