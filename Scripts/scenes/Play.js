@@ -63,7 +63,7 @@ var scenes;
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-            this.FireGun(this._ememies, this._enemybullets);
+            // this.FireGun(this._ememies, this._enemybullets);
             this._player.addEventListener("click", function () {
                 console.log("click");
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
@@ -75,10 +75,18 @@ var scenes;
         Play.prototype.UpdatePosition = function () {
             var _this = this;
             this._ememies.forEach(function (enemy) {
+                _this.addChild(enemy);
                 enemy.Update();
+                enemy.addEventListener("tick", function () {
+                    if (enemy.canShoot()) {
+                        var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        _this._enemybullets.push(bullet);
+                        _this.addChild(bullet);
+                    }
+                });
                 _this._enemybullets.forEach(function (bullet) {
-                    bullet.y += 2;
-                    bullet.position.y += 2;
+                    bullet.y += 4;
+                    bullet.position.y += 4;
                     if (bullet.y >= 800) {
                         _this.removeChild(bullet);
                     }
@@ -113,6 +121,7 @@ var scenes;
                 }
             });
         }; //end update positon
+        // update bullet's y and position
         Play.prototype.updateBullet = function () {
             var _this = this;
             this._bullets.forEach(function (bullet) {

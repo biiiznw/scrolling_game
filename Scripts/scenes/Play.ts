@@ -72,7 +72,7 @@ module scenes
             this.addChild(this._level);
             this._player = new objects.Player();
             this.addChild(this._player);
-            this.FireGun(this._ememies, this._enemybullets);
+            // this.FireGun(this._ememies, this._enemybullets);
 
             this._player.addEventListener("click", () =>{
                 console.log("click");
@@ -86,10 +86,21 @@ module scenes
         public UpdatePosition() 
         {
             this._ememies.forEach(enemy => {
+                this.addChild(enemy);
                 enemy.Update();
+                
+                enemy.addEventListener("tick", ()=>{
+                
+                    if(enemy.canShoot())
+                    {
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                        this._enemybullets.push(bullet);
+                        this.addChild(bullet);
+                    }
+                });
                 this._enemybullets.forEach((bullet)=>{
-                    bullet.y += 2 ;
-                    bullet.position.y += 2;
+                    bullet.y += 4 ;
+                    bullet.position.y += 4;
                     if(bullet.y >= 800) {
                         this.removeChild(bullet);
                     }

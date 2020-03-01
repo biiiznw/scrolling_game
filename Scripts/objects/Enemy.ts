@@ -67,6 +67,7 @@ module objects
             this.y = -this.height;
             this._dx = Math.floor((Math.random() * 4) -2);
             this._dy = Math.floor((Math.random() * 5) +5);
+            this.canFire = true;
         }
 
         public Move(): void
