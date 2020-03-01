@@ -91,6 +91,7 @@ module scenes
             //if attacked more than 3 times, game over
             if(managers.Collision.attack == 3)
             {
+                this.removeChild(this._player);
                 config.Game.SCENE_STATE = scenes.State.END;
             }
         }
@@ -102,7 +103,6 @@ module scenes
             this._player = new objects.Player();
             this.addChild(this._player);
             //this.FireGun(this._ememies, this._enemybullets);
-
             this._player.addEventListener("click", () =>{
                 console.log("click");
                 let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
@@ -110,6 +110,7 @@ module scenes
                 this.addChild(bullet);
                 // this.Update();
             });
+
         }//end public Main() method
 
         public BulletSpeed(eBullet:objects.Bullet, eSpeed:number, eMove:number, pick:boolean=false):void{
@@ -153,7 +154,6 @@ module scenes
                     if(bullet.isColliding) {
                         this._player.position = new objects.Vector2(-100,-200);
                         this._player.died = true;
-                        //this.removeChild(this._player);
                         bullet.position = new objects.Vector2(-200,-200);
                         this.removeChild(bullet);
                     //config.Game.SCENE_STATE = scenes.State.END;
@@ -173,15 +173,16 @@ module scenes
                 });
             //check collision player and enemies
             //managers.Collision.Check(enemy, this._player);
-            if(this._player.isColliding)
-            {
-                console.log("debug: Player collision");
-                //createjs.Sound.play("./Assets/sounds/crash.wav");
-                //config.Game.SCENE_STATE = scenes.State.END;
-                //createjs.Sound.stop();//
-            }
+            // if(this._player.isColliding)
+            // {
+            //     console.log("debug: Player collision");
+            //     //createjs.Sound.play("./Assets/sounds/crash.wav");
+            //     //config.Game.SCENE_STATE = scenes.State.END;
+            //     //createjs.Sound.stop();//
+            // }
 
             });
+            
         }//end update positon
 
         // Shot fire until enemies are colliding

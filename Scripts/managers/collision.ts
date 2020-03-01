@@ -12,6 +12,7 @@ module managers
 
             if(calculate.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight))
             {
+                
                 if(!object2.isColliding)
                 {
                     this.attack +=1
