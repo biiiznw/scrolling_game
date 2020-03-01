@@ -34,14 +34,29 @@ var objects;
         });
         // PRIVATE METHODS
         Player.prototype._checkBounds = function () {
+            // left boundary
+            if (this.position.x <= this.halfWidth) {
+                this.position = new objects.Vector2(this.halfWidth, this.position.y);
+            }
+            // right boundary
+            if (this.position.x >= config.Game.SCREEN_WIDTH - this.halfWidth) {
+                this.position = new objects.Vector2(config.Game.SCREEN_WIDTH - this.halfWidth, this.position.y);
+            }
+        };
+        Player.prototype._move = function () {
+            var newPositionX = util.Math.Lerp(this.position.x, this.stage.mouseX, 0.05);
+            this.position = new objects.Vector2(newPositionX, this._verticalPosition);
         };
         // PUBLIC METHODS
         Player.prototype.Start = function () {
+            this._verticalPosition = 430; // locked to the bottom of the screen
         };
         Player.prototype.Update = function () {
-            var mouseX = config.Game.STAGE.mouseX;
-            var mouseY = config.Game.STAGE.mouseY;
-            this.position = new objects.Vector2(mouseX, mouseY);
+            this._move();
+            this._checkBounds();
+            // let mouseX = config.Game.STAGE.mouseX;
+            // let mouseY = config.Game.STAGE.mouseY;
+            // this.position = new Vector2(mouseX, mouseY);
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
         };
         Player.prototype.Reset = function () {
