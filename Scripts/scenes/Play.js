@@ -55,7 +55,7 @@ var scenes;
             this._enemybullets = new Array();
             this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
             this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 590, 750, true);
-            this._liveLabel = new objects.Label("Live: 3", "20px", "Consolas", "#fff", 35, 770, true);
+            this._liveLabel = new objects.Label(" ", "20px", "Consolas", "#fff", 35, 770, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -137,7 +137,7 @@ var scenes;
                     _this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(_this._player, bullet);
                     if (bullet.isColliding) {
-                        if (managers.Collision.live = 0) {
+                        if (managers.Collision.live <= 0) {
                             _this.ExploreAnimation(_this._player.x, _this._player.y);
                         }
                         else {
@@ -306,6 +306,7 @@ var scenes;
             this.addChild(shieldAnimation);
         };
         Play.prototype.UpdateWinOrLoseCondition = function () {
+            var _this = this;
             this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
@@ -318,8 +319,10 @@ var scenes;
             }
             //if attacked more than 3 times, game over
             if (managers.Collision.live == 0) {
-                this.removeChild(this._player);
-                config.Game.SCENE_STATE = scenes.State.END;
+                setTimeout(function () {
+                    _this.removeChild(_this._player);
+                    config.Game.SCENE_STATE = scenes.State.END;
+                }, 300);
             }
         };
         return Play;

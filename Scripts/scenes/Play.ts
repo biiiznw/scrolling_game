@@ -60,7 +60,7 @@ module scenes
             this._enemybullets = new Array<objects.Bullet>();
             this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
             this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 590, 750, true);
-            this._liveLabel = new objects.Label("Live: 3", "20px", "Consolas", "#fff", 35, 770, true);
+            this._liveLabel = new objects.Label(" ", "20px", "Consolas", "#fff", 35, 770, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -156,7 +156,7 @@ module scenes
                     this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
-                        if(managers.Collision.live = 0) {
+                        if(managers.Collision.live <= 0) {
                             this.ExploreAnimation(this._player.x, this._player.y);
                         } else {
                             this.ShieldAnimation(this._player.x, this._player.y);
@@ -356,8 +356,11 @@ module scenes
             //if attacked more than 3 times, game over
             if(managers.Collision.live == 0)
             {
-                this.removeChild(this._player);
-                config.Game.SCENE_STATE = scenes.State.END;
+                setTimeout(() => {
+                    this.removeChild(this._player);
+                    config.Game.SCENE_STATE = scenes.State.END;
+                }, 300);
+                
             }
         }
 

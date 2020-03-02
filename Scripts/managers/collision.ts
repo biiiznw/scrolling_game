@@ -15,7 +15,7 @@ module managers
                 
                 if(!object2.isColliding)
                 {
-                    this.live --
+                    this.live--
                     console.log("Attack " + this.live);
                     object2.isColliding = true;
                     createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
