@@ -80,14 +80,6 @@ var objects;
             // this.position = new Vector2(mouseX, mouseY);
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
         };
-        Player.prototype._shootGun = function () {
-            //if(config.Game.keyboardManager.fireGun){
-            console.log("click");
-            // let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _player.x, _player.y-20, true);
-            // _bullets.push(bullet);
-            //addChild(bullet);
-            //}
-        };
         Player.prototype.Reset = function () {
         };
         return Player;

@@ -87,16 +87,6 @@ module objects
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
         }
 
-        private _shootGun(): void
-        {
-            //if(config.Game.keyboardManager.fireGun){
-                console.log("click");
-                // let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _player.x, _player.y-20, true);
-                // _bullets.push(bullet);
-                //addChild(bullet);
-            //}
-        }
-
         public Reset(): void {
             
         }

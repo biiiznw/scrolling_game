@@ -96,10 +96,6 @@ module scenes
                 console.log("FIRE GUN");
                 this.addChild(bullet);
             }
-            if(e.keyCode == config.Keys.ESCAPE)
-            {
-                console.log("Mute sound");
-            }
 
         }
         

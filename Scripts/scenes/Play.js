@@ -86,9 +86,6 @@ var scenes;
                 console.log("FIRE GUN");
                 this.addChild(bullet);
             }
-            if (e.keyCode == config.Keys.ESCAPE) {
-                console.log("Mute sound");
-            }
         };
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
