@@ -137,7 +137,12 @@ var scenes;
                     _this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(_this._player, bullet);
                     if (bullet.isColliding) {
-                        _this.ShieldAnimation(_this._player.x, _this._player.y);
+                        if (managers.Collision.live = 0) {
+                            _this.ExploreAnimation(_this._player.x, _this._player.y);
+                        }
+                        else {
+                            _this.ShieldAnimation(_this._player.x, _this._player.y);
+                        }
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
                         //config.Game.SCENE_STATE = scenes.State.END;
