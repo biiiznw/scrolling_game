@@ -93,9 +93,8 @@ module scenes
                 this._bulletNum--;
                 let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
                 this._bullets.push(bullet);
-                console.log(this._bullets.length);
+                console.log("FIRE GUN");
                 this.addChild(bullet);
-                this.Update();
             }
         }
         
