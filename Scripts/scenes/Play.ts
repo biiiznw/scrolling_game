@@ -35,7 +35,7 @@ module scenes
             this._bullets = new Array<objects.Bullet>();
             this._enemybullets = new Array<objects.Bullet>();
             this._numOfEnemy;
-            this._bulletNum = 20;
+            this._bulletNum = 30;
             this._bulletNumLabel = new objects.Label();
             this._point = 0;
             this._pointLabel = new objects.Label();
@@ -52,7 +52,7 @@ module scenes
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px","Consolas", "#000000", 50, 20, true);
             //Set Number of Enemies
-            this._numOfEnemy =4;
+            this._numOfEnemy =20;
             //unlimited background sound
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
@@ -142,18 +142,8 @@ module scenes
             this._ememies.forEach(enemy => {
                 this.addChild(enemy);
                 enemy.Update();
-                
-                enemy.addEventListener("tick", ()=>{
-                
-                    if(enemy.canShoot())
-                    {
-                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
-                        this._enemybullets.push(bullet);
-                        this.addChild(bullet);
-                    }
-                });
                 this._enemybullets.forEach((bullet)=>{
-                    this.BulletSpeed(bullet, 3, 1, true);
+                    
                     managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
                         if(managers.Collision.live <= 0) {
@@ -221,6 +211,21 @@ module scenes
             this._bullets.forEach((bullet) => {
                 this.BulletSpeed(bullet, 8, 8, false);
             })
+            this._ememies.forEach(enemy => {
+                enemy.addEventListener("tick", ()=>{
+                
+                    if(enemy.canShoot())
+                    {
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
+                        this._enemybullets.push(bullet);
+                        this.addChild(bullet);
+                    }
+                });
+            })
+            this._enemybullets.forEach((bullet)=>{
+                this.BulletSpeed(bullet, 8, 8, true);
+            })
+            
         }
 
         public UpdatePlayerFire() {
