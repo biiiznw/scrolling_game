@@ -16,8 +16,6 @@ var scenes;
 (function (scenes) {
     var Play = /** @class */ (function (_super) {
         __extends(Play, _super);
-        // PUBLIC PROPERTIES
-        // CONSTRUCTOR
         function Play() {
             var _this = _super.call(this) || this;
             _this._numOfEnemy = 0;
@@ -53,9 +51,10 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             this._ememies = new Array();
             this._enemybullets = new Array();
-            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
-            this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 590, 750, true);
-            this._liveLabel = new objects.Label(" ", "20px", "Consolas", "#fff", 35, 770, true);
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "20px", "Impact, Charcoal, sans-serif", "#fff", 580, 20, true);
+            this._pointLabel = new objects.Label("Scores: 0", "20px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 20, true);
+            this._liveLabel = new objects.Label("Live: 3", "20px", "Impact, Charcoal, sans-serif", "#fff", 40, 20, true);
+            //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -76,6 +75,15 @@ var scenes;
                     clearInterval(createEnemy);
                 }
             }, 1000);
+        };
+        Play.prototype.Controls = function (e) {
+            if (e.keyCode == config.Keys.FIREGUN) {
+                this._bulletNum--;
+                var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
+                this._bullets.push(bullet);
+                console.log("FIRE GUN");
+                this.addChild(bullet);
+            }
         };
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
@@ -100,7 +108,6 @@ var scenes;
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
-            //this.FireGun(this._ememies, this._enemybullets);
         }; //end public Main() method
         Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
             if (pick === void 0) { pick = false; }
@@ -333,6 +340,15 @@ var scenes;
     }(objects.Scene)); //end class
     scenes.Play = Play;
 })(scenes || (scenes = {})); //end module
+// this._player.addEventListener("click", () =>{
+//     console.log("click");
+//     this._bulletNum--;
+//     let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+//     this._bullets.push(bullet);
+//     console.log(this._bullets.length);
+//     this.addChild(bullet);
+//     this.Update();
+// });
 // // Shot fire until enemies are colliding
 // public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
 // {

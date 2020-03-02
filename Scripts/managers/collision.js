@@ -12,7 +12,9 @@ var managers;
                     this.live--;
                     console.log("Attack " + this.live);
                     object2.isColliding = true;
-                    createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
+                    if (!config.Game.keyboardManager.mute) {
+                        createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
+                    }
                     // config.Game.SCENE_STATE = scenes.State.END;
                 }
             }

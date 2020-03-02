@@ -2,7 +2,6 @@
 var managers;
 (function (managers) {
     var Keyboard = /** @class */ (function () {
-        // constructors
         function Keyboard() {
             this.fireOnce = true;
             this.enabled = true;

@@ -18,7 +18,7 @@ var objects;
         __extends(Player, _super);
         // CONSTRUCTOR
         function Player() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 0, 0, true) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 320, 0, true) || this;
             // PRIVATE INSTANCE MEMBERS
             _this._died = false;
             _this.Start();
@@ -79,6 +79,7 @@ var objects;
         Player.prototype.Update = function () {
             this._move();
             this._checkBounds();
+            //this._shootGun();
             // this._keyboardInput();
             // let mouseX = config.Game.STAGE.mouseX;
             // let mouseY = config.Game.STAGE.mouseY;

@@ -12,7 +12,13 @@ module config{
         public static S:number=83;
         public static D:number=68;
 
-        //space bar
-        public static SPACE:number=32;
+        //space bar_Shot gun
+        public static FIREGUN:number=32;
+        //ESC key
+        public static ESCAPE:number=27;
+        //Control key
+        public static PAUSE:number=17;
+        //M key_mute music
+        public static MUTE:number=77;
     }
 }

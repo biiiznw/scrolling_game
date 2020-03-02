@@ -3,7 +3,6 @@ module scenes
     export class Play extends objects.Scene
     {
         // PRIVATE INSTANCE MEMBERS
-       
         private _player:objects.Player;
         private _background: objects.Background;
         private _level:objects.Label;
@@ -17,8 +16,12 @@ module scenes
         private _point:number;
         private _pointLabel:objects.Label;
         private _liveLabel:objects.Label;
+<<<<<<< HEAD
         private fire = true;
 
+=======
+        private bullet:objects.Bullet;
+>>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
 
         // PUBLIC PROPERTIES
 
@@ -40,6 +43,7 @@ module scenes
             this._point = 0;
             this._pointLabel = new objects.Label();
             this._liveLabel = new objects.Label();
+
             this._player = new objects.Player();
             this.Start();
         }
@@ -58,9 +62,13 @@ module scenes
             createjs.Sound.play("playSound", this._playBackSound)
             this._ememies = new Array<objects.Enemy>();
             this._enemybullets = new Array<objects.Bullet>();
-            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 770, true);
-            this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 590, 750, true);
-            this._liveLabel = new objects.Label(" ", "20px", "Consolas", "#fff", 35, 770, true);
+
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "20px", "Impact, Charcoal, sans-serif", "#fff", 580, 20, true);
+            this._pointLabel = new objects.Label("Scores: 0", "20px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 20, true);
+            this._liveLabel = new objects.Label("Live: 3", "20px", "Impact, Charcoal, sans-serif", "#fff", 40, 20, true);
+
+            //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+            
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -83,6 +91,19 @@ module scenes
                 }
             }, 1000)
         }
+
+        public Controls(e:KeyboardEvent):void
+        {
+            if(e.keyCode == config.Keys.FIREGUN)
+            {
+                this._bulletNum--;
+                let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+                this._bullets.push(bullet);
+                console.log("FIRE GUN");
+                this.addChild(bullet);
+            }
+
+        }
         
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
@@ -101,8 +122,9 @@ module scenes
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
-            
         }
+
+        
 
         public Main(): void {
             // adds background to the stage
@@ -112,9 +134,7 @@ module scenes
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
-            //this.FireGun(this._ememies, this._enemybullets);
            
-
         }//end public Main() method
 
         public BulletSpeed(eBullet:objects.Bullet, eSpeed:number, eMove:number, pick:boolean=false):void{
@@ -146,18 +166,20 @@ module scenes
                     
                     managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
+
                         if(managers.Collision.live <= 0) {
                             this.ExploreAnimation(this._player.x, this._player.y);
                         } else {
                             this.ShieldAnimation(this._player.x, this._player.y);
                         }
+
                         bullet.position = new objects.Vector2(-200,-200);
                         this.removeChild(bullet);
                     //config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    
+
                     managers.Collision.AABBCheck(enemy, bullet);
                     if(bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
@@ -372,6 +394,16 @@ module scenes
 
     }//end class
 }//end module
+
+// this._player.addEventListener("click", () =>{
+            //     console.log("click");
+            //     this._bulletNum--;
+            //     let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+            //     this._bullets.push(bullet);
+            //     console.log(this._bullets.length);
+            //     this.addChild(bullet);
+            //     this.Update();
+            // });
 
 // // Shot fire until enemies are colliding
 // public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void

@@ -14,8 +14,14 @@ var config;
         Keys.A = 65;
         Keys.S = 83;
         Keys.D = 68;
-        //space bar
-        Keys.SPACE = 32;
+        //space bar_Shot gun
+        Keys.FIREGUN = 32;
+        //ESC key
+        Keys.ESCAPE = 27;
+        //Control key
+        Keys.PAUSE = 17;
+        //M key_mute music
+        Keys.MUTE = 77;
         return Keys;
     }());
     config.Keys = Keys;
