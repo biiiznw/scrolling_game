@@ -37,7 +37,7 @@ var scenes;
             _this._pointLabel = new objects.Label();
             _this._liveLabel = new objects.Label();
             _this.bullet = new objects.Bullet;
-            document.addEventListener('keydown', _this.Show.bind(_this), false);
+            document.addEventListener('keydown', _this.Controls.bind(_this), false);
             _this.Start();
             return _this;
         }
@@ -78,13 +78,16 @@ var scenes;
                 }
             }, 1000);
         };
-        Play.prototype.Show = function (e) {
+        Play.prototype.Controls = function (e) {
             if (e.keyCode == config.Keys.FIREGUN) {
                 this._bulletNum--;
                 var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
                 this._bullets.push(bullet);
                 console.log("FIRE GUN");
                 this.addChild(bullet);
+            }
+            if (e.keyCode == config.Keys.ESCAPE) {
+                console.log("Mute sound");
             }
         };
         // public AddEnemies(EnemyNum:number):void{

@@ -17,7 +17,7 @@ var config;
         //space bar_Shot gun
         Keys.FIREGUN = 32;
         //ESC key
-        Keys.ESCAPE = 13;
+        Keys.ESCAPE = 27;
         //Control key
         Keys.PAUSE = 17;
         //M key_mute music

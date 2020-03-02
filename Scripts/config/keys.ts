@@ -15,7 +15,7 @@ module config{
         //space bar_Shot gun
         public static FIREGUN:number=32;
         //ESC key
-        public static ESCAPE:number=13;
+        public static ESCAPE:number=27;
         //Control key
         public static PAUSE:number=17;
         //M key_mute music

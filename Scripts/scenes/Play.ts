@@ -39,7 +39,7 @@ module scenes
             this._pointLabel = new objects.Label();
             this._liveLabel = new objects.Label();
             this.bullet = new objects.Bullet;
-            document.addEventListener('keydown', this.Show.bind(this), false);
+            document.addEventListener('keydown', this.Controls.bind(this), false);
             this.Start();
         }
 
@@ -86,7 +86,7 @@ module scenes
             }, 1000)
         }
 
-        public Show(e:KeyboardEvent):void
+        public Controls(e:KeyboardEvent):void
         {
             if(e.keyCode == config.Keys.FIREGUN)
             {
@@ -96,6 +96,11 @@ module scenes
                 console.log("FIRE GUN");
                 this.addChild(bullet);
             }
+            if(e.keyCode == config.Keys.ESCAPE)
+            {
+                console.log("Mute sound");
+            }
+
         }
         
         // public AddEnemies(EnemyNum:number):void{

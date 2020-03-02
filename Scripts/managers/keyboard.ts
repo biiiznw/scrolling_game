@@ -10,6 +10,7 @@ module managers {
       public fireGun?: boolean;
       public enabled?: boolean;
       public paused?: boolean;
+      public mute?: boolean;
   
       // constructors
       constructor() {
@@ -46,7 +47,15 @@ module managers {
           case config.Keys.FIREGUN:
             this.fireGun = true;
           break;
-  
+
+          case config.Keys.ESCAPE:
+            config.Game.SCENE_STATE = scenes.State.END;
+          break;
+
+          case config.Keys.MUTE:
+            createjs.Sound.stop();
+          break;
+          
         }
       }
   
@@ -74,6 +83,14 @@ module managers {
   
           case config.Keys.FIREGUN:
             this.fireGun = false;
+          break;
+
+          case config.Keys.ESCAPE:
+            config.Game.SCENE_STATE = scenes.State.END;
+          break;
+
+          case config.Keys.MUTE:
+            createjs.Sound.stop();
           break;
   
         }
