@@ -37,6 +37,7 @@ var scenes;
             _this._pointLabel = new objects.Label();
             _this._liveLabel = new objects.Label();
             _this.bullet = new objects.Bullet;
+            document.addEventListener('keydown', _this.Show.bind(_this), false);
             _this.Start();
             return _this;
         }
@@ -52,9 +53,9 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             this._ememies = new Array();
             this._enemybullets = new Array();
-            this._bulletNumLabel = new objects.Label("Bullet: 20", "15px", "Consolas", "#fff", 600, 30, true);
-            this._pointLabel = new objects.Label("Scores: 0", "15px", "Consolas", "#fff", 500, 30, true);
-            this._liveLabel = new objects.Label("Live: 3", "20px", "Consolas", "#fff", 35, 30, true);
+            this._bulletNumLabel = new objects.Label("Bullet: 20", "20px", "Impact, Charcoal, sans-serif", "#fff", 580, 20, true);
+            this._pointLabel = new objects.Label("Scores: 0", "20px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 20, true);
+            this._liveLabel = new objects.Label("Live: 3", "20px", "Impact, Charcoal, sans-serif", "#fff", 40, 20, true);
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             // this._enemyNum =4;
             //Add ememies
@@ -77,6 +78,16 @@ var scenes;
                 }
             }, 1000);
         };
+        Play.prototype.Show = function (e) {
+            if (e.keyCode == config.Keys.FIREGUN) {
+                this._bulletNum--;
+                var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
+                this._bullets.push(bullet);
+                console.log(this._bullets.length);
+                this.addChild(bullet);
+                this.Update();
+            }
+        };
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
         //     {
@@ -91,7 +102,6 @@ var scenes;
             this.UpdateWinOrLoseCondition();
         };
         Play.prototype.Main = function () {
-            var _this = this;
             // adds background to the stage
             this.addChild(this._background);
             this.addChild(this._level);
@@ -102,17 +112,18 @@ var scenes;
             this.addChild(this._liveLabel);
             this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
             //this._player.on('event', );
-            this._player.addEventListener("tick", function () {
-                if (config.Game.keyboardManager.fireGun) {
-                    console.log("click");
-                    _this._bulletNum--;
-                    var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
-                    _this._bullets.push(bullet);
-                    console.log(_this._bullets.length);
-                    _this.addChild(bullet);
-                    //this.Update();
-                }
-            }, false);
+            // this._player.addEventListener("tick", ()=>{
+            //     if(config.Game.keyboardManager.fireGun)
+            //     {
+            //         console.log("click");
+            //         this._bulletNum--;
+            //         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+            //         this._bullets.push(bullet);
+            //         console.log(this._bullets.length);
+            //         this.addChild(bullet);
+            //         //this.Update();
+            //     }
+            // }, false);
         }; //end public Main() method
         Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
             if (pick === void 0) { pick = false; }
