@@ -136,7 +136,7 @@ module scenes
             this.addChild(this._bulletImage);
             this.addChild(this._lifeImage);
             this.addChild(this._scoreImage);
-            this.addChild(this._level);
+            //this.addChild(this._level);
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
