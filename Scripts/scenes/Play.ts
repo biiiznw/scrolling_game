@@ -136,7 +136,7 @@ module scenes
             this.addChild(this._bulletImage);
             this.addChild(this._lifeImage);
             this.addChild(this._scoreImage);
-            //this.addChild(this._level);
+            //gitthis.addChild(this._level);
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
@@ -387,7 +387,7 @@ module scenes
                 config.Game.SCENE_STATE = scenes.State.Stage2;
             }
             //if attacked more than 3 times, game over
-            if(managers.Collision.live == 0)
+            if(managers.Collision.live <= 0)
             {
                 setTimeout(() => {
                     this.removeChild(this._player);
