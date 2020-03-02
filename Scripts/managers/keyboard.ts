@@ -7,17 +7,10 @@ module managers {
       public moveBackward?: boolean;
       public moveLeft?: boolean;
       public moveRight?: boolean;
-<<<<<<< HEAD
       public fire?: boolean;
       public enabled?: boolean;
       public paused?: boolean;
       public fireOnce = true;
-=======
-      public fireGun?: boolean;
-      public enabled?: boolean;
-      public paused?: boolean;
-      public mute?: boolean;
->>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
   
       // constructors
       constructor() {
@@ -51,7 +44,6 @@ module managers {
             this.moveRight = true;
           break;
   
-<<<<<<< HEAD
           case config.Keys.SPACE:
             if (this.fireOnce) {
               this.fire = true;
@@ -63,20 +55,6 @@ module managers {
               break;
             }
             
-=======
-          case config.Keys.FIREGUN:
-            this.fireGun = true;
-          break;
-
-          case config.Keys.ESCAPE:
-            config.Game.SCENE_STATE = scenes.State.END;
-          break;
-
-          case config.Keys.MUTE:
-            createjs.Sound.stop();
-          break;
-          
->>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
         }
       }
   
@@ -102,22 +80,9 @@ module managers {
             this.moveRight = false;
           break;
   
-<<<<<<< HEAD
           case config.Keys.SPACE:
             this.fireOnce = true;
             this.fire = false;
-=======
-          case config.Keys.FIREGUN:
-            this.fireGun = false;
-          break;
-
-          case config.Keys.ESCAPE:
-            config.Game.SCENE_STATE = scenes.State.END;
-          break;
-
-          case config.Keys.MUTE:
-            createjs.Sound.stop();
->>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
           break;
   
         }

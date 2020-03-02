@@ -16,6 +16,8 @@ var scenes;
 (function (scenes) {
     var Play = /** @class */ (function (_super) {
         __extends(Play, _super);
+        // PUBLIC PROPERTIES
+        // CONSTRUCTOR
         function Play() {
             var _this = _super.call(this) || this;
             _this._numOfEnemy = 0;
@@ -76,15 +78,17 @@ var scenes;
                 }
             }, 1000);
         };
-        Play.prototype.Controls = function (e) {
-            if (e.keyCode == config.Keys.FIREGUN) {
-                this._bulletNum--;
-                var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
-                this._bullets.push(bullet);
-                console.log("FIRE GUN");
-                this.addChild(bullet);
-            }
-        };
+        // public Controls(e:KeyboardEvent):void
+        // {
+        //     if(e.keyCode == config.Keys.FIREGUN)
+        //     {
+        //         this._bulletNum--;
+        //         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+        //         this._bullets.push(bullet);
+        //         console.log("FIRE GUN");
+        //         this.addChild(bullet);
+        //     }
+        // }
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
         //     {

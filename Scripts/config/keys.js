@@ -15,7 +15,7 @@ var config;
         Keys.S = 83;
         Keys.D = 68;
         //space bar_Shot gun
-        Keys.FIREGUN = 32;
+        Keys.SPACE = 32;
         //ESC key
         Keys.ESCAPE = 27;
         //Control key

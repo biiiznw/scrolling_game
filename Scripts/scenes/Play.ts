@@ -16,12 +16,8 @@ module scenes
         private _point:number;
         private _pointLabel:objects.Label;
         private _liveLabel:objects.Label;
-<<<<<<< HEAD
         private fire = true;
 
-=======
-        private bullet:objects.Bullet;
->>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
 
         // PUBLIC PROPERTIES
 
@@ -92,18 +88,18 @@ module scenes
             }, 1000)
         }
 
-        public Controls(e:KeyboardEvent):void
-        {
-            if(e.keyCode == config.Keys.FIREGUN)
-            {
-                this._bulletNum--;
-                let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
-                this._bullets.push(bullet);
-                console.log("FIRE GUN");
-                this.addChild(bullet);
-            }
+        // public Controls(e:KeyboardEvent):void
+        // {
+        //     if(e.keyCode == config.Keys.FIREGUN)
+        //     {
+        //         this._bulletNum--;
+        //         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
+        //         this._bullets.push(bullet);
+        //         console.log("FIRE GUN");
+        //         this.addChild(bullet);
+        //     }
 
-        }
+        // }
         
         // public AddEnemies(EnemyNum:number):void{
         //     for(let count = 0; count < EnemyNum; count++)
@@ -251,7 +247,6 @@ module scenes
         }
 
         public UpdatePlayerFire() {
-            
             if(config.Game.keyboardManager.fire) {
                 if(this.fire) {
                 console.log("click1");

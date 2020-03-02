@@ -13,7 +13,7 @@ module config{
         public static D:number=68;
 
         //space bar_Shot gun
-        public static FIREGUN:number=32;
+        public static SPACE:number=32;
         //ESC key
         public static ESCAPE:number=27;
         //Control key
