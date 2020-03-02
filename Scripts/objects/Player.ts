@@ -34,10 +34,12 @@ module objects
             {
                 this.position = new Vector2(config.Game.SCREEN_WIDTH - this.halfWidth, this.position.y);
             } 
-        }      
+        } 
+
+
+
         private _move(): void
         {
-            
             //this.position = new Vector2(this._keyPosition.x, this._verticalPosition);
             if(config.Game.keyboardManager.moveLeft){
                 this.x -=5;
@@ -63,12 +65,13 @@ module objects
         public Start(): void {
             // this.x = 320;
             // this.y = 430;
-            this._verticalPosition = 760; 
+            this._verticalPosition = 700; 
         }
 
         public Update(): void {
             this._move();
             this._checkBounds();
+            //this._shootGun();
            // this._keyboardInput();
 
 
@@ -81,6 +84,16 @@ module objects
 
             // this.position = new Vector2(mouseX, mouseY);
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
+        }
+
+        private _shootGun(): void
+        {
+            //if(config.Game.keyboardManager.fireGun){
+                console.log("click");
+                // let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _player.x, _player.y-20, true);
+                // _bullets.push(bullet);
+                //addChild(bullet);
+            //}
         }
 
         public Reset(): void {

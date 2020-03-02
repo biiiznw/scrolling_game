@@ -7,7 +7,7 @@ module managers {
       public moveBackward?: boolean;
       public moveLeft?: boolean;
       public moveRight?: boolean;
-      public jump?: boolean;
+      public fireGun?: boolean;
       public enabled?: boolean;
       public paused?: boolean;
   
@@ -43,8 +43,8 @@ module managers {
             this.moveRight = true;
           break;
   
-          case config.Keys.SPACE:
-            this.jump = true;
+          case config.Keys.FIREGUN:
+            this.fireGun = true;
           break;
   
         }
@@ -72,8 +72,8 @@ module managers {
             this.moveRight = false;
           break;
   
-          case config.Keys.SPACE:
-            this.jump = false;
+          case config.Keys.FIREGUN:
+            this.fireGun = false;
           break;
   
         }

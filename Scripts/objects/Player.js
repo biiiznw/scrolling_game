@@ -68,16 +68,25 @@ var objects;
         Player.prototype.Start = function () {
             // this.x = 320;
             // this.y = 430;
-            this._verticalPosition = 760;
+            this._verticalPosition = 700;
         };
         Player.prototype.Update = function () {
             this._move();
             this._checkBounds();
+            //this._shootGun();
             // this._keyboardInput();
             // let mouseX = config.Game.STAGE.mouseX;
             // let mouseY = config.Game.STAGE.mouseY;
             // this.position = new Vector2(mouseX, mouseY);
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
+        };
+        Player.prototype._shootGun = function () {
+            //if(config.Game.keyboardManager.fireGun){
+            console.log("click");
+            // let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _player.x, _player.y-20, true);
+            // _bullets.push(bullet);
+            //addChild(bullet);
+            //}
         };
         Player.prototype.Reset = function () {
         };

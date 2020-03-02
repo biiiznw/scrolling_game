@@ -28,8 +28,8 @@ var managers;
                 case config.Keys.RIGHT_ARROW:
                     this.moveRight = true;
                     break;
-                case config.Keys.SPACE:
-                    this.jump = true;
+                case config.Keys.FIREGUN:
+                    this.fireGun = true;
                     break;
             }
         };
@@ -51,8 +51,8 @@ var managers;
                 case config.Keys.RIGHT_ARROW:
                     this.moveRight = false;
                     break;
-                case config.Keys.SPACE:
-                    this.jump = false;
+                case config.Keys.FIREGUN:
+                    this.fireGun = false;
                     break;
             }
         };
