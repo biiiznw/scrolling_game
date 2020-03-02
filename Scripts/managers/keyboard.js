@@ -4,6 +4,7 @@ var managers;
     var Keyboard = /** @class */ (function () {
         // constructors
         function Keyboard() {
+            this.fireOnce = true;
             this.enabled = true;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
             document.addEventListener('keyup', this.onKeyUp.bind(this), false);
@@ -29,8 +30,16 @@ var managers;
                     this.moveRight = true;
                     break;
                 case config.Keys.SPACE:
-                    this.jump = true;
-                    break;
+                    if (this.fireOnce) {
+                        this.fire = true;
+                        this.fireOnce = false;
+                        console.debug("debug: fire once" + this.fireOnce);
+                        break;
+                    }
+                    else {
+                        this.fire = false;
+                        break;
+                    }
             }
         };
         Keyboard.prototype.onKeyUp = function (event) {
@@ -52,7 +61,8 @@ var managers;
                     this.moveRight = false;
                     break;
                 case config.Keys.SPACE:
-                    this.jump = false;
+                    this.fireOnce = true;
+                    this.fire = false;
                     break;
             }
         };

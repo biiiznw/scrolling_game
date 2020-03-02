@@ -45,11 +45,17 @@ module objects
             if(config.Game.keyboardManager.moveRight){
                 this.x +=5;
             }
-            this.position = new Vector2(this.x, this._verticalPosition);
+            if(config.Game.keyboardManager.moveForward){
+                this.y -= 5;
+            }
+            if(config.Game.keyboardManager.moveBackward){
+                this.y += 5;
+            }
+            this.position = new Vector2(this.x, this.y);
         }
         // private _keyboardInput(event: KeyboardEvent) {
         //     // PRESS LEFT ARROW OR 'A' KEY
-        //     if (event.keyCode == 37 || event.keyCode == 65) {
+        //     if (event.keyCode == 37 || eve nt.keyCode == 65) {
         //        this._keyPosition.x -= 5;
         //     }
             
@@ -58,12 +64,12 @@ module objects
         //         this._keyPosition.x += 5;
         //     }
            
-        //  }
+        //  } 
         // PUBLIC METHODS
         public Start(): void {
-            // this.x = 320;
-            // this.y = 430;
-            this._verticalPosition = 760; 
+            this.x = 320;
+            this.y = 750;
+            // this._verticalPosition = 760; 
         }
 
         public Update(): void {

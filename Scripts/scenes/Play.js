@@ -22,6 +22,7 @@ var scenes;
             var _this = _super.call(this) || this;
             _this._numOfEnemy = 0;
             _this._bulletNum = 20;
+            _this.fire = true;
             // initialization
             _this._player = new objects.Player;
             _this._level = new objects.Label;
@@ -36,6 +37,7 @@ var scenes;
             _this._point = 0;
             _this._pointLabel = new objects.Label();
             _this._liveLabel = new objects.Label();
+            _this._player = new objects.Player();
             _this.Start();
             return _this;
         }
@@ -45,7 +47,7 @@ var scenes;
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
             //Set Number of Enemies
-            this._numOfEnemy = 5;
+            this._numOfEnemy = 4;
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
@@ -84,29 +86,21 @@ var scenes;
         Play.prototype.Update = function () {
             this._background.Update();
             this._player.Update();
+            this.UpdateBullets();
+            this.UpdatePlayerFire();
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
         };
         Play.prototype.Main = function () {
-            var _this = this;
             // adds background to the stage
             this.addChild(this._background);
             this.addChild(this._level);
-            this._player = new objects.Player();
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             //this.FireGun(this._ememies, this._enemybullets);
-            this._player.addEventListener("click", function () {
-                console.log("click");
-                _this._bulletNum--;
-                var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), _this._player.x, _this._player.y - 20, true);
-                _this._bullets.push(bullet);
-                _this.addChild(bullet);
-                // this.Update();
-            });
         }; //end public Main() method
         Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
             if (pick === void 0) { pick = false; }
@@ -143,15 +137,13 @@ var scenes;
                     _this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(_this._player, bullet);
                     if (bullet.isColliding) {
-                        _this._player.position = new objects.Vector2(-100, -200);
-                        _this._player.died = true;
+                        _this.ShieldAnimation(_this._player.x, _this._player.y);
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
                         //config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
                 _this._bullets.forEach(function (bullet) {
-                    _this.BulletSpeed(bullet, 2, 2, false);
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
                         _this.ExploreAnimation(enemy.x, enemy.y);
@@ -197,6 +189,27 @@ var scenes;
         //         setTimeout(function() { alert(index); }, index*5000);
         //     })(i);
         // }
+        Play.prototype.UpdateBullets = function () {
+            var _this = this;
+            this._bullets.forEach(function (bullet) {
+                _this.BulletSpeed(bullet, 8, 8, false);
+            });
+        };
+        Play.prototype.UpdatePlayerFire = function () {
+            if (config.Game.keyboardManager.fire) {
+                if (this.fire) {
+                    console.log("click1");
+                    this._bulletNum--;
+                    var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
+                    this._bullets.push(bullet);
+                    this.addChild(bullet);
+                    this.fire = false;
+                }
+            }
+            if (!config.Game.keyboardManager.fire) {
+                this.fire = true;
+            }
+        };
         Play.prototype.ExploreAnimation = function (obX, obY) {
             var chopperImg1 = document.createElement('img');
             var chopperImg2 = document.createElement('img');
@@ -245,6 +258,47 @@ var scenes;
             animation.spriteSheet.getAnimation('explore').speed = 0.5;
             animation.gotoAndPlay('explore');
             this.addChild(animation);
+        };
+        Play.prototype.ShieldAnimation = function (obX, obY) {
+            var chopperImg1 = document.createElement('img');
+            var chopperImg2 = document.createElement('img');
+            var chopperImg3 = document.createElement('img');
+            var chopperImg4 = document.createElement('img');
+            var chopperImg5 = document.createElement('img');
+            var chopperImg6 = document.createElement('img');
+            var chopperImg7 = document.createElement('img');
+            var chopperImg8 = document.createElement('img');
+            var chopperImg9 = document.createElement('img');
+            var chopperImg10 = document.createElement('img');
+            var chopperImg11 = document.createElement('img');
+            var chopperImg12 = document.createElement('img');
+            chopperImg1.src = "./Assets/images/s12.png";
+            chopperImg2.src = "./Assets/images/s11.png";
+            chopperImg3.src = "./Assets/images/s10.png";
+            chopperImg4.src = "./Assets/images/s9.png";
+            chopperImg5.src = "./Assets/images/s8.png";
+            chopperImg6.src = "./Assets/images/s7.png";
+            chopperImg7.src = "./Assets/images/s6.png";
+            chopperImg8.src = "./Assets/images/s5.png";
+            chopperImg9.src = "./Assets/images/s4.png";
+            chopperImg10.src = "./Assets/images/s3.png";
+            chopperImg11.src = "./Assets/images/s2.png";
+            chopperImg12.src = "./Assets/images/s1.png";
+            var spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12],
+                frames: { width: 136, height: 136, count: 12 },
+                animations: {
+                    shield: [0, 12, false]
+                }
+            });
+            var shieldAnimation = new createjs.Sprite(spriteSheet);
+            shieldAnimation.x = obX - 65;
+            shieldAnimation.y = obY - 50;
+            shieldAnimation.spriteSheet.getAnimation('shield').speed = 0.5;
+            shieldAnimation.gotoAndPlay('shield');
+            this.addChild(shieldAnimation);
         };
         Play.prototype.UpdateWinOrLoseCondition = function () {
             this._bulletNumLabel.text = "Bullets: " + this._bulletNum;

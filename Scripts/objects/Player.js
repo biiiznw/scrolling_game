@@ -52,7 +52,13 @@ var objects;
             if (config.Game.keyboardManager.moveRight) {
                 this.x += 5;
             }
-            this.position = new objects.Vector2(this.x, this._verticalPosition);
+            if (config.Game.keyboardManager.moveForward) {
+                this.y -= 5;
+            }
+            if (config.Game.keyboardManager.moveBackward) {
+                this.y += 5;
+            }
+            this.position = new objects.Vector2(this.x, this.y);
         };
         // private _keyboardInput(event: KeyboardEvent) {
         //     // PRESS LEFT ARROW OR 'A' KEY
@@ -66,9 +72,9 @@ var objects;
         //  }
         // PUBLIC METHODS
         Player.prototype.Start = function () {
-            // this.x = 320;
-            // this.y = 430;
-            this._verticalPosition = 760;
+            this.x = 320;
+            this.y = 750;
+            // this._verticalPosition = 760; 
         };
         Player.prototype.Update = function () {
             this._move();
