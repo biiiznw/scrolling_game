@@ -18,7 +18,7 @@ var objects;
         __extends(Player, _super);
         // CONSTRUCTOR
         function Player() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 0, 0, true) || this;
+            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 320, 0, true) || this;
             // PRIVATE INSTANCE MEMBERS
             _this._died = false;
             _this.Start();

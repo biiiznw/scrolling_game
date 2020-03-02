@@ -5,6 +5,7 @@ module objects
         // PRIVATE INSTANCE MEMBERS
         private _died:boolean = false;
         private _verticalPosition?:number;
+        
         //private _keyPosition:Vector2 = new Vector2(346, 0);
         
         // PUBLIC PROPERTIES
@@ -15,7 +16,7 @@ module objects
         // CONSTRUCTOR
         constructor()
         {
-            super(config.Game.ASSETS.getResult("player"),0,0,true);
+            super(config.Game.ASSETS.getResult("player"),320,0,true);
             this.Start();
         }
 

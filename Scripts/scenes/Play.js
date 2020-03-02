@@ -162,7 +162,7 @@ var scenes;
                     _this.BulletSpeed(bullet, 3, 1, true);
                     managers.Collision.Check(_this._player, bullet);
                     if (bullet.isColliding) {
-                        _this._player.position = new objects.Vector2(-100, -200);
+                        //this._player.position = new objects.Vector2(-100,-200);
                         _this._player.died = true;
                         bullet.position = new objects.Vector2(-200, -200);
                         _this.removeChild(bullet);
