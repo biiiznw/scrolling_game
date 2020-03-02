@@ -70,15 +70,9 @@ module objects
         //  } 
         // PUBLIC METHODS
         public Start(): void {
-<<<<<<< HEAD
             this.x = 320;
             this.y = 750;
             // this._verticalPosition = 760; 
-=======
-            // this.x = 320;
-            // this.y = 430;
-            this._verticalPosition = 700; 
->>>>>>> 9f701af787de9e1e0906320e8b4480116e5ccc52
         }
 
         public Update(): void {
