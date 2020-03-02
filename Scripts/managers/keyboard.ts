@@ -10,6 +10,7 @@ module managers {
       public fire?: boolean;
       public enabled?: boolean;
       public paused?: boolean;
+      public mute?: boolean;
       public fireOnce = true;
   
       // constructors

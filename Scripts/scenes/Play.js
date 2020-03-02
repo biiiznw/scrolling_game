@@ -37,6 +37,9 @@ var scenes;
             _this._point = 0;
             _this._pointLabel = new objects.Label();
             _this._liveLabel = new objects.Label();
+            _this._bulletImage = new objects.Button();
+            _this._scoreImage = new objects.Button();
+            _this._lifeImage = new objects.Button();
             _this._player = new objects.Player();
             _this.Start();
             return _this;
@@ -53,9 +56,12 @@ var scenes;
             createjs.Sound.play("playSound", this._playBackSound);
             this._ememies = new Array();
             this._enemybullets = new Array();
-            this._bulletNumLabel = new objects.Label("Bullet: 20", "20px", "Impact, Charcoal, sans-serif", "#fff", 580, 20, true);
-            this._pointLabel = new objects.Label("Scores: 0", "20px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 20, true);
-            this._liveLabel = new objects.Label("Live: 3", "20px", "Impact, Charcoal, sans-serif", "#fff", 40, 20, true);
+            this._bulletImage = new objects.Button(config.Game.ASSETS.getResult("bullet"), 560, 30, true);
+            this._scoreImage = new objects.Button(config.Game.ASSETS.getResult("score"), 420, 30, true);
+            this._lifeImage = new objects.Button(config.Game.ASSETS.getResult("life"), 30, 30, true);
+            this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
+            this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
+            this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             // this._enemyNum =4;
             //Add ememies
@@ -107,6 +113,9 @@ var scenes;
         Play.prototype.Main = function () {
             // adds background to the stage
             this.addChild(this._background);
+            this.addChild(this._bulletImage);
+            this.addChild(this._lifeImage);
+            this.addChild(this._scoreImage);
             this.addChild(this._level);
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
@@ -322,12 +331,12 @@ var scenes;
         };
         Play.prototype.UpdateWinOrLoseCondition = function () {
             var _this = this;
-            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            this._bulletNumLabel.text = " : " + this._bulletNum;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = "Scores: " + this._point;
-            this._liveLabel.text = "Live: " + managers.Collision.live;
+            this._pointLabel.text = " : " + this._point;
+            this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             if (managers.Collision.count == this._numOfEnemy) {
                 config.Game.SCENE_STATE = scenes.State.Stage2;
