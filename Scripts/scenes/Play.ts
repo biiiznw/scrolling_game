@@ -376,8 +376,9 @@ module scenes
                 config.Game.SCENE_STATE = scenes.State.Stage2;
             }
             //if attacked more than 3 times, game over
-            if(managers.Collision.live == 0)
+            if(managers.Collision.live <= 0)
             {
+                
                 setTimeout(() => {
                     this.removeChild(this._player);
                     config.Game.SCENE_STATE = scenes.State.END;

@@ -43,6 +43,10 @@ var objects;
             if (this.position.x >= config.Game.SCREEN_WIDTH - this.halfWidth) {
                 this.position = new objects.Vector2(config.Game.SCREEN_WIDTH - this.halfWidth, this.position.y);
             }
+            // bottom boundary 
+            if (this.position.y >= config.Game.SCREEN_HEIGHT - this.halfHeight) {
+                this.position = new objects.Vector2(this.x, config.Game.SCREEN_HEIGHT - this.halfHeight);
+            }
         };
         Player.prototype._move = function () {
             //this.position = new Vector2(this._keyPosition.x, this._verticalPosition);

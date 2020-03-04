@@ -5,7 +5,7 @@ var config;
         function Game() {
         }
         Game.SCREEN_WIDTH = 640;
-        Game.SCREEN_HEIGHT = 480;
+        Game.SCREEN_HEIGHT = 800;
         return Game;
     }());
     config.Game = Game;
