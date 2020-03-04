@@ -17,6 +17,9 @@ module scenes
         private _pointLabel:objects.Label;
         private _liveLabel:objects.Label;
         private fire = true;
+        private _bulletImage:objects.Button;
+        private _lifeImage:objects.Button;
+        private _scoreImage:objects.Button;
 
 
         // PUBLIC PROPERTIES
@@ -39,6 +42,9 @@ module scenes
             this._point = 0;
             this._pointLabel = new objects.Label();
             this._liveLabel = new objects.Label();
+            this._bulletImage = new objects.Button();
+            this._scoreImage = new objects.Button();
+            this._lifeImage = new objects.Button();
 
             this._player = new objects.Player();
             this.Start();
@@ -58,10 +64,12 @@ module scenes
             createjs.Sound.play("playSound", this._playBackSound)
             this._ememies = new Array<objects.Enemy>();
             this._enemybullets = new Array<objects.Bullet>();
-
-            this._bulletNumLabel = new objects.Label("Bullet: 20", "20px", "Impact, Charcoal, sans-serif", "#fff", 580, 20, true);
-            this._pointLabel = new objects.Label("Scores: 0", "20px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 20, true);
-            this._liveLabel = new objects.Label("Live: 3", "20px", "Impact, Charcoal, sans-serif", "#fff", 40, 20, true);
+            this._bulletImage = new objects.Button(config.Game.ASSETS.getResult("bullet"), 560,30, true);
+            this._scoreImage = new objects.Button(config.Game.ASSETS.getResult("score"), 420,30, true);
+            this._lifeImage = new objects.Button(config.Game.ASSETS.getResult("life"), 30,30, true);
+            this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
+            this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
+            this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
 
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             
@@ -125,7 +133,10 @@ module scenes
         public Main(): void {
             // adds background to the stage
             this.addChild(this._background);
-            this.addChild(this._level);
+            this.addChild(this._bulletImage);
+            this.addChild(this._lifeImage);
+            this.addChild(this._scoreImage);
+            //gitthis.addChild(this._level);
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
@@ -363,13 +374,13 @@ module scenes
         }
 
         public UpdateWinOrLoseCondition() {
-            this._bulletNumLabel.text = "Bullets: " + this._bulletNum;
+            this._bulletNumLabel.text = " : "+ this._bulletNum;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = "Scores: " + this._point;
+            this._pointLabel.text = " : " + this._point;
 
-            this._liveLabel.text = "Live: " + managers.Collision.live;
+            this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             if(managers.Collision.count == this._numOfEnemy)
             {
