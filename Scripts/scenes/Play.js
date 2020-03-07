@@ -23,6 +23,7 @@ var scenes;
             _this._numOfEnemy = 0;
             _this._bulletNum = 20;
             _this.fire = true;
+            _this._bulletImg = new Image();
             // initialization
             _this._player = new objects.Player;
             _this._level = new objects.Label;
@@ -41,6 +42,9 @@ var scenes;
             _this._scoreImage = new objects.Button();
             _this._lifeImage = new objects.Button();
             _this._player = new objects.Player();
+            _this._levelup = new objects.Image();
+            _this._playerBullet = new objects.Bullet();
+            _this._bulletImg.src = "./Assets/images/beam1.png";
             _this.Start();
             return _this;
         }
@@ -62,6 +66,7 @@ var scenes;
             this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
+            this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             // this._enemyNum =4;
             //Add ememies
@@ -109,6 +114,13 @@ var scenes;
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
+            this._levelup.y += 5;
+            this._levelup.position.y += 5;
+            managers.Collision.AABBCheck(this._player, this._levelup);
+            if (this._levelup.isColliding) {
+                this.removeChild(this._levelup);
+                this._bulletImg.src = "./Assets/images/beam3.png";
+            }
         };
         Play.prototype.Main = function () {
             // adds background to the stage
@@ -121,6 +133,7 @@ var scenes;
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
+            this.addChild(this._levelup);
         }; //end public Main() method
         Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
             if (pick === void 0) { pick = false; }
@@ -229,9 +242,10 @@ var scenes;
                 if (this.fire) {
                     console.log("click1");
                     this._bulletNum--;
-                    var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y - 20, true);
-                    this._bullets.push(bullet);
-                    this.addChild(bullet);
+                    createjs.Sound.play("./Assets/sounds/firstGun1.wav");
+                    this._playerBullet = new objects.Bullet(this._bulletImg, this._player.x, this._player.y - 20, true);
+                    this._bullets.push(this._playerBullet);
+                    this.addChild(this._playerBullet);
                     this.fire = false;
                 }
             }

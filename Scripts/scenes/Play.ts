@@ -20,6 +20,9 @@ module scenes
         private _bulletImage:objects.Button;
         private _lifeImage:objects.Button;
         private _scoreImage:objects.Button;
+        private _levelup:objects.Image;
+        private _playerBullet:objects.Bullet;
+        private _bulletImg = new Image();
 
 
         // PUBLIC PROPERTIES
@@ -45,8 +48,10 @@ module scenes
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
-
             this._player = new objects.Player();
+            this._levelup = new objects.Image();
+            this._playerBullet = new objects.Bullet();
+            this._bulletImg.src = "./Assets/images/beam1.png"
             this.Start();
         }
 
@@ -70,6 +75,7 @@ module scenes
             this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
+            this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
 
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             
@@ -126,6 +132,13 @@ module scenes
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
+            this._levelup.y += 5;
+            this._levelup.position.y +=5;
+            managers.Collision.AABBCheck(this._player, this._levelup);
+            if(this._levelup.isColliding) {
+                this.removeChild(this._levelup);
+                this._bulletImg.src = "./Assets/images/beam3.png";
+            }
         }
 
         
@@ -141,6 +154,7 @@ module scenes
             this.addChild(this._bulletNumLabel);
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
+            this.addChild(this._levelup);
            
         }//end public Main() method
 
@@ -186,7 +200,6 @@ module scenes
                     }
                 });
                 this._bullets.forEach((bullet) => {
-
                     managers.Collision.AABBCheck(enemy, bullet);
                     if(bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
@@ -262,9 +275,10 @@ module scenes
                 if(this.fire) {
                 console.log("click1");
                 this._bulletNum--;
-                let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
-                this._bullets.push(bullet);
-                this.addChild(bullet);
+                createjs.Sound.play("./Assets/sounds/firstGun1.wav");
+                this._playerBullet = new objects.Bullet(this._bulletImg, this._player.x, this._player.y-20, true);
+                this._bullets.push(this._playerBullet);
+                this.addChild(this._playerBullet);
                 this.fire = false;
                 }
             }

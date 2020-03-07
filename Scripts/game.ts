@@ -17,9 +17,11 @@ let game1 = (function(){
         {id: "firstScreen", src: "./Assets/images/firstScreen.png"},
         {id: "beam1", src: "./Assets/images/beam1.png"},
         {id: "beam2", src: "./Assets/images/enemyBeam01.png"},
+        {id: "beam3", src: "./Assets/images/beam2.png"},
         {id: "bullet", src: "./Assets/images/bullet.png"},
         {id: "score", src: "./Assets/images/score.png"},
         {id: "life", src: "./Assets/images/life.png"},
+        {id: "levelup", src: "./Assets/images/levelup.png"},
         // {id: "explore", src: "./Assets/images/explore.gif"},
         // {id: "explore1", src: "./Assets/images/explore1.gif"},
         //buttons
