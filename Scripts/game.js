@@ -1,14 +1,14 @@
 "use strict";
 //IIFE -- Immediately Invoked Function Expression
 // mean? is an anonymous self-executing function
-var game1 = (function () {
-    var canvas = document.getElementsByTagName('canvas')[0];
-    var stage;
-    var assets;
-    var currentSceneState;
-    var currentScene;
-    var keyboardManager;
-    var assetManifast = [
+let game1 = (function () {
+    let canvas = document.getElementsByTagName('canvas')[0];
+    let stage;
+    let assets;
+    let currentSceneState;
+    let currentScene;
+    let keyboardManager;
+    let assetManifast = [
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "placeholder1", src: "./Assets/images/placeholder1.png" },
         { id: "background", src: "./Assets/images/background.gif" },
@@ -46,7 +46,7 @@ var game1 = (function () {
      *
      */
     function Start() {
-        console.log("%c Game Started", "color: blue; font-size:20px;");
+        console.log(`%c Game Started`, "color: blue; font-size:20px;");
         stage = new createjs.Stage(canvas);
         config.Game.STAGE = stage; // create a reference to the Global Stage
         createjs.Ticker.framerate = 60; // declare the framerate as 60FPS
@@ -73,7 +73,7 @@ var game1 = (function () {
      *
      */
     function Main() {
-        console.log("%c Switching Scenes", "color: green; font-size:16px;");
+        console.log(`%c Switching Scenes`, "color: green; font-size:16px;");
         // cleanup
         if (currentSceneState != scenes.State.NO_SCENE) {
             currentScene.removeAllChildren();

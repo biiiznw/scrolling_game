@@ -1,11 +1,9 @@
 "use strict";
 var objects;
 (function (objects) {
-    var Vector2 = /** @class */ (function () {
+    class Vector2 {
         // CONSTRUCTOR
-        function Vector2(x, y) {
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
+        constructor(x = 0, y = 0) {
             // PRIVATE INSTANCE MEMBERS
             this._x = 0;
             this._y = 0;
@@ -16,72 +14,52 @@ var objects;
             this.sqrMagnitude = this.x * this.x + this.y * this.y;
             this.magnitude = Math.sqrt(this.sqrMagnitude);
         }
-        Object.defineProperty(Vector2.prototype, "x", {
-            // PUBLIC PROPERTIES
-            get: function () {
-                return this._x;
-            },
-            set: function (newX) {
-                this._x = newX;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Vector2.prototype, "y", {
-            get: function () {
-                return this._y;
-            },
-            set: function (newY) {
-                this._y = newY;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Vector2.prototype, "magnitude", {
-            get: function () {
-                return this._magnitude;
-            },
-            set: function (newMagnitude) {
-                this._magnitude = newMagnitude;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Vector2.prototype, "sqrMagnitude", {
-            get: function () {
-                return this._sqrMagnitude;
-            },
-            set: function (newSQRMagnitude) {
-                this._sqrMagnitude = newSQRMagnitude;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Vector2.prototype, "normalized", {
-            get: function () {
-                var vector2 = new Vector2(this.x, this.y);
-                vector2.normalize();
-                return vector2;
-            },
-            enumerable: true,
-            configurable: true
-        });
+        // PUBLIC PROPERTIES
+        get x() {
+            return this._x;
+        }
+        set x(newX) {
+            this._x = newX;
+        }
+        get y() {
+            return this._y;
+        }
+        set y(newY) {
+            this._y = newY;
+        }
+        get magnitude() {
+            return this._magnitude;
+        }
+        set magnitude(newMagnitude) {
+            this._magnitude = newMagnitude;
+        }
+        get sqrMagnitude() {
+            return this._sqrMagnitude;
+        }
+        set sqrMagnitude(newSQRMagnitude) {
+            this._sqrMagnitude = newSQRMagnitude;
+        }
+        get normalized() {
+            let vector2 = new Vector2(this.x, this.y);
+            vector2.normalize();
+            return vector2;
+        }
         // PRIVATE METHODS
         // PUBLIC METHODS
-        Vector2.prototype.add = function (rhs) {
+        add(rhs) {
             this.x += rhs.x;
             this.y += rhs.y;
-        };
-        Vector2.prototype.subtract = function (rhs) {
+        }
+        subtract(rhs) {
             this.x -= rhs.x;
             this.y -= rhs.y;
-        };
-        Vector2.prototype.scale = function (scalar) {
+        }
+        scale(scalar) {
             this.x *= scalar;
             this.y *= scalar;
-        };
-        Vector2.prototype.normalize = function () {
-            var magnitude = this.magnitude;
+        }
+        normalize() {
+            let magnitude = this.magnitude;
             if (magnitude > 9.99999974737875E-06) {
                 this.x = this.x / magnitude;
                 this.y = this.y / magnitude;
@@ -90,29 +68,29 @@ var objects;
                 this.x = 0;
                 this.y = 0;
             }
-        };
+        }
         // PUBLIC STATIC METHODS
-        Vector2.zero = function () {
+        static zero() {
             return new Vector2(0, 0);
-        };
-        Vector2.one = function () {
+        }
+        static one() {
             return new Vector2(1, 1);
-        };
-        Vector2.up = function () {
+        }
+        static up() {
             return new Vector2(0, -1);
-        };
-        Vector2.down = function () {
+        }
+        static down() {
             return new Vector2(0, 1);
-        };
-        Vector2.left = function () {
+        }
+        static left() {
             return new Vector2(-1, 0);
-        };
-        Vector2.right = function () {
+        }
+        static right() {
             return new Vector2(1, 0);
-        };
-        Vector2.dot = function (lhs, rhs) {
+        }
+        static dot(lhs, rhs) {
             return lhs.x * rhs.x + lhs.y * rhs.y;
-        };
+        }
         /**
          * Returns the Pythogorean Distance between P1 and P2
          *
@@ -121,11 +99,11 @@ var objects;
          * @param {Vector2} P2
          * @returns {number}
          */
-        Vector2.distance = function (P1, P2) {
-            var Xs = (P2.x - P1.x);
-            var Ys = (P2.y - P1.y);
+        static distance(P1, P2) {
+            let Xs = (P2.x - P1.x);
+            let Ys = (P2.y - P1.y);
             return Math.sqrt(Xs * Xs + Ys * Ys);
-        };
+        }
         /**
          * Returns the squared distance between P1 and P2
          *
@@ -134,23 +112,22 @@ var objects;
          * @param {Vector2} P2
          * @returns {number}
          */
-        Vector2.sqrDistance = function (P1, P2) {
-            var Xs = (P2.x - P1.x);
-            var Ys = (P2.y - P1.y);
+        static sqrDistance(P1, P2) {
+            let Xs = (P2.x - P1.x);
+            let Ys = (P2.y - P1.y);
             return Xs * Xs + Ys * Ys;
-        };
-        Vector2.add = function (lhs, rhs) {
-            var dx = lhs.x + rhs.x;
-            var dy = lhs.y + rhs.y;
+        }
+        static add(lhs, rhs) {
+            let dx = lhs.x + rhs.x;
+            let dy = lhs.y + rhs.y;
             return new Vector2(dx, dy);
-        };
-        Vector2.subtract = function (lhs, rhs) {
-            var dx = lhs.x - rhs.x;
-            var dy = lhs.y - rhs.y;
+        }
+        static subtract(lhs, rhs) {
+            let dx = lhs.x - rhs.x;
+            let dy = lhs.y - rhs.y;
             return new Vector2(dx, dy);
-        };
-        return Vector2;
-    }());
+        }
+    }
     objects.Vector2 = Vector2;
 })(objects || (objects = {}));
 //# sourceMappingURL=Vector2.js.map

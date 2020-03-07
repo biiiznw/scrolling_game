@@ -1,9 +1,9 @@
 "use strict";
 var managers;
 (function (managers) {
-    var Keyboard = /** @class */ (function () {
+    class Keyboard {
         // constructors
-        function Keyboard() {
+        constructor() {
             this.fireOnce = true;
             this.enabled = true;
             document.addEventListener('keydown', this.onKeyDown.bind(this), false);
@@ -11,7 +11,7 @@ var managers;
         }
         // private methods
         // public methods
-        Keyboard.prototype.onKeyDown = function (event) {
+        onKeyDown(event) {
             switch (event.keyCode) {
                 case config.Keys.W:
                 case config.Keys.UP_ARROW:
@@ -41,8 +41,8 @@ var managers;
                         break;
                     }
             }
-        };
-        Keyboard.prototype.onKeyUp = function (event) {
+        }
+        onKeyUp(event) {
             switch (event.keyCode) {
                 case config.Keys.W:
                 case config.Keys.UP_ARROW:
@@ -65,9 +65,8 @@ var managers;
                     this.fire = false;
                     break;
             }
-        };
-        return Keyboard;
-    }());
+        }
+    }
     managers.Keyboard = Keyboard;
 })(managers || (managers = {}));
 //# sourceMappingURL=keyboard.js.map

@@ -1,10 +1,8 @@
 "use strict";
 var util;
 (function (util) {
-    var Math = /** @class */ (function () {
-        function Math() {
-        }
-        Math.Clamp = function (value, min, max) {
+    class Math {
+        static Clamp(value, min, max) {
             if (value < min) {
                 value = min;
             }
@@ -12,8 +10,8 @@ var util;
                 value = max;
             }
             return value;
-        };
-        Math.Clamp01 = function (value) {
+        }
+        static Clamp01(value) {
             if (value < 0.0) {
                 return 0.0;
             }
@@ -21,15 +19,14 @@ var util;
                 return 1.0;
             }
             return value;
-        };
-        Math.Lerp = function (a, b, t) {
+        }
+        static Lerp(a, b, t) {
             return a + (b - a) * Math.Clamp01(t);
-        };
-        Math.LerpUnclamped = function (a, b, t) {
+        }
+        static LerpUnclamped(a, b, t) {
             return a + (b - a) * t;
-        };
-        return Math;
-    }());
+        }
+    }
     util.Math = Math;
 })(util || (util = {}));
 //# sourceMappingURL=Math.js.map

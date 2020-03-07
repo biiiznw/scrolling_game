@@ -1,40 +1,21 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var objects;
 (function (objects) {
-    var Player = /** @class */ (function (_super) {
-        __extends(Player, _super);
+    class Player extends objects.GameObject {
         // CONSTRUCTOR
-        function Player() {
-            var _this = _super.call(this, config.Game.ASSETS.getResult("player"), 320, 0, true) || this;
+        constructor() {
+            super(config.Game.ASSETS.getResult("player"), 320, 0, true);
             // PRIVATE INSTANCE MEMBERS
-            _this._died = false;
-            _this.Start();
-            return _this;
+            this._died = false;
+            this.Start();
         }
-        Object.defineProperty(Player.prototype, "died", {
-            //private _keyPosition:Vector2 = new Vector2(346, 0);
-            // PUBLIC PROPERTIES
-            set: function (status) {
-                this._died = status;
-            },
-            enumerable: true,
-            configurable: true
-        });
+        //private _keyPosition:Vector2 = new Vector2(346, 0);
+        // PUBLIC PROPERTIES
+        set died(status) {
+            this._died = status;
+        }
         // PRIVATE METHODS
-        Player.prototype._checkBounds = function () {
+        _checkBounds() {
             // left boundary
             if (this.position.x <= this.halfWidth) {
                 this.position = new objects.Vector2(this.halfWidth, this.position.y);
@@ -47,8 +28,8 @@ var objects;
             if (this.position.y >= config.Game.SCREEN_HEIGHT - this.halfHeight) {
                 this.position = new objects.Vector2(this.x, config.Game.SCREEN_HEIGHT - this.halfHeight);
             }
-        };
-        Player.prototype._move = function () {
+        }
+        _move() {
             //this.position = new Vector2(this._keyPosition.x, this._verticalPosition);
             if (config.Game.keyboardManager.moveLeft) {
                 this.x -= 5;
@@ -63,7 +44,7 @@ var objects;
                 this.y += 5;
             }
             this.position = new objects.Vector2(this.x, this.y);
-        };
+        }
         // private _keyboardInput(event: KeyboardEvent) {
         //     // PRESS LEFT ARROW OR 'A' KEY
         //     if (event.keyCode == 37 || eve nt.keyCode == 65) {
@@ -75,12 +56,12 @@ var objects;
         //     }
         //  } 
         // PUBLIC METHODS
-        Player.prototype.Start = function () {
+        Start() {
             this.x = 320;
             this.y = 750;
             // this._verticalPosition = 760; 
-        };
-        Player.prototype.Update = function () {
+        }
+        Update() {
             this._move();
             this._checkBounds();
             //this._shootGun();
@@ -89,11 +70,10 @@ var objects;
             // let mouseY = config.Game.STAGE.mouseY;
             // this.position = new Vector2(mouseX, mouseY);
             //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
-        };
-        Player.prototype.Reset = function () {
-        };
-        return Player;
-    }(objects.GameObject));
+        }
+        Reset() {
+        }
+    }
     objects.Player = Player;
 })(objects || (objects = {}));
 //# sourceMappingURL=Player.js.map

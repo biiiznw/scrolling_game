@@ -1,21 +1,7 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var objects;
 (function (objects) {
-    var GameObject = /** @class */ (function (_super) {
-        __extends(GameObject, _super);
+    class GameObject extends createjs.Bitmap {
         // CONSTRUCTOR
         /**
          * Creates an instance of GameObject.
@@ -25,129 +11,91 @@ var objects;
          * @param {boolean} [centered=false]
          * @memberof GameObject
          */
-        function GameObject(imagePath, x, y, centered) {
-            if (imagePath === void 0) { imagePath = config.Game.ASSETS.getResult("placeholder"); }
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
-            if (centered === void 0) { centered = false; }
-            var _this = _super.call(this, imagePath) || this;
+        constructor(imagePath = config.Game.ASSETS.getResult("placeholder"), x = 0, y = 0, centered = false) {
+            super(imagePath);
             // MEMBER VARIABLES
-            _this._width = 0;
-            _this._height = 0;
-            _this._halfWidth = 0;
-            _this._halfHeight = 0;
-            _this._isColliding = false;
-            _this._isCentered = false;
-            _this._position = new objects.Vector2(0, 0);
-            _this._velocity = new objects.Vector2(0, 0);
-            _this.isColliding = false;
+            this._width = 0;
+            this._height = 0;
+            this._halfWidth = 0;
+            this._halfHeight = 0;
+            this._isColliding = false;
+            this._isCentered = false;
+            this._position = new objects.Vector2(0, 0);
+            this._velocity = new objects.Vector2(0, 0);
+            this.isColliding = false;
             // this.position = new Vector2(x, y);
             // // wait for the  image to load before calculating its width and height
             // this.image.addEventListener('load', ()=>{
-            _this.width = _this.getBounds().width;
-            _this.height = _this.getBounds().height;
-            _this.halfWidth = _this.width * 0.5;
-            _this.halfHeight = _this.height * 0.5;
-            _this.isCentered = centered;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.halfWidth = this.width * 0.5;
+            this.halfHeight = this.height * 0.5;
+            this.isCentered = centered;
             // });
             // set the GameObject's position
-            _this.position = new objects.Vector2(x, y);
-            return _this;
+            this.position = new objects.Vector2(x, y);
         }
-        Object.defineProperty(GameObject.prototype, "width", {
-            // PROPERTIES
-            get: function () {
-                return this._width;
-            },
-            set: function (newWidth) {
-                this._width = newWidth;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "height", {
-            get: function () {
-                return this._height;
-            },
-            set: function (newHeight) {
-                this._height = newHeight;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "halfWidth", {
-            get: function () {
-                return this._halfWidth;
-            },
-            set: function (newHalfWidth) {
-                this._halfWidth = newHalfWidth;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "halfHeight", {
-            get: function () {
-                return this._halfHeight;
-            },
-            set: function (newHalfHeight) {
-                this._halfHeight = newHalfHeight;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "isColliding", {
-            get: function () {
-                return this._isColliding;
-            },
-            set: function (newState) {
-                this._isColliding = newState;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "position", {
-            get: function () {
-                return this._position;
-            },
-            set: function (newPosition) {
-                this._position = newPosition;
-                this.x = newPosition.x;
-                this.y = newPosition.y;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "velocity", {
-            get: function () {
-                return this._velocity;
-            },
-            set: function (newVelocity) {
-                this._velocity = newVelocity;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GameObject.prototype, "isCentered", {
-            get: function () {
-                return this._isCentered;
-            },
-            set: function (newState) {
-                this._isCentered = newState;
-                if (newState) {
-                    // set the anchor point to the center
-                    this.regX = this.halfWidth;
-                    this.regY = this.halfHeight;
-                }
-                else {
-                    this.regX = 0;
-                    this.regY = 0;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return GameObject;
-    }(createjs.Bitmap));
+        // PROPERTIES
+        get width() {
+            return this._width;
+        }
+        set width(newWidth) {
+            this._width = newWidth;
+        }
+        get height() {
+            return this._height;
+        }
+        set height(newHeight) {
+            this._height = newHeight;
+        }
+        get halfWidth() {
+            return this._halfWidth;
+        }
+        set halfWidth(newHalfWidth) {
+            this._halfWidth = newHalfWidth;
+        }
+        get halfHeight() {
+            return this._halfHeight;
+        }
+        set halfHeight(newHalfHeight) {
+            this._halfHeight = newHalfHeight;
+        }
+        get isColliding() {
+            return this._isColliding;
+        }
+        set isColliding(newState) {
+            this._isColliding = newState;
+        }
+        get position() {
+            return this._position;
+        }
+        set position(newPosition) {
+            this._position = newPosition;
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+        }
+        get velocity() {
+            return this._velocity;
+        }
+        set velocity(newVelocity) {
+            this._velocity = newVelocity;
+        }
+        get isCentered() {
+            return this._isCentered;
+        }
+        set isCentered(newState) {
+            this._isCentered = newState;
+            if (newState) {
+                // set the anchor point to the center
+                this.regX = this.halfWidth;
+                this.regY = this.halfHeight;
+            }
+            else {
+                this.regX = 0;
+                this.regY = 0;
+            }
+        }
+    }
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
 //# sourceMappingURL=GameObject.js.map

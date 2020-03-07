@@ -1,56 +1,41 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var scenes;
 (function (scenes) {
-    var Play = /** @class */ (function (_super) {
-        __extends(Play, _super);
+    class Play extends objects.Scene {
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Play() {
-            var _this = _super.call(this) || this;
-            _this._numOfEnemy = 0;
-            _this._bulletNum = 20;
-            _this.fire = true;
-            _this._bulletImg = new Image();
+        constructor() {
+            super();
+            this._numOfEnemy = 0;
+            this._bulletNum = 20;
+            this.fire = true;
+            this._bulletImg = new Image();
             // initialization
-            _this._player = new objects.Player;
-            _this._level = new objects.Label;
-            _this._ememies = new Array();
-            _this._background = new objects.Background();
-            _this._playBackSound = new createjs.PlayPropsConfig();
-            _this._bullets = new Array();
-            _this._enemybullets = new Array();
-            _this._numOfEnemy;
-            _this._bulletNum = 30;
-            _this._bulletNumLabel = new objects.Label();
-            _this._point = 0;
-            _this._pointLabel = new objects.Label();
-            _this._liveLabel = new objects.Label();
-            _this._bulletImage = new objects.Button();
-            _this._scoreImage = new objects.Button();
-            _this._lifeImage = new objects.Button();
-            _this._player = new objects.Player();
-            _this._levelup = new objects.Image();
-            _this._playerBullet = new objects.Bullet();
-            _this._bulletImg.src = "./Assets/images/beam1.png";
-            _this.Start();
-            return _this;
+            this._player = new objects.Player;
+            this._level = new objects.Label;
+            this._ememies = new Array();
+            this._background = new objects.Background();
+            this._playBackSound = new createjs.PlayPropsConfig();
+            this._bullets = new Array();
+            this._enemybullets = new Array();
+            this._numOfEnemy;
+            this._bulletNum = 30;
+            this._bulletNumLabel = new objects.Label();
+            this._point = 0;
+            this._pointLabel = new objects.Label();
+            this._liveLabel = new objects.Label();
+            this._bulletImage = new objects.Button();
+            this._scoreImage = new objects.Button();
+            this._lifeImage = new objects.Button();
+            this._player = new objects.Player();
+            this._levelup = new objects.Image();
+            this._playerBullet = new objects.Bullet();
+            this._bulletImg.src = "./Assets/images/beam1.png";
+            this.Start();
         }
         // PUBLIC METHODS
         //initilize 
-        Play.prototype.Start = function () {
+        Start() {
             this._background = new objects.Background();
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
             //Set Number of Enemies
@@ -73,22 +58,21 @@ var scenes;
             this.AddEnemies(this._numOfEnemy);
             //this.AddEnemies(10, this._enemybullets);
             this.Main();
-        };
-        Play.prototype.AddEnemies = function (number) {
-            var _this = this;
-            var createEnemy = setInterval(function () {
-                if (_this._ememies.length < number) {
-                    var enemy = new objects.Enemy();
-                    _this._ememies.push(enemy);
-                    _this.addChild(enemy);
+        }
+        AddEnemies(number) {
+            let createEnemy = setInterval(() => {
+                if (this._ememies.length < number) {
+                    let enemy = new objects.Enemy();
+                    this._ememies.push(enemy);
+                    this.addChild(enemy);
                     console.log("CREATE");
-                    _this.FireGun(enemy, _this._enemybullets);
+                    this.FireGun(enemy, this._enemybullets);
                 }
                 else {
                     clearInterval(createEnemy);
                 }
             }, 1000);
-        };
+        }
         // public Controls(e:KeyboardEvent):void
         // {
         //     if(e.keyCode == config.Keys.FIREGUN)
@@ -106,7 +90,7 @@ var scenes;
         //         this._ememies[count] = new objects.Enemy();
         //     }
         // }
-        Play.prototype.Update = function () {
+        Update() {
             this._background.Update();
             this._player.Update();
             this.UpdateBullets();
@@ -121,8 +105,8 @@ var scenes;
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
-        };
-        Play.prototype.Main = function () {
+        }
+        Main() {
             // adds background to the stage
             this.addChild(this._background);
             this.addChild(this._bulletImage);
@@ -134,9 +118,8 @@ var scenes;
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
-        }; //end public Main() method
-        Play.prototype.BulletSpeed = function (eBullet, eSpeed, eMove, pick) {
-            if (pick === void 0) { pick = false; }
+        } //end public Main() method
+        BulletSpeed(eBullet, eSpeed, eMove, pick = false) {
             //enemy direction
             if (pick == true) {
                 eBullet.y += eSpeed;
@@ -153,36 +136,35 @@ var scenes;
                     this.removeChild(eBullet);
                 }
             }
-        };
-        Play.prototype.UpdatePosition = function () {
-            var _this = this;
-            this._ememies.forEach(function (enemy) {
-                _this.addChild(enemy);
+        }
+        UpdatePosition() {
+            this._ememies.forEach(enemy => {
+                this.addChild(enemy);
                 enemy.Update();
-                _this._enemybullets.forEach(function (bullet) {
-                    managers.Collision.Check(_this._player, bullet);
+                this._enemybullets.forEach((bullet) => {
+                    managers.Collision.Check(this._player, bullet);
                     if (bullet.isColliding) {
                         if (managers.Collision.live <= 0) {
-                            _this.ExploreAnimation(_this._player.x, _this._player.y);
+                            this.ExploreAnimation(this._player.x, this._player.y);
                         }
                         else {
-                            _this.ShieldAnimation(_this._player.x, _this._player.y);
+                            this.ShieldAnimation(this._player.x, this._player.y);
                         }
                         bullet.position = new objects.Vector2(-200, -200);
-                        _this.removeChild(bullet);
+                        this.removeChild(bullet);
                         //config.Game.SCENE_STATE = scenes.State.END;
                     }
                 });
-                _this._bullets.forEach(function (bullet) {
+                this._bullets.forEach((bullet) => {
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
-                        _this.ExploreAnimation(enemy.x, enemy.y);
+                        this.ExploreAnimation(enemy.x, enemy.y);
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
-                        _this.removeChild(enemy);
+                        this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200, -200);
-                        _this.removeChild(bullet);
-                        _this._point += 100;
+                        this.removeChild(bullet);
+                        this._point += 100;
                     }
                 });
                 //check collision player and enemies
@@ -195,49 +177,47 @@ var scenes;
                 //     //createjs.Sound.stop();//
                 // }
             });
-        }; //end update positon
+        } //end update positon
         // Shot fire until enemies are colliding
-        Play.prototype.FireGun = function (enemy, bullArray) {
-            var _this = this;
+        FireGun(enemy, bullArray) {
             //newArray.forEach(enemy => {
             //this.addChild(enemy);
             if (enemy.canShoot()) {
-                var fire_1 = setInterval(function () {
+                let fire = setInterval(() => {
                     if (!enemy.isColliding) {
-                        var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
                         bullArray.push(bullet);
-                        _this.addChild(bullet);
+                        this.addChild(bullet);
                     }
                     else
-                        clearInterval(fire_1);
+                        clearInterval(fire);
                 }, 500);
             }
             //});
-        }; //end public FireGun
+        } //end public FireGun
         // for(var i = 0; i < 3; i++) {
         //     (function(index) {
         //         setTimeout(function() { alert(index); }, index*5000);
         //     })(i);
         // }
-        Play.prototype.UpdateBullets = function () {
-            var _this = this;
-            this._bullets.forEach(function (bullet) {
-                _this.BulletSpeed(bullet, 8, 8, false);
+        UpdateBullets() {
+            this._bullets.forEach((bullet) => {
+                this.BulletSpeed(bullet, 8, 8, false);
             });
-            this._ememies.forEach(function (enemy) {
-                enemy.addEventListener("tick", function () {
+            this._ememies.forEach(enemy => {
+                enemy.addEventListener("tick", () => {
                     if (enemy.canShoot()) {
-                        var bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
-                        _this._enemybullets.push(bullet);
-                        _this.addChild(bullet);
+                        let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x + 20, enemy.y + 50, true);
+                        this._enemybullets.push(bullet);
+                        this.addChild(bullet);
                     }
                 });
             });
-            this._enemybullets.forEach(function (bullet) {
-                _this.BulletSpeed(bullet, 8, 8, true);
+            this._enemybullets.forEach((bullet) => {
+                this.BulletSpeed(bullet, 8, 8, true);
             });
-        };
-        Play.prototype.UpdatePlayerFire = function () {
+        }
+        UpdatePlayerFire() {
             if (config.Game.keyboardManager.fire) {
                 if (this.fire) {
                     console.log("click1");
@@ -252,24 +232,24 @@ var scenes;
             if (!config.Game.keyboardManager.fire) {
                 this.fire = true;
             }
-        };
-        Play.prototype.ExploreAnimation = function (obX, obY) {
-            var chopperImg1 = document.createElement('img');
-            var chopperImg2 = document.createElement('img');
-            var chopperImg3 = document.createElement('img');
-            var chopperImg4 = document.createElement('img');
-            var chopperImg5 = document.createElement('img');
-            var chopperImg6 = document.createElement('img');
-            var chopperImg7 = document.createElement('img');
-            var chopperImg8 = document.createElement('img');
-            var chopperImg9 = document.createElement('img');
-            var chopperImg10 = document.createElement('img');
-            var chopperImg11 = document.createElement('img');
-            var chopperImg12 = document.createElement('img');
-            var chopperImg13 = document.createElement('img');
-            var chopperImg14 = document.createElement('img');
-            var chopperImg15 = document.createElement('img');
-            var chopperImg16 = document.createElement('img');
+        }
+        ExploreAnimation(obX, obY) {
+            let chopperImg1 = document.createElement('img');
+            let chopperImg2 = document.createElement('img');
+            let chopperImg3 = document.createElement('img');
+            let chopperImg4 = document.createElement('img');
+            let chopperImg5 = document.createElement('img');
+            let chopperImg6 = document.createElement('img');
+            let chopperImg7 = document.createElement('img');
+            let chopperImg8 = document.createElement('img');
+            let chopperImg9 = document.createElement('img');
+            let chopperImg10 = document.createElement('img');
+            let chopperImg11 = document.createElement('img');
+            let chopperImg12 = document.createElement('img');
+            let chopperImg13 = document.createElement('img');
+            let chopperImg14 = document.createElement('img');
+            let chopperImg15 = document.createElement('img');
+            let chopperImg16 = document.createElement('img');
             chopperImg1.src = "./Assets/images/e1.png";
             chopperImg2.src = "./Assets/images/e2.png";
             chopperImg3.src = "./Assets/images/e3.png";
@@ -286,7 +266,7 @@ var scenes;
             chopperImg14.src = "./Assets/images/e14.png";
             chopperImg15.src = "./Assets/images/e15.png";
             chopperImg16.src = "./Assets/images/e16.png";
-            var spriteSheet = new createjs.SpriteSheet({
+            let spriteSheet = new createjs.SpriteSheet({
                 images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
                     chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
                     chopperImg11, chopperImg12, chopperImg13, chopperImg14, chopperImg15, chopperImg16],
@@ -295,26 +275,26 @@ var scenes;
                     explore: [0, 16, false]
                 }
             });
-            var animation = new createjs.Sprite(spriteSheet);
+            let animation = new createjs.Sprite(spriteSheet);
             animation.x = obX - 65;
             animation.y = obY - 50;
             animation.spriteSheet.getAnimation('explore').speed = 0.5;
             animation.gotoAndPlay('explore');
             this.addChild(animation);
-        };
-        Play.prototype.ShieldAnimation = function (obX, obY) {
-            var chopperImg1 = document.createElement('img');
-            var chopperImg2 = document.createElement('img');
-            var chopperImg3 = document.createElement('img');
-            var chopperImg4 = document.createElement('img');
-            var chopperImg5 = document.createElement('img');
-            var chopperImg6 = document.createElement('img');
-            var chopperImg7 = document.createElement('img');
-            var chopperImg8 = document.createElement('img');
-            var chopperImg9 = document.createElement('img');
-            var chopperImg10 = document.createElement('img');
-            var chopperImg11 = document.createElement('img');
-            var chopperImg12 = document.createElement('img');
+        }
+        ShieldAnimation(obX, obY) {
+            let chopperImg1 = document.createElement('img');
+            let chopperImg2 = document.createElement('img');
+            let chopperImg3 = document.createElement('img');
+            let chopperImg4 = document.createElement('img');
+            let chopperImg5 = document.createElement('img');
+            let chopperImg6 = document.createElement('img');
+            let chopperImg7 = document.createElement('img');
+            let chopperImg8 = document.createElement('img');
+            let chopperImg9 = document.createElement('img');
+            let chopperImg10 = document.createElement('img');
+            let chopperImg11 = document.createElement('img');
+            let chopperImg12 = document.createElement('img');
             chopperImg1.src = "./Assets/images/s12.png";
             chopperImg2.src = "./Assets/images/s11.png";
             chopperImg3.src = "./Assets/images/s10.png";
@@ -327,7 +307,7 @@ var scenes;
             chopperImg10.src = "./Assets/images/s3.png";
             chopperImg11.src = "./Assets/images/s2.png";
             chopperImg12.src = "./Assets/images/s1.png";
-            var spriteSheet = new createjs.SpriteSheet({
+            let spriteSheet = new createjs.SpriteSheet({
                 images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
                     chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
                     chopperImg11, chopperImg12],
@@ -336,15 +316,14 @@ var scenes;
                     shield: [0, 12, false]
                 }
             });
-            var shieldAnimation = new createjs.Sprite(spriteSheet);
+            let shieldAnimation = new createjs.Sprite(spriteSheet);
             shieldAnimation.x = obX - 65;
             shieldAnimation.y = obY - 50;
             shieldAnimation.spriteSheet.getAnimation('shield').speed = 0.5;
             shieldAnimation.gotoAndPlay('shield');
             this.addChild(shieldAnimation);
-        };
-        Play.prototype.UpdateWinOrLoseCondition = function () {
-            var _this = this;
+        }
+        UpdateWinOrLoseCondition() {
             this._bulletNumLabel.text = " : " + this._bulletNum;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
@@ -357,14 +336,13 @@ var scenes;
             }
             //if attacked more than 3 times, game over
             if (managers.Collision.live <= 0) {
-                setTimeout(function () {
-                    _this.removeChild(_this._player);
+                setTimeout(() => {
+                    this.removeChild(this._player);
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
-        };
-        return Play;
-    }(objects.Scene)); //end class
+        }
+    } //end class
     scenes.Play = Play;
 })(scenes || (scenes = {})); //end module
 // this._player.addEventListener("click", () =>{

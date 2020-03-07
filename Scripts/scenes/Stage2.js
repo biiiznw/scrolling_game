@@ -1,45 +1,30 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var scenes;
 (function (scenes) {
-    var Stage2 = /** @class */ (function (_super) {
-        __extends(Stage2, _super);
+    class Stage2 extends objects.Scene {
         // private  _ocean:objects.Ocean;
         // PUBLIC PROPERTIES
         // CONSTRUCTOR
-        function Stage2() {
-            var _this = _super.call(this) || this;
+        constructor() {
+            super();
             // initialization
-            _this.endLabel = new objects.Label();
-            _this._background = new objects.Background();
-            _this._backButton = new objects.Button();
+            this.endLabel = new objects.Label();
+            this._background = new objects.Background();
+            this._backButton = new objects.Button();
             // this._ocean = new objects.Ocean();
-            _this.Start();
-            return _this;
+            this.Start();
         }
         // PUBLIC METHODS
-        Stage2.prototype.Start = function () {
+        Start() {
             this._background = new objects.Background();
             this.endLabel = new objects.Label("Stage2", "80px", "Consolas", "#FFFFFF", 320, 200, true);
             //this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
             this.Main();
-        };
-        Stage2.prototype.Update = function () {
+        }
+        Update() {
             // this._ocean.Update();
-        };
-        Stage2.prototype.Main = function () {
+        }
+        Main() {
             // this.addChild(this._ocean);
             this.addChild(this._background);
             this.addChild(this.endLabel);
@@ -48,9 +33,8 @@ var scenes;
             //     config.Game.SCENE_STATE = scenes.State.PLAY;
             //     createjs.Sound.stop();
             // });
-        };
-        return Stage2;
-    }(objects.Scene));
+        }
+    }
     scenes.Stage2 = Stage2;
 })(scenes || (scenes = {}));
 //Update

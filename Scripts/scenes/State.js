@@ -1,7 +1,7 @@
 "use strict";
 var scenes;
 (function (scenes) {
-    var State;
+    let State;
     (function (State) {
         State[State["NO_SCENE"] = -1] = "NO_SCENE";
         State[State["START"] = 0] = "START";
