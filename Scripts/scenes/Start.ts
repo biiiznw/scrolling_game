@@ -42,8 +42,10 @@ module scenes
             this.addChild(this._startButton);
     
             this._startButton.on("click", function() {
-               config.Game.SCENE_STATE = scenes.State.PLAY;
-               createjs.Sound.stop();
+                //changed it for the testing
+                //config.Game.SCENE_STATE = scenes.State.PLAY;
+                config.Game.SCENE_STATE = scenes.State.Stage2;
+                createjs.Sound.stop();
             });
         }
 

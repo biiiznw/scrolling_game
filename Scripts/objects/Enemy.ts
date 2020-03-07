@@ -20,11 +20,13 @@ module objects
         }
 
         // CONSTRUCTOR
-        constructor()
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder"))
         {
-            super((config.Game.ASSETS.getResult("enemy")));
+            //super((config.Game.ASSETS.getResult("enemy")));
+            super(imagePath);
             this._enemybullets = new Array<objects.Bullet>();
             this._enemies = new Array<objects.Enemy>();
+
             this.Start();
         }
 

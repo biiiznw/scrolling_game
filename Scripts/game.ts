@@ -13,6 +13,7 @@ let game1 = (function(){
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "background", src: "./Assets/images/background.gif"},
         {id: "enemy", src: "./Assets/images/enemy.png"},
+        {id: "enemy02", src: "./Assets/images/enemy02.png"},
         {id: "player", src: "./Assets/images/Player.png"},
         {id: "firstScreen", src: "./Assets/images/firstScreen.png"},
         {id: "beam1", src: "./Assets/images/beam1.png"},

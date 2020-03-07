@@ -90,7 +90,7 @@ module scenes
             let createEnemy = setInterval(()=>{
                 if(this._ememies.length < number)
                 {
-                    let enemy = new objects.Enemy();
+                    let enemy = new objects.Enemy(config.Game.ASSETS.getResult("enemy"));
                     this._ememies.push(enemy);
                     this.addChild(enemy)
                     console.log("CREATE")

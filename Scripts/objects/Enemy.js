@@ -3,8 +3,9 @@ var objects;
 (function (objects) {
     class Enemy extends objects.GameObject {
         // CONSTRUCTOR
-        constructor() {
-            super((config.Game.ASSETS.getResult("enemy")));
+        constructor(imagePath = config.Game.ASSETS.getResult("placeholder")) {
+            //super((config.Game.ASSETS.getResult("enemy")));
+            super(imagePath);
             this._died = false;
             this._dy = 0; //speed
             this._dx = 0;
