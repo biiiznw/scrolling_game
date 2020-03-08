@@ -20,6 +20,7 @@ var objects;
             this.Reset();
         }
         Update() {
+            this.rotation += 10;
             this._move();
             this._checkBounds();
         }

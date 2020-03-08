@@ -65,6 +65,13 @@ var scenes;
                 }, 500);
             }
         } //end public FireGun
+        // public EventLife():void
+        // {
+        //     if(this._point > 100)
+        //     {
+        //         let lifeImage = new objects.Button(config.Game.ASSETS.getResult("life.png"));
+        //     }
+        // }
         UpdatePosition() {
             this._ememies.forEach(enemy => {
                 this.addChild(enemy);

@@ -93,6 +93,15 @@ module scenes
             }
         }//end public FireGun
 
+        // public EventLife():void
+        // {
+        //     if(this._point > 100)
+        //     {
+        //         let lifeImage = new objects.Button(config.Game.ASSETS.getResult("life.png"));
+
+        //     }
+        // }
+
         public UpdatePosition() 
         {
             this._ememies.forEach(enemy => {

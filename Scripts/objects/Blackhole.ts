@@ -31,6 +31,7 @@ module objects
         }
         public Update(): void 
         {
+            this.rotation += 10;
             this._move();
             this._checkBounds();
             
