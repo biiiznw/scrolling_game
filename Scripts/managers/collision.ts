@@ -33,25 +33,47 @@ module managers
 
         }//end check
 
-        public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject)
+        public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject):boolean
         {
-            let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
-            let radii = object1.halfWidth + object2.halfWidth
-    
-            if(sqrDistance < (radii * radii))
+            // squared radius check
+            let radii = object1.halfHeight + object2.halfHeight;
+
+            if(objects.Vector2.sqrDistance(object1.position, object2.position) < (radii * radii))
             {
                 if(!object2.isColliding)
-                {
-                    console.log("Collision!");
-                    object2.isColliding = true;
-                }
-                
+                    {
+                        this.live--
+                        console.log("Attack BlackHole" + this.live);
+                        object2.isColliding = true;
+                        return true;
+                    }
             }
             else
             {
                 object2.isColliding = false;
             }
+            return false;
         }
+
+        // public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject)
+        // {
+        //     let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
+        //     let radii = object1.halfWidth + object2.halfWidth
+    
+        //     if(sqrDistance < (radii * radii))
+        //     {
+        //         if(!object2.isColliding)
+        //         {
+        //             console.log("Collision!");
+        //             object2.isColliding = true;
+        //         }
+                
+        //     }
+        //     else
+        //     {
+        //         object2.isColliding = false;
+        //     }
+        // }
 
         public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject)
         {

@@ -24,7 +24,7 @@ module scenes
 
         public Start(): void 
         {
-            this._background = new objects.Background();
+            this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             this._firstSceen = new objects.Image(config.Game.ASSETS.getResult("firstScreen"), 320, 400, true);
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 580, true);
             createjs.Sound.play("startSound");

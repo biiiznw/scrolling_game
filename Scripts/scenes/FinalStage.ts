@@ -8,21 +8,20 @@ module scenes
         {
             super();
             this._background = new objects.Background();
-
             this.Start();
         }
 
         public Start(): void {
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
-            
-        }        
+            this.Main();
+        }
+
         public Update(): void {
             this._background.Update();
-            
         }
+
         public Main(): void {
             this.addChild(this._background);
-            
         }
 
     }

@@ -23,18 +23,38 @@ var managers;
             }
         } //end check
         static squaredRadiusCheck(object1, object2) {
-            let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
-            let radii = object1.halfWidth + object2.halfWidth;
-            if (sqrDistance < (radii * radii)) {
+            // squared radius check
+            let radii = object1.halfHeight + object2.halfHeight;
+            if (objects.Vector2.sqrDistance(object1.position, object2.position) < (radii * radii)) {
                 if (!object2.isColliding) {
-                    console.log("Collision!");
+                    this.live--;
+                    console.log("Attack BlackHole" + this.live);
                     object2.isColliding = true;
+                    return true;
                 }
             }
             else {
                 object2.isColliding = false;
             }
+            return false;
         }
+        // public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject)
+        // {
+        //     let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
+        //     let radii = object1.halfWidth + object2.halfWidth
+        //     if(sqrDistance < (radii * radii))
+        //     {
+        //         if(!object2.isColliding)
+        //         {
+        //             console.log("Collision!");
+        //             object2.isColliding = true;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         object2.isColliding = false;
+        //     }
+        // }
         static AABBCheck(object1, object2) {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);

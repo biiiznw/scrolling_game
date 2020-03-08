@@ -9,6 +9,7 @@ var scenes;
         }
         Start() {
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
+            this.Main();
         }
         Update() {
             this._background.Update();

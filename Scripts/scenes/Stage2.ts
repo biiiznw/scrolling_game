@@ -12,6 +12,7 @@ module scenes
         private _bulletNumLabel: objects.Label;
         private fire = true;
         private _point:number;
+        private _blackhole:objects.Blackhole;
 
         private _ememies:objects.Enemy[];
         private _enemybullets: Array<objects.Bullet>;
@@ -48,6 +49,7 @@ module scenes
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
             this._levelup = new objects.Image();
+            this._blackhole = new objects.Blackhole();
             this._numOfEnemy;
             this._bulletNum = 30;
             this._point = 0;
@@ -198,7 +200,8 @@ module scenes
         // PUBLIC METHODS
         public Start(): void 
         {
-            this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
+            this._background = new objects.Background(config.Game.ASSETS.getResult("background2"));
+            this._blackhole = new objects.Blackhole();
             this._ememies = new Array<objects.Enemy>();
             this._bulletImage = new objects.Button(config.Game.ASSETS.getResult("bullet"), 560,30, true);
             this._bulletImage = new objects.Button(config.Game.ASSETS.getResult("bullet"), 560,30, true);
@@ -208,7 +211,7 @@ module scenes
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
-            this._numOfEnemy =5;
+            this._numOfEnemy =10;
             this.AddEnemies(this._numOfEnemy);
             this.Main();
         }//end start
@@ -217,12 +220,15 @@ module scenes
         {
             this._background.Update();
             this._player.Update();
+            this._blackhole.Update();
             this.UpdateBullets();
             this.UpdatePlayerFire();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y +=5;
+            //check Black hole Collison
+            managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
             managers.Collision.AABBCheck(this._player, this._levelup);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
@@ -232,6 +238,7 @@ module scenes
         
         public Main(): void {
             this.addChild(this._background);
+            this.addChild(this._blackhole);
             this.addChild(this._bulletImage);
             this.addChild(this._bulletNumLabel);
             this.addChild(this._lifeImage);

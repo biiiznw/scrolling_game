@@ -28,7 +28,7 @@ module scenes
 
         public Start(): void 
         {
-            this._background = new objects.Background();
+            this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             this.endLabel = new objects.Label("Game Over", "80px","Consolas", "#FFFFFF", 320, 200, true);
             this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
            
