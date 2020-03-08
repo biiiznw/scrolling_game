@@ -9,9 +9,19 @@ module objects
         private maxTime: number = 0;
         private _enemybullets: Array<objects.Bullet>;
         private _enemies: Array<objects.Enemy>;
+        private _live: number = 2;
 
         
         // PRIVATE INSTANCE MEMBERS
+        set Live(live:number)
+        {
+            this._live = live;
+        }
+
+        get Live():number
+        {
+            return this._live;
+        }
 
         
         // PUBLIC PROPERTIES

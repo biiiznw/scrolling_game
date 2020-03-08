@@ -11,11 +11,18 @@ var objects;
             this._dx = 0;
             this.canFire = true;
             this.maxTime = 0;
+            this._live = 2;
             this._enemybullets = new Array();
             this._enemies = new Array();
             this.Start();
         }
         // PRIVATE INSTANCE MEMBERS
+        set Live(live) {
+            this._live = live;
+        }
+        get Live() {
+            return this._live;
+        }
         // PUBLIC PROPERTIES
         set died(status) {
             this._died = status;

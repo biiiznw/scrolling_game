@@ -39,7 +39,7 @@ var scenes;
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
             //Set Number of Enemies
-            this._numOfEnemy = 20;
+            this._numOfEnemy = 5;
             //unlimited background sound
             this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
             createjs.Sound.play("playSound", this._playBackSound);
@@ -159,6 +159,7 @@ var scenes;
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
+                        createjs.Sound.play("./Assets/sounds/crash.wav");
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         this.removeChild(enemy);

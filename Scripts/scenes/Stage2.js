@@ -7,7 +7,7 @@ var scenes;
         constructor() {
             super();
             this.fire = true;
-            this._numOfEnemy = 0;
+            this._numOfEnemy = 4;
             this._bulletNum = 20;
             this._bulletImg = new Image();
             // initialization
@@ -86,13 +86,18 @@ var scenes;
                 this._bullets.forEach((bullet) => {
                     managers.Collision.AABBCheck(enemy, bullet);
                     if (bullet.isColliding) {
-                        //this.ExploreAnimation(enemy.x, enemy.y);
-                        enemy.position = new objects.Vector2(-100, -200);
-                        enemy.died = true;
-                        this.removeChild(enemy);
+                        enemy.Live--;
+                        if (enemy.Live < 1) {
+                            this.ExploreAnimation(enemy.x, enemy.y);
+                            createjs.Sound.play("./Assets/sounds/crash.wav");
+                            enemy.position = new objects.Vector2(-100, -200);
+                            enemy.died = true;
+                            this.removeChild(enemy);
+                            this._point += 200;
+                        }
+                        this.BreakAnimation(enemy.x, enemy.y);
                         bullet.position = new objects.Vector2(-200, -200);
                         this.removeChild(bullet);
-                        this._point += 200;
                     }
                 });
             });
@@ -143,10 +148,11 @@ var scenes;
             this._pointLabel.text = " : " + this._point;
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
-            if (managers.Collision.count == this._numOfEnemy) {
-                //config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
-                config.Game.SCENE_STATE = scenes.State.COMPLETE;
-            }
+            // if(managers.Collision.count == this._numOfEnemy)
+            // {
+            //     //config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+            //     config.Game.SCENE_STATE = scenes.State.COMPLETE;
+            // }
             //if attacked more than 3 times, game over
             if (managers.Collision.live <= 0) {
                 setTimeout(() => {
@@ -318,6 +324,47 @@ var scenes;
             shieldAnimation.spriteSheet.getAnimation('shield').speed = 0.5;
             shieldAnimation.gotoAndPlay('shield');
             this.addChild(shieldAnimation);
+        }
+        BreakAnimation(obX, obY) {
+            let chopperImg1 = document.createElement('img');
+            let chopperImg2 = document.createElement('img');
+            let chopperImg3 = document.createElement('img');
+            let chopperImg4 = document.createElement('img');
+            let chopperImg5 = document.createElement('img');
+            let chopperImg6 = document.createElement('img');
+            let chopperImg7 = document.createElement('img');
+            let chopperImg8 = document.createElement('img');
+            let chopperImg9 = document.createElement('img');
+            let chopperImg10 = document.createElement('img');
+            let chopperImg11 = document.createElement('img');
+            let chopperImg12 = document.createElement('img');
+            chopperImg1.src = "./Assets/images/el1.png";
+            chopperImg2.src = "./Assets/images/el2.png";
+            chopperImg3.src = "./Assets/images/el3.png";
+            chopperImg4.src = "./Assets/images/el4.png";
+            chopperImg5.src = "./Assets/images/el5.png";
+            chopperImg6.src = "./Assets/images/el6.png";
+            chopperImg7.src = "./Assets/images/el7.png";
+            chopperImg8.src = "./Assets/images/el8.png";
+            chopperImg9.src = "./Assets/images/el9.png";
+            chopperImg10.src = "./Assets/images/el10.png";
+            chopperImg11.src = "./Assets/images/el11.png";
+            chopperImg12.src = "./Assets/images/el12.png";
+            let spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12],
+                frames: { width: 120, height: 120, count: 13 },
+                animations: {
+                    break: [0, 12, false]
+                }
+            });
+            let animation = new createjs.Sprite(spriteSheet);
+            animation.x = obX - 35;
+            animation.y = obY - 20;
+            animation.spriteSheet.getAnimation('break').speed = 0.5;
+            animation.gotoAndPlay('break');
+            this.addChild(animation);
         }
     }
     scenes.Stage2 = Stage2;
