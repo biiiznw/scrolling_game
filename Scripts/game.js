@@ -101,6 +101,9 @@ let game1 = (function () {
             case scenes.State.FINALSTAGE:
                 currentScene = new scenes.FinalStage();
                 break;
+            case scenes.State.COMPLETE:
+                currentScene = new scenes.Complete();
+                break;
             case scenes.State.END:
                 currentScene = new scenes.End();
                 break;

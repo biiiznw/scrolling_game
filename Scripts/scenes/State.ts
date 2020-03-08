@@ -7,6 +7,7 @@ module scenes
         PLAY,
         Stage2,
         FINALSTAGE,
+        COMPLETE,
         END,
         NUM_OF_SCENES
     }

@@ -29,8 +29,9 @@ var scenes;
             this.addChild(this._startButton);
             this._startButton.on("click", function () {
                 //changed it for the testing
-                //config.Game.SCENE_STATE = scenes.State.PLAY;
-                config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+                config.Game.SCENE_STATE = scenes.State.PLAY;
+                //config.Game.SCENE_STATE = scenes.State.Stage2;
+                //config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
                 createjs.Sound.stop();
             });
         }

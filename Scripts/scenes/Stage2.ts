@@ -184,7 +184,8 @@ module scenes
             //if player kill all the enemies
             if(managers.Collision.count == this._numOfEnemy)
             {
-                config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+                //config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+                config.Game.SCENE_STATE = scenes.State.COMPLETE;
             }
             //if attacked more than 3 times, game over
             if(managers.Collision.live <= 0)
@@ -227,6 +228,7 @@ module scenes
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y +=5;
+
             //check Black hole Collison
             managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
             managers.Collision.AABBCheck(this._player, this._levelup);
@@ -234,6 +236,11 @@ module scenes
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
+            // managers.Collision.AABBCheck(this._player, this._addLife);
+            // if(this._addLife.isColliding) {
+            //     this.removeChild(this._addLife);
+            //     managers.Collision.live += 1;
+            // }
         }//end update
         
         public Main(): void {
