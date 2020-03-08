@@ -8,8 +8,9 @@ module objects
         //public properities
 
         //constructor
-        constructor(){
-            super(config.Game.ASSETS.getResult("background"));
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder")){
+            super(imagePath);
+            //super(config.Game.ASSETS.getResult("background"));
             this.Start();
         }
 

@@ -19,6 +19,7 @@ let game1 = (function () {
         { id: "beam1", src: "./Assets/images/beam1.png" },
         { id: "beam2", src: "./Assets/images/enemyBeam01.png" },
         { id: "beam3", src: "./Assets/images/beam2.png" },
+        { id: "enemyBeam", src: "./Assets/images/enemyBeamBlue.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "score", src: "./Assets/images/score.png" },
         { id: "life", src: "./Assets/images/life.png" },
@@ -90,6 +91,9 @@ let game1 = (function () {
                 break;
             case scenes.State.Stage2:
                 currentScene = new scenes.Stage2();
+                break;
+            case scenes.State.FINALSTAGE:
+                currentScene = new scenes.FinalStage();
                 break;
             case scenes.State.END:
                 currentScene = new scenes.End();

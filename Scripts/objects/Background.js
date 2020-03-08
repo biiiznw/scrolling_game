@@ -4,8 +4,9 @@ var objects;
     class Background extends objects.GameObject {
         //public properities
         //constructor
-        constructor() {
-            super(config.Game.ASSETS.getResult("background"));
+        constructor(imagePath = config.Game.ASSETS.getResult("placeholder")) {
+            super(imagePath);
+            //super(config.Game.ASSETS.getResult("background"));
             this.Start();
         }
         //provate method

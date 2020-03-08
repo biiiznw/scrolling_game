@@ -60,7 +60,7 @@ module scenes
         //initilize 
         public Start(): void 
         {
-            this._background = new objects.Background();
+            this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             this._level = new objects.Label("Level : 1", "15px","Consolas", "#000000", 50, 20, true);
             //Set Number of Enemies
             this._numOfEnemy =20;
