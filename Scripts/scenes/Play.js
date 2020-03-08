@@ -100,7 +100,7 @@ var scenes;
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y += 5;
-            managers.Collision.AABBCheck(this._player, this._levelup);
+            managers.Collision.AABBCheck(this._player, this._levelup, true);
             if (this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";

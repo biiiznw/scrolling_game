@@ -237,7 +237,7 @@ module scenes
 
             //check Black hole Collison
             managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
-            managers.Collision.AABBCheck(this._player, this._levelup);
+            managers.Collision.AABBCheck(this._player, this._levelup, true);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";

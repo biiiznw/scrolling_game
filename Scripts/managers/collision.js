@@ -29,6 +29,7 @@ var managers;
                 if (!object2.isColliding) {
                     this.live--;
                     console.log("Attack BlackHole" + this.live);
+                    createjs.Sound.play("./Assets/sounds/crash.wav");
                     object2.isColliding = true;
                     return true;
                 }
@@ -55,7 +56,7 @@ var managers;
         //         object2.isColliding = false;
         //     }
         // }
-        static AABBCheck(object1, object2) {
+        static AABBCheck(object1, object2, sound = false) {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
             if (object1.isCentered) {
@@ -76,7 +77,12 @@ var managers;
                     Collision.count += 1;
                     console.log("Collision!");
                     object2.isColliding = true;
-                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    if (sound == true) {
+                        createjs.Sound.play("./Assets/sounds/PowerUp.wav");
+                    }
+                    else {
+                        createjs.Sound.play("./Assets/sounds/crash.wav");
+                    }
                     console.log("Kill enemies" + Collision.count);
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;

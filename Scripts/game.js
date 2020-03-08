@@ -36,9 +36,10 @@ let game1 = (function () {
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },
         //Sounds
-        { id: "playSound", src: "./Assets/sounds/space.wav" },
-        { id: "startSound", src: "./Assets/sounds/space.wav" },
+        { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
+        { id: "startSound", src: "./Assets/sounds/BackSound.mp3" },
         { id: "crashSound", src: "./Assets/sounds/crash.wav" },
+        { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
         { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
     ];
     // comments from Tom
