@@ -41,6 +41,7 @@ let game1 = (function () {
         { id: "crashSound", src: "./Assets/sounds/crash.wav" },
         { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
         { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
+        { id: "firstGun", src: "./Assets/sounds/firstGun1.wav" },
     ];
     // comments from Tom
     function Preload() {
