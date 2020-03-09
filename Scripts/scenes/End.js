@@ -22,7 +22,7 @@ var scenes;
             this.Main();
         }
         Update() {
-            // this._ocean.Update();
+            this._background.Update();
         }
         Main() {
             // this.addChild(this._ocean);
