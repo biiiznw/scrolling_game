@@ -31,7 +31,7 @@ module objects
         //public method
         public Start():void
         {
-            this._verticalSpeed = 5;
+            this._verticalSpeed = 10;
             this.velocity = new Vector2(0, this._verticalSpeed);
             this.Reset();
 
@@ -45,7 +45,7 @@ module objects
         }
 
         public Reset():void{
-            this.position.y = -1200;
+            this.position.y = -2400;
 
         }
     }
