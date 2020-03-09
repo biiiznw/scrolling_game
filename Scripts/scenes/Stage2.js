@@ -29,7 +29,7 @@ var scenes;
             this._blackhole = new objects.Blackhole();
             this._numOfEnemy;
             this._bulletNum = 30;
-            this._point = 0;
+            // this._point = 0;
             this.Start();
         }
         //#########################################
@@ -93,8 +93,9 @@ var scenes;
                             enemy.position = new objects.Vector2(-100, -200);
                             enemy.died = true;
                             this.removeChild(enemy);
-                            this._point += 200;
+                            scenes.Play.point += 200;
                         }
+                        createjs.Sound.play("./Assets/sounds/break.wav");
                         this.BreakAnimation(enemy.x, enemy.y);
                         bullet.position = new objects.Vector2(-200, -200);
                         this.removeChild(bullet);
@@ -145,7 +146,7 @@ var scenes;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + this._point;
+            this._pointLabel.text = " : " + scenes.Play.point;
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             // if(managers.Collision.count == this._numOfEnemy)
@@ -194,6 +195,7 @@ var scenes;
             if (this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
+                createjs.Sound.play("./Assets/sounds/powerup.wav");
             }
             // managers.Collision.AABBCheck(this._player, this._addLife);
             // if(this._addLife.isColliding) {

@@ -50,6 +50,7 @@ module scenes
                 managers.Collision.live = 3;
                 managers.Collision.count = 0;
                 config.Game.SCENE_STATE = scenes.State.PLAY;
+                Play.point = 0;
                 createjs.Sound.stop();
             });
         }

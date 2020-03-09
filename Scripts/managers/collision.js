@@ -76,7 +76,6 @@ var managers;
                     Collision.count += 1;
                     console.log("Collision!");
                     object2.isColliding = true;
-                    createjs.Sound.play("./Assets/sounds/crash.wav");
                     console.log("Kill enemies" + Collision.count);
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;

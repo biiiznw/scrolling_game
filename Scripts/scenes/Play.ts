@@ -2,6 +2,7 @@ module scenes
 {
     export class Play extends objects.Scene
     {
+        public static point:number = 0;
         // PRIVATE INSTANCE MEMBERS
         private _player:objects.Player;
         private _background: objects.Background;
@@ -13,7 +14,7 @@ module scenes
         private _numOfEnemy:Number =0;
         private _bulletNum = 20;
         private _bulletNumLabel: objects.Label;
-        private _point:number;
+        // private point:number;
         private _pointLabel:objects.Label;
         private _liveLabel:objects.Label;
         private fire = true;
@@ -42,7 +43,7 @@ module scenes
             this._numOfEnemy;
             this._bulletNum = 30;
             this._bulletNumLabel = new objects.Label();
-            this._point = 0;
+            // this.point = 0;
             this._pointLabel = new objects.Label();
             this._liveLabel = new objects.Label();
             this._bulletImage = new objects.Button();
@@ -137,6 +138,7 @@ module scenes
             managers.Collision.AABBCheck(this._player, this._levelup);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
+                createjs.Sound.play("./Assets/sounds/powerup.wav");
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
         }
@@ -209,7 +211,7 @@ module scenes
                         this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200,-200);
                         this.removeChild(bullet);
-                        this._point += 100;
+                        Play.point += 100;
                     }
                 });
             //check collision player and enemies
@@ -393,7 +395,7 @@ module scenes
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + this._point;
+            this._pointLabel.text = " : " + Play.point;
 
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies

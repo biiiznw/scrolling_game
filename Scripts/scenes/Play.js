@@ -21,7 +21,7 @@ var scenes;
             this._numOfEnemy;
             this._bulletNum = 30;
             this._bulletNumLabel = new objects.Label();
-            this._point = 0;
+            // this.point = 0;
             this._pointLabel = new objects.Label();
             this._liveLabel = new objects.Label();
             this._bulletImage = new objects.Button();
@@ -103,6 +103,7 @@ var scenes;
             managers.Collision.AABBCheck(this._player, this._levelup);
             if (this._levelup.isColliding) {
                 this.removeChild(this._levelup);
+                createjs.Sound.play("./Assets/sounds/powerup.wav");
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
         }
@@ -165,7 +166,7 @@ var scenes;
                         this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200, -200);
                         this.removeChild(bullet);
-                        this._point += 100;
+                        Play.point += 100;
                     }
                 });
                 //check collision player and enemies
@@ -329,7 +330,7 @@ var scenes;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + this._point;
+            this._pointLabel.text = " : " + Play.point;
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             if (managers.Collision.count == this._numOfEnemy) {
@@ -344,6 +345,7 @@ var scenes;
             }
         }
     } //end class
+    Play.point = 0;
     scenes.Play = Play;
 })(scenes || (scenes = {})); //end module
 // this._player.addEventListener("click", () =>{
