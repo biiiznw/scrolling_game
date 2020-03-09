@@ -20,7 +20,7 @@ var objects;
         }
         //public method
         Start() {
-            this._verticalSpeed = 5;
+            this._verticalSpeed = 10;
             this.velocity = new objects.Vector2(0, this._verticalSpeed);
             this.Reset();
         }
@@ -29,7 +29,7 @@ var objects;
             this._checkBounds();
         }
         Reset() {
-            this.position.y = -1200;
+            this.position.y = -2400;
         }
     }
     objects.Background = Background;

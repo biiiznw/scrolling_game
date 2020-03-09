@@ -38,6 +38,7 @@ var scenes;
         Start() {
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             this._level = new objects.Label("Level : 1", "15px", "Consolas", "#000000", 50, 20, true);
+            this.StartAnimation();
             //Set Number of Enemies
             this._numOfEnemy = 5;
             //unlimited background sound
@@ -100,7 +101,7 @@ var scenes;
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y += 5;
-            managers.Collision.AABBCheck(this._player, this._levelup);
+            managers.Collision.AABBCheck(this._player, this._levelup, true);
             if (this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
@@ -324,6 +325,48 @@ var scenes;
             shieldAnimation.spriteSheet.getAnimation('shield').speed = 0.5;
             shieldAnimation.gotoAndPlay('shield');
             this.addChild(shieldAnimation);
+        }
+        StartAnimation() {
+            let chopperImg1 = document.createElement('img');
+            let chopperImg2 = document.createElement('img');
+            let chopperImg3 = document.createElement('img');
+            let chopperImg4 = document.createElement('img');
+            let chopperImg5 = document.createElement('img');
+            let chopperImg6 = document.createElement('img');
+            let chopperImg7 = document.createElement('img');
+            let chopperImg8 = document.createElement('img');
+            let chopperImg9 = document.createElement('img');
+            let chopperImg10 = document.createElement('img');
+            let chopperImg11 = document.createElement('img');
+            let chopperImg12 = document.createElement('img');
+            chopperImg1.src = "./Assets/images/c03_1.png";
+            chopperImg2.src = "./Assets/images/c03_2.png";
+            chopperImg3.src = "./Assets/images/c03_3.png";
+            chopperImg4.src = "./Assets/images/c02_1.png";
+            chopperImg5.src = "./Assets/images/c02_2.png";
+            chopperImg6.src = "./Assets/images/c02_3.png";
+            chopperImg7.src = "./Assets/images/c01_1.png";
+            chopperImg8.src = "./Assets/images/c01_2.png";
+            chopperImg9.src = "./Assets/images/c01_3.png";
+            chopperImg10.src = "./Assets/images/cstart_1.png";
+            chopperImg11.src = "./Assets/images/cstart_2.png";
+            chopperImg12.src = "./Assets/images/cstart_3.png";
+            let spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12],
+                frames: { width: 640, height: 800, count: 12 },
+                animations: {
+                    counting: [0, 12, false]
+                }
+            });
+            console.log("Ani");
+            let startAnimation = new createjs.Sprite(spriteSheet);
+            startAnimation.x = 320;
+            startAnimation.y = 400;
+            startAnimation.spriteSheet.getAnimation('counting').speed = 3;
+            startAnimation.gotoAndPlay('counting');
+            this.addChild(startAnimation);
         }
         UpdateWinOrLoseCondition() {
             this._bulletNumLabel.text = " : " + this._bulletNum;

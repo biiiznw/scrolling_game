@@ -12,7 +12,7 @@ let game1 = (function(){
         {id: "placeholder", src: "./Assets/images/placeholder.png"},
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "background", src: "./Assets/images/background.gif"},
-        {id: "background2", src: "./Assets/images/back02.gif"},
+        {id: "background2", src: "./Assets/images/Testing-01.gif"},
         {id: "background3", src: "./Assets/images/back03.gif"},
         {id: "enemy", src: "./Assets/images/enemy.png"},
         {id: "boss", src: "./Assets/images/finalEnamy.png"},
@@ -37,12 +37,17 @@ let game1 = (function(){
         {id: "returnButton", src: "./Assets/images/restartButton.png"},
 
         //Sounds
-        { id: "playSound", src: "./Assets/sounds/space.wav" },
-        {id: "startSound", src: "./Assets/sounds/space.wav"},
+        { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
+        {id: "startSound", src: "./Assets/sounds/BackSound.mp3"},
         {id: "crashSound", src: "./Assets/sounds/crash.wav"},
+        {id: "powerup", src: "./Assets/sounds/PowerUp.wav"},
         {id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav"},
+<<<<<<< HEAD
         {id: "break", src: "./Assets/sounds/break.wav"},
         {id: "powerup", src: "./Assets/sounds/powerup.wav"}
+=======
+        {id: "firstGun", src: "./Assets/sounds/firstGun1.wav"},
+>>>>>>> 4bcbfb1ecc71ce1d1ddb94dccc93a3dedfd42f74
 
     ];
 

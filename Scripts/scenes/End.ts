@@ -37,7 +37,7 @@ module scenes
         
         public Update(): void 
         {
-            // this._ocean.Update();
+            this._background.Update();
         }
         
         public Main(): void {
