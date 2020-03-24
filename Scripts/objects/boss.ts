@@ -110,7 +110,7 @@ module objects
         public Move(): void
         {
             let tick = createjs.Ticker.getTicks();
-            if((tick % 60) == 0)
+            if((tick % 90) == 0)
             this._dx = Math.random() * (20) - 10;
             this.x += this._dx;
             // this.y += this._dy;

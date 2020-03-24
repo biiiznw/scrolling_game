@@ -93,6 +93,17 @@ module scenes
                     else clearInterval(fire)
                 }, 500)
             }
+
+            if(this._boss.canShoot()) {
+                let fire1 = setInterval(() =>{
+                    if(!this._boss.isColliding)
+                    {
+                        let bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam4"), this._boss.x+40, this._boss.y+70, true);
+                        this._enemybullets.push(bullet1);
+                        this.addChild(bullet1);
+                    } else clearInterval(fire1);
+                }, 10000)
+            }
         }//end public FireGun
 
         // public EventLife():void
@@ -162,6 +173,24 @@ module scenes
             this._enemybullets.forEach((bullet)=>{
                 this.BulletSpeed(bullet, 10, 10, true);
             })
+
+            if(this._boss.canShoot()) {
+                let fire1 = setInterval(() =>{
+                    if(!this._boss.isColliding)
+                    {
+                        let bullet1 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), this._boss.x+20, this._boss.y+90, true);
+                        let bullet2 = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), this._boss.x+180, this._boss.y+90, true);
+                        let bullet3 = new objects.Bullet(config.Game.ASSETS.getResult("beam5"), this._boss.x+100, this._boss.y+120, true);
+                        this._enemybullets.push(bullet1);
+                        this._enemybullets.push(bullet2);
+                        this._enemybullets.push(bullet3);
+                        this.addChild(bullet1);
+                        this.addChild(bullet2);
+                        this.addChild(bullet3);
+                    } else clearInterval(fire1);
+                }, 1000)
+            }
+            
         }
 
         public BulletSpeed(eBullet:objects.Bullet, eSpeed:number, eMove:number, pick:boolean=false):void{

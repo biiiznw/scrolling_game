@@ -24,6 +24,7 @@ let game1 = (function () {
         { id: "beam2", src: "./Assets/images/enemyBeam01.png" },
         { id: "beam3", src: "./Assets/images/beam2.png" },
         { id: "beam4", src: "./Assets/images/beam4.png" },
+        { id: "beam5", src: "./Assets/images/beam5.png" },
         { id: "enemyBeam", src: "./Assets/images/enemyBeamYellow.png" },
         { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "score", src: "./Assets/images/score.png" },
