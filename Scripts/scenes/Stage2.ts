@@ -203,6 +203,10 @@ module scenes
                 }, 300);
                 
             }
+
+            if(this._ememies.length <= 0) {
+                config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+            }
         }
 
         // PUBLIC METHODS

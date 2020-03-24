@@ -161,6 +161,9 @@ var scenes;
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
+            if (this._ememies.length <= 0) {
+                config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+            }
         }
         // PUBLIC METHODS
         Start() {

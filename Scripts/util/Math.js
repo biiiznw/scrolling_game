@@ -1,7 +1,7 @@
 "use strict";
 var util;
 (function (util) {
-    class Math {
+    class Mathf {
         static Clamp(value, min, max) {
             if (value < min) {
                 value = min;
@@ -26,7 +26,10 @@ var util;
         static LerpUnclamped(a, b, t) {
             return a + (b - a) * t;
         }
+        static RandomRange(min, max) {
+            return Math.random() * (max - min + 1) + min;
+        }
     }
-    util.Math = Math;
+    util.Mathf = Mathf;
 })(util || (util = {}));
 //# sourceMappingURL=Math.js.map

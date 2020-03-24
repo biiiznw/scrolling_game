@@ -106,19 +106,7 @@ module managers
                     Collision.count += 1;
                     console.log("Collision!");
                     object2.isColliding = true;
-<<<<<<< HEAD
                    
-=======
-                    if(sound == true)
-                    {
-                        createjs.Sound.play("./Assets/sounds/PowerUp.wav");
-                    }
-                    else
-                    {
-                        createjs.Sound.play("./Assets/sounds/crash.wav");
-                    }
-                    
->>>>>>> 4bcbfb1ecc71ce1d1ddb94dccc93a3dedfd42f74
                     console.log("Kill enemies"+ Collision.count);
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;

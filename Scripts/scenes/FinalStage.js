@@ -30,6 +30,7 @@ var scenes;
             this._numOfEnemy;
             this._bulletNum = 30;
             this._point = 0;
+            this._boss = new objects.Boss();
             this.Start();
         }
         //#########################################
@@ -175,7 +176,8 @@ var scenes;
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             this._numOfEnemy = 10;
-            this.AddEnemies(this._numOfEnemy);
+            this._boss = new objects.Boss(config.Game.ASSETS.getResult("boss"));
+            // this.AddEnemies(this._numOfEnemy);
             this.Main();
         } //end start
         Update() {
@@ -195,6 +197,7 @@ var scenes;
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
+            this._boss.Update();
         } //end update
         Main() {
             this.addChild(this._background);
@@ -207,6 +210,7 @@ var scenes;
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
+            this.addChild(this._boss);
         } //end main
         //#########################################
         //      FIRE SHOOT WITH SPACE BUTTON
