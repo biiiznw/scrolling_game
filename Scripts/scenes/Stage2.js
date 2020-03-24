@@ -161,8 +161,9 @@ var scenes;
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
-            if (this._ememies.length <= 0) {
+            if (managers.Collision.count > this._numOfEnemy) {
                 config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
+                managers.Collision.count = 0;
             }
         }
         // PUBLIC METHODS
@@ -178,7 +179,7 @@ var scenes;
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
-            this._numOfEnemy = 10;
+            this._numOfEnemy = 5;
             this.AddEnemies(this._numOfEnemy);
             this.Main();
         } //end start

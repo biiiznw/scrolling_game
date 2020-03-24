@@ -31,6 +31,7 @@ var scenes;
             this._levelup = new objects.Image();
             this._playerBullet = new objects.Bullet();
             this._bulletImg.src = "./Assets/images/beam1.png";
+            this._engine = this.EngineAnimation();
             this.Start();
         }
         // PUBLIC METHODS
@@ -58,6 +59,7 @@ var scenes;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
             //this.AddEnemies(10, this._enemybullets);
+            this._engine = this.EngineAnimation();
             this.Main();
         }
         AddEnemies(number) {
@@ -120,6 +122,8 @@ var scenes;
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
+            this.addChild(this._engine);
+            // this.EngineAnimation();
         } //end public Main() method
         BulletSpeed(eBullet, eSpeed, eMove, pick = false) {
             //enemy direction
@@ -180,6 +184,9 @@ var scenes;
                 //     //createjs.Sound.stop();//
                 // }
             });
+            //Test
+            this._engine.x = this._player.x - 25;
+            this._engine.y = this._player.y + 20;
         } //end update positon
         // Shot fire until enemies are colliding
         FireGun(enemy, bullArray) {
@@ -368,6 +375,50 @@ var scenes;
             startAnimation.gotoAndPlay('counting');
             this.addChild(startAnimation);
         }
+        EngineAnimation() {
+            let chopperImg1 = new Image();
+            let chopperImg2 = new Image();
+            let chopperImg3 = new Image();
+            let chopperImg4 = new Image();
+            let chopperImg5 = new Image();
+            let chopperImg6 = new Image();
+            let chopperImg7 = new Image();
+            let chopperImg8 = new Image();
+            let chopperImg9 = new Image();
+            let chopperImg10 = new Image();
+            let chopperImg11 = new Image();
+            let chopperImg12 = new Image();
+            let chopperImg13 = new Image();
+            chopperImg1.src = "./Assets/images/f1.png";
+            chopperImg2.src = "./Assets/images/f2.png";
+            chopperImg3.src = "./Assets/images/f3.png";
+            chopperImg4.src = "./Assets/images/f4.png";
+            chopperImg5.src = "./Assets/images/f5.png";
+            chopperImg6.src = "./Assets/images/f6.png";
+            chopperImg7.src = "./Assets/images/f7.png";
+            chopperImg8.src = "./Assets/images/f8.png";
+            chopperImg9.src = "./Assets/images/f9.png";
+            chopperImg10.src = "./Assets/images/f10.png";
+            chopperImg11.src = "./Assets/images/f11.png";
+            chopperImg12.src = "./Assets/images/f12.png";
+            chopperImg13.src = "./Assets/images/f13.png";
+            let spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12, chopperImg13],
+                frames: { width: 50, height: 50, count: 14 },
+                animations: {
+                    engine: [0, 13, true]
+                }
+            });
+            console.log("Debuggggg");
+            let animation = new createjs.Sprite(spriteSheet);
+            animation.x = this._player.x - 25;
+            animation.y = this._player.y + 20;
+            animation.spriteSheet.getAnimation('engine').speed = 0.4;
+            animation.gotoAndPlay('engine');
+            return animation;
+        }
         UpdateWinOrLoseCondition() {
             this._bulletNumLabel.text = " : " + this._bulletNum;
             if (this._bulletNum == 0) {
@@ -376,8 +427,9 @@ var scenes;
             this._pointLabel.text = " : " + Play.point;
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
-            if (managers.Collision.count == this._numOfEnemy) {
-                config.Game.SCENE_STATE = scenes.State.Stage2;
+            if (managers.Collision.count > this._numOfEnemy) {
+                config.Game.SCENE_STATE = scenes.State.STAGE2;
+                managers.Collision.count = 0;
             }
             //if attacked more than 3 times, game over
             if (managers.Collision.live <= 0) {

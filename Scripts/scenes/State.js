@@ -6,7 +6,7 @@ var scenes;
         State[State["NO_SCENE"] = -1] = "NO_SCENE";
         State[State["START"] = 0] = "START";
         State[State["PLAY"] = 1] = "PLAY";
-        State[State["Stage2"] = 2] = "Stage2";
+        State[State["STAGE2"] = 2] = "STAGE2";
         State[State["FINALSTAGE"] = 3] = "FINALSTAGE";
         State[State["COMPLETE"] = 4] = "COMPLETE";
         State[State["END"] = 5] = "END";

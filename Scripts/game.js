@@ -99,7 +99,7 @@ let game1 = (function () {
             case scenes.State.PLAY:
                 currentScene = new scenes.Play();
                 break;
-            case scenes.State.Stage2:
+            case scenes.State.STAGE2:
                 currentScene = new scenes.Stage2();
                 break;
             case scenes.State.FINALSTAGE:
