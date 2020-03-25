@@ -3,7 +3,7 @@ module managers
     export class Collision
     {
         static count:number = 0;
-        static live:number = 3;
+        static live:number = 100;
 
         public static Check(object1: objects.GameObject, object2: objects.GameObject)
         {

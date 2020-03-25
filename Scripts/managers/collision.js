@@ -88,7 +88,7 @@ var managers;
         }
     }
     Collision.count = 0;
-    Collision.live = 3;
+    Collision.live = 100;
     managers.Collision = Collision;
 })(managers || (managers = {}));
 //# sourceMappingURL=collision.js.map

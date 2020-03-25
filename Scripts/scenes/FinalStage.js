@@ -31,6 +31,7 @@ var scenes;
             this._bulletNum = 30;
             this._point = 0;
             this._boss = new objects.Boss();
+            this._bossLabel = new objects.Label;
             this.Start();
         }
         //#########################################
@@ -115,6 +116,35 @@ var scenes;
                     }
                 });
             });
+            this._enemybullets.forEach((bullet) => {
+                managers.Collision.Check(this._player, bullet);
+                if (bullet.isColliding) {
+                    if (managers.Collision.live <= 0) {
+                        this.ExploreAnimation(this._player.x, this._player.y);
+                    }
+                    else {
+                        this.ShieldAnimation(this._player.x, this._player.y);
+                    }
+                    bullet.position = new objects.Vector2(-200, -200);
+                    this.removeChild(bullet);
+                    //config.Game.SCENE_STATE = scenes.State.END;
+                }
+            });
+            this._bullets.forEach((bullet) => {
+                managers.Collision.AABBCheck(this._boss, bullet);
+                if (bullet.isColliding) {
+                    //this.ExploreAnimation(enemy.x, enemy.y);
+                    this._boss.Live--;
+                    this.SmallExploreAnimation(bullet.x - 40, bullet.y - 66);
+                    bullet.position = new objects.Vector2(-200, -200);
+                    this.removeChild(bullet);
+                    // this._point += 200;
+                }
+            });
+            // update label;
+            this._bossLabel.x = this._boss.x + 98;
+            this._bossLabel.y = this._boss.y + 10;
+            this._bossLabel.text = this._boss.Live.toString();
         } //end update positon
         //#########################################
         //    CONTROL BULLETS' MOVEMENT, SPEED
@@ -205,6 +235,7 @@ var scenes;
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             this._numOfEnemy = 10;
             this._boss = new objects.Boss(config.Game.ASSETS.getResult("boss"));
+            this._bossLabel = new objects.Label("0", "12px", "Impact, Charcoal, sans-serif", "#ffffff", -100, -100, true);
             // this.AddEnemies(this._numOfEnemy);
             this.Main();
         } //end start
@@ -239,6 +270,7 @@ var scenes;
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
             this.addChild(this._boss);
+            this.addChild(this._bossLabel);
         } //end main
         //#########################################
         //      FIRE SHOOT WITH SPACE BUTTON
@@ -351,6 +383,49 @@ var scenes;
             shieldAnimation.spriteSheet.getAnimation('shield').speed = 0.5;
             shieldAnimation.gotoAndPlay('shield');
             this.addChild(shieldAnimation);
+        }
+        SmallExploreAnimation(obX, obY) {
+            let chopperImg1 = document.createElement('img');
+            let chopperImg2 = document.createElement('img');
+            let chopperImg3 = document.createElement('img');
+            let chopperImg4 = document.createElement('img');
+            let chopperImg5 = document.createElement('img');
+            let chopperImg6 = document.createElement('img');
+            let chopperImg7 = document.createElement('img');
+            let chopperImg8 = document.createElement('img');
+            let chopperImg9 = document.createElement('img');
+            let chopperImg10 = document.createElement('img');
+            let chopperImg11 = document.createElement('img');
+            let chopperImg12 = document.createElement('img');
+            let chopperImg13 = document.createElement('img');
+            chopperImg1.src = "./Assets/images/b1.png";
+            chopperImg2.src = "./Assets/images/b2.png";
+            chopperImg3.src = "./Assets/images/b3.png";
+            chopperImg4.src = "./Assets/images/b4.png";
+            chopperImg5.src = "./Assets/images/b5.png";
+            chopperImg6.src = "./Assets/images/b6.png";
+            chopperImg7.src = "./Assets/images/b7.png";
+            chopperImg8.src = "./Assets/images/b8.png";
+            chopperImg9.src = "./Assets/images/b9.png";
+            chopperImg10.src = "./Assets/images/b10.png";
+            chopperImg11.src = "./Assets/images/b11.png";
+            chopperImg12.src = "./Assets/images/b12.png";
+            chopperImg13.src = "./Assets/images/b13.png";
+            let spriteSheet = new createjs.SpriteSheet({
+                images: [chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                    chopperImg6, chopperImg7, chopperImg8, chopperImg9, chopperImg10,
+                    chopperImg11, chopperImg12, chopperImg13],
+                frames: { width: 100, height: 100, count: 13 },
+                animations: {
+                    explore: [0, 13, false]
+                }
+            });
+            let animation = new createjs.Sprite(spriteSheet);
+            animation.x = obX;
+            animation.y = obY;
+            animation.spriteSheet.getAnimation('explore').speed = 0.5;
+            animation.gotoAndPlay('explore');
+            this.addChild(animation);
         }
     }
     scenes.FinalStage = FinalStage;

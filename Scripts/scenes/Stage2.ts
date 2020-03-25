@@ -16,7 +16,7 @@ module scenes
 
         private _ememies:objects.Enemy[];
         private _enemybullets: Array<objects.Bullet>;
-        private _numOfEnemy:Number = 4;
+        private _numOfEnemy:Number = 5;
 
         private _player:objects.Player;
         private _bullets: Array<objects.Bullet>;
@@ -134,6 +134,16 @@ module scenes
                     }
                 });
             });
+
+             //check Black hole Collison
+             managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
+             if(this._blackhole.isColliding) {
+                 if(managers.Collision.live <= 0) {
+                     this.ExploreAnimation(this._player.x, this._player.y);
+                 } else {
+                     this.ShieldAnimation(this._player.x, this._player.y);
+                 }
+             }
             
         }//end update positon
 
@@ -204,7 +214,7 @@ module scenes
                 
             }
 
-            if(managers.Collision.count > this._numOfEnemy)
+            if(managers.Collision.count/2 >= this._numOfEnemy)
             {
                 config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
                 managers.Collision.count = 0;
@@ -226,7 +236,7 @@ module scenes
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
-            this._numOfEnemy =5;
+            // this._numOfEnemy =5;
             this.AddEnemies(this._numOfEnemy);
             this.Main();
         }//end start
@@ -243,8 +253,8 @@ module scenes
             this._levelup.y += 5;
             this._levelup.position.y +=5;
 
-            //check Black hole Collison
-            managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
+           
+            
             managers.Collision.AABBCheck(this._player, this._levelup, true);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
