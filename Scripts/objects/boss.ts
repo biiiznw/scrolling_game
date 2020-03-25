@@ -9,7 +9,7 @@ module objects
         private maxTime: number = 0;
         private _enemybullets: Array<objects.Bullet>;
         private _enemies: Array<objects.Enemy>;
-        private _live: number = 20;
+        private _live: number = 10;
 
         
         // PRIVATE INSTANCE MEMBERS
@@ -64,19 +64,22 @@ module objects
 
         // PRIVATE METHODS
         protected _checkBounds(): void {
-            if(this.x >= 640 - this.width)
-            {
-                this.x = 640 - this.width;
-            }
-            if(this.x <= 0 )
-            {
-                this.x = 0 ;
-            }
+            
+                if(this.x >= 640 - this.width)
+                {
+                    this.x = 640 - this.width;
+                }
+                if(this.x <= 0 )
+                {
+                    this.x = 0 ;
+                }
+            
+            
 
-            if(this.y >=800 + this.height)
-            {
-                this.Reset();
-            }
+            // if(this.y >=800 + this.height)
+            // {
+            //     this.Reset();
+            // }
         }      
 
         // PUBLIC METHODS
@@ -93,9 +96,11 @@ module objects
 
 
         public Update(): void {
-           
-                this.Move();
-                this._checkBounds();
+           if(this.Live > 0) {
+            this.Move();
+            this._checkBounds();
+           }
+                
             
         }
 

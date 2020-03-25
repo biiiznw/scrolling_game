@@ -11,7 +11,7 @@ var objects;
             this._dx = 0;
             this.canFire = true;
             this.maxTime = 0;
-            this._live = 20;
+            this._live = 10;
             this._enemybullets = new Array();
             this._enemies = new Array();
             this.Start();
@@ -51,9 +51,10 @@ var objects;
             if (this.x <= 0) {
                 this.x = 0;
             }
-            if (this.y >= 800 + this.height) {
-                this.Reset();
-            }
+            // if(this.y >=800 + this.height)
+            // {
+            //     this.Reset();
+            // }
         }
         // PUBLIC METHODS
         Start() {
@@ -64,8 +65,10 @@ var objects;
         Main() {
         }
         Update() {
-            this.Move();
-            this._checkBounds();
+            if (this.Live > 0) {
+                this.Move();
+                this._checkBounds();
+            }
         }
         Reset() {
             this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);

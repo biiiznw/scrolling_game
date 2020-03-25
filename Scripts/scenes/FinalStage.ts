@@ -177,6 +177,13 @@ module scenes
                     this.SmallExploreAnimation(bullet.x-40, bullet.y-66);
                     bullet.position = new objects.Vector2(-200,-200);
                     this.removeChild(bullet);
+                    Play.point += 100;
+                    if(this._boss.Live < 1 ) {
+                        this.BigExploreAnimation(this._boss.x - 130, this._boss.y-90);
+                        Play.point += 1000;
+                        this.removeChild(this._boss);
+                        this._boss.position = new objects.Vector2(-500,-500);
+                    }
                     // this._point += 200;
                 }
             });
@@ -253,7 +260,7 @@ module scenes
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + this._point;
+            this._pointLabel.text = " : " + Play.point;
 
             this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
@@ -270,6 +277,7 @@ module scenes
                 }, 300);
                 
             }
+
         }
 
         // PUBLIC METHODS
@@ -495,6 +503,86 @@ module scenes
                 animation.x = obX;
                 animation.y = obY;
                 animation.spriteSheet.getAnimation('explore').speed = 0.5;
+                animation.gotoAndPlay('explore');
+
+                this.addChild(animation);
+            
+        }
+
+        public BigExploreAnimation(obX:number, obY:number) {
+            let chopperImg1 = document.createElement('img')
+            let chopperImg2 = document.createElement('img')
+            let chopperImg3 = document.createElement('img')
+            let chopperImg4 = document.createElement('img')
+            let chopperImg5 = document.createElement('img')
+            let chopperImg6 = document.createElement('img')
+            let chopperImg7 = document.createElement('img')
+            let chopperImg8 = document.createElement('img')
+            let chopperImg9 = document.createElement('img')
+            let chopperImg10 = document.createElement('img')
+            let chopperImg11 = document.createElement('img')
+            let chopperImg12 = document.createElement('img')
+            let chopperImg13 = document.createElement('img')
+            let chopperImg14 = document.createElement('img')
+            let chopperImg15 = document.createElement('img')
+            let chopperImg16 = document.createElement('img')
+            let chopperImg17 = document.createElement('img')
+            let chopperImg18 = document.createElement('img')
+            let chopperImg19 = document.createElement('img')
+            let chopperImg20 = document.createElement('img')
+            let chopperImg21 = document.createElement('img')
+            let chopperImg22 = document.createElement('img')
+            let chopperImg23 = document.createElement('img')
+            let chopperImg24 = document.createElement('img')
+            let chopperImg25 = document.createElement('img')
+            let chopperImg26 = document.createElement('img')
+            let chopperImg27 = document.createElement('img')
+       
+
+            chopperImg1.src = "./Assets/images/v1.png";
+            chopperImg2.src = "./Assets/images/v2.png";
+            chopperImg3.src = "./Assets/images/v3.png";
+            chopperImg4.src = "./Assets/images/v4.png";
+            chopperImg5.src = "./Assets/images/v5.png";
+            chopperImg6.src = "./Assets/images/v6.png";
+            chopperImg7.src = "./Assets/images/v7.png";
+            chopperImg8.src = "./Assets/images/v8.png";
+            chopperImg9.src = "./Assets/images/v9.png";
+            chopperImg10.src = "./Assets/images/v10.png";
+            chopperImg11.src = "./Assets/images/v11.png";
+            chopperImg12.src = "./Assets/images/v12.png";
+            chopperImg13.src = "./Assets/images/v13.png";
+            chopperImg14.src = "./Assets/images/v14.png";
+            chopperImg15.src = "./Assets/images/v15.png";
+            chopperImg16.src = "./Assets/images/v16.png";
+            chopperImg17.src = "./Assets/images/v17.png";
+            chopperImg18.src = "./Assets/images/v18.png";
+            chopperImg19.src = "./Assets/images/v19.png";
+            chopperImg20.src = "./Assets/images/v20.png";
+            chopperImg21.src = "./Assets/images/v21.png";
+            chopperImg22.src = "./Assets/images/v22.png";
+            chopperImg23.src = "./Assets/images/v23.png";
+            chopperImg24.src = "./Assets/images/v24.png";
+            chopperImg25.src = "./Assets/images/v25.png";
+            chopperImg26.src = "./Assets/images/v26.png";
+            chopperImg27.src = "./Assets/images/v27.png";
+
+
+                let spriteSheet = new createjs.SpriteSheet({
+                    images: [ chopperImg1, chopperImg2, chopperImg3, chopperImg4, chopperImg5,
+                        chopperImg6,chopperImg7, chopperImg8, chopperImg9, chopperImg10, 
+                        chopperImg11, chopperImg12, chopperImg13, chopperImg14, chopperImg15, chopperImg16,
+                        chopperImg17, chopperImg18, chopperImg19, chopperImg20, chopperImg21, chopperImg22,
+                        chopperImg23, chopperImg24, chopperImg25, chopperImg26, chopperImg27],
+                    frames: { width: 480, height: 373, count: 28},
+                    animations: {
+                        explore: [0, 27, false]
+                    }
+                });
+                let animation = new createjs.Sprite(spriteSheet);
+                animation.x = obX;
+                animation.y = obY;
+                animation.spriteSheet.getAnimation('explore').speed = 0.3;
                 animation.gotoAndPlay('explore');
 
                 this.addChild(animation);
