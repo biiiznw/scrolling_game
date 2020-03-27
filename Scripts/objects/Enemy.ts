@@ -24,7 +24,7 @@ module objects
         }
 
         
-        // PUBLIC PROPERTIES
+        //PUBLIC PROPERTIES
         set died(status:boolean) {
             this._died = status;
         }
@@ -88,7 +88,7 @@ module objects
 
 
         public Update(): void {
-            if(!this._died) {
+            if(! this._died) {
                 this.Move();
                 this._checkBounds();
             }

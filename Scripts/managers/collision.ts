@@ -3,6 +3,7 @@ module managers
     export class Collision
     {
         static count:number = 0;
+        static enemy:objects.Enemy;
         //static live:number = 100;
 
         public static _checkHighScore()
@@ -62,7 +63,7 @@ module managers
             return false;
         }
 
-        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject, point: number = 0, sound:boolean = false)
+        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject, point: number = 0, died:boolean = false)
         {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
@@ -93,10 +94,10 @@ module managers
                     console.log("Collision!");
                     object2.isColliding = true;
                     console.log("Kill enemies"+ Collision.count);
-                    config.Game.SCORE_BOARD.Score += point;
-                    
-                    //alert("You died!")
-                    // config.Game.SCENE_STATE = scenes.State.END;
+                    if(died == true)
+                    {
+                        config.Game.SCORE_BOARD.Score += point;
+                    }
                 }
                 this._checkHighScore()
             }

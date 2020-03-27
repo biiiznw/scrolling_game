@@ -13,6 +13,7 @@ module objects
         private _velocity:Vector2 = new Vector2(0, 0);
 
         // PROPERTIES
+
         get width():number
         {
             return this._width;

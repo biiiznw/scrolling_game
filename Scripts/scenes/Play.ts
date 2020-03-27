@@ -137,7 +137,7 @@ module scenes
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._levelup,0,true);
+            managers.Collision.AABBCheck(this._player, this._levelup,0);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
@@ -145,7 +145,7 @@ module scenes
             }
             this._antiBoom.y += 5;
             this._antiBoom.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom,500,true);
+            managers.Collision.AABBCheck(this._player, this._antiBoom,500, true);
             if(this._antiBoom.isColliding) {
                 this.removeChild(this._antiBoom);
                 this.killAll();
@@ -214,7 +214,7 @@ module scenes
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    managers.Collision.AABBCheck(enemy, bullet, 100);
+                    managers.Collision.AABBCheck(enemy, bullet, 100, true);
                     if(bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
                         createjs.Sound.play("./Assets/sounds/crash.wav");

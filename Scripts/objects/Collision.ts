@@ -15,7 +15,6 @@ module objects
                     console.log("Collision!");
                     object2.isColliding = true;
                 }
-                
             }
             else
             {

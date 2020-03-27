@@ -6,6 +6,7 @@ var scenes;
         // CONSTRUCTOR
         constructor() {
             super();
+            this._scoreBoard = new managers.ScoreBoard;
             this.fire = true;
             this._numOfEnemy = 10;
             this._bulletNum = 20;
@@ -20,8 +21,8 @@ var scenes;
             this._bulletImg.src = "./Assets/images/beam1.png";
             this._bulletNumLabel = new objects.Label();
             this._playerBullet = new objects.Bullet();
-            this._pointLabel = new objects.Label();
-            this._liveLabel = new objects.Label();
+            //this._pointLabel = new objects.Label();
+            //this._liveLabel = new objects.Label();
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
@@ -85,7 +86,7 @@ var scenes;
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    managers.Collision.AABBCheck(enemy, bullet, 200);
+                    managers.Collision.AABBCheck(enemy, bullet, 200, true);
                     if (bullet.isColliding) {
                         enemy.Live--;
                         if (enemy.Live < 1) {
@@ -187,12 +188,14 @@ var scenes;
             this._scoreImage = new objects.Button(config.Game.ASSETS.getResult("score"), 420, 30, true);
             this._lifeImage = new objects.Button(config.Game.ASSETS.getResult("life"), 30, 30, true);
             this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
-            this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
-            this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
+            //this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
+            //this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"), this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
             // this._numOfEnemy =5;
             this.AddEnemies(this._numOfEnemy);
+            config.Game.SCORE_BOARD = this._scoreBoard;
+            this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
             this.Main();
         } //end start
         Update() {
@@ -205,7 +208,7 @@ var scenes;
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y += 5;
-            managers.Collision.AABBCheck(this._player, this._levelup, 0, true);
+            managers.Collision.AABBCheck(this._player, this._levelup, 0);
             if (this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
@@ -213,7 +216,7 @@ var scenes;
             }
             this._antiBoom.y += 5;
             this._antiBoom.position.y += 5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom, 0, true);
+            managers.Collision.AABBCheck(this._player, this._antiBoom, 500, true);
             if (this._antiBoom.isColliding) {
                 this.removeChild(this._antiBoom);
                 this.killAll();
@@ -227,10 +230,13 @@ var scenes;
             this.addChild(this._lifeImage);
             this.addChild(this._scoreImage);
             this.addChild(this._player);
-            this.addChild(this._pointLabel);
-            this.addChild(this._liveLabel);
+            //this.addChild(this._pointLabel);
+            //this.addChild(this._liveLabel);
             this.addChild(this._levelup);
             this.addChild(this._antiBoom);
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard.HighScoreLabel);
         } //end main
         killAll() {
             this._ememies.forEach(enemy => {

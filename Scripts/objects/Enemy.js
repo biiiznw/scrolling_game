@@ -23,7 +23,7 @@ var objects;
         get Live() {
             return this._live;
         }
-        // PUBLIC PROPERTIES
+        //PUBLIC PROPERTIES
         set died(status) {
             this._died = status;
         }

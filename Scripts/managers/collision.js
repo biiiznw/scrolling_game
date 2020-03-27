@@ -42,7 +42,7 @@ var managers;
             }
             return false;
         }
-        static AABBCheck(object1, object2, point = 0, sound = false) {
+        static AABBCheck(object1, object2, point = 0, died = false) {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
             if (object1.isCentered) {
@@ -64,9 +64,9 @@ var managers;
                     console.log("Collision!");
                     object2.isColliding = true;
                     console.log("Kill enemies" + Collision.count);
-                    config.Game.SCORE_BOARD.Score += point;
-                    //alert("You died!")
-                    // config.Game.SCENE_STATE = scenes.State.END;
+                    if (died == true) {
+                        config.Game.SCORE_BOARD.Score += point;
+                    }
                 }
                 this._checkHighScore();
             }
