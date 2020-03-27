@@ -16,7 +16,7 @@ module scenes
 
         private _ememies:objects.Enemy[];
         private _enemybullets: Array<objects.Bullet>;
-        private _numOfEnemy:Number = 5;
+        private _numOfEnemy:Number = 10;
 
         private _player:objects.Player;
         private _bullets: Array<objects.Bullet>;
@@ -25,6 +25,7 @@ module scenes
         
         private _bulletImage:objects.Button;
         private _bulletImg = new Image();
+        private _antiBoom:objects.Image;
         
 
         // PUBLIC PROPERTIES
@@ -50,6 +51,7 @@ module scenes
             this._lifeImage = new objects.Button();
             this._levelup = new objects.Image();
             this._blackhole = new objects.Blackhole();
+            this._antiBoom = new objects.Image();
             this._numOfEnemy;
             this._bulletNum = 30;
             // this._point = 0;
@@ -236,6 +238,8 @@ module scenes
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
+            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"), 
+                this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
             // this._numOfEnemy =5;
             this.AddEnemies(this._numOfEnemy);
             this.Main();
@@ -253,19 +257,19 @@ module scenes
             this._levelup.y += 5;
             this._levelup.position.y +=5;
 
-           
-            
             managers.Collision.AABBCheck(this._player, this._levelup, true);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
             }
-            // managers.Collision.AABBCheck(this._player, this._addLife);
-            // if(this._addLife.isColliding) {
-            //     this.removeChild(this._addLife);
-            //     managers.Collision.live += 1;
-            // }
+            this._antiBoom.y += 5;
+            this._antiBoom.position.y +=5;
+            managers.Collision.AABBCheck(this._player, this._antiBoom, true);
+            if(this._antiBoom.isColliding) {
+                this.removeChild(this._antiBoom);
+                this.killAll();
+            }
         }//end update
         
         public Main(): void {
@@ -279,8 +283,20 @@ module scenes
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
+            this.addChild(this._antiBoom);
             
         }//end main
+
+        public killAll():void
+        {
+            this._ememies.forEach(enemy => {
+                this.ExploreAnimation(enemy.x, enemy.y);
+                createjs.Sound.play("./Assets/sounds/crash.wav");
+                enemy.position = new objects.Vector2(-100,-200);
+                enemy.died = true;
+                this.removeChild(enemy);
+            });
+        }
 
         //#########################################
         //      FIRE SHOOT WITH SPACE BUTTON

@@ -7,7 +7,7 @@ var scenes;
         constructor() {
             super();
             this.fire = true;
-            this._numOfEnemy = 5;
+            this._numOfEnemy = 10;
             this._bulletNum = 20;
             this._bulletImg = new Image();
             // initialization
@@ -27,6 +27,7 @@ var scenes;
             this._lifeImage = new objects.Button();
             this._levelup = new objects.Image();
             this._blackhole = new objects.Blackhole();
+            this._antiBoom = new objects.Image();
             this._numOfEnemy;
             this._bulletNum = 30;
             // this._point = 0;
@@ -189,6 +190,7 @@ var scenes;
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
+            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"), this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
             // this._numOfEnemy =5;
             this.AddEnemies(this._numOfEnemy);
             this.Main();
@@ -209,11 +211,13 @@ var scenes;
                 this._bulletImg.src = "./Assets/images/beam3.png";
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
             }
-            // managers.Collision.AABBCheck(this._player, this._addLife);
-            // if(this._addLife.isColliding) {
-            //     this.removeChild(this._addLife);
-            //     managers.Collision.live += 1;
-            // }
+            this._antiBoom.y += 5;
+            this._antiBoom.position.y += 5;
+            managers.Collision.AABBCheck(this._player, this._antiBoom, true);
+            if (this._antiBoom.isColliding) {
+                this.removeChild(this._antiBoom);
+                this.killAll();
+            }
         } //end update
         Main() {
             this.addChild(this._background);
@@ -226,7 +230,17 @@ var scenes;
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
+            this.addChild(this._antiBoom);
         } //end main
+        killAll() {
+            this._ememies.forEach(enemy => {
+                this.ExploreAnimation(enemy.x, enemy.y);
+                createjs.Sound.play("./Assets/sounds/crash.wav");
+                enemy.position = new objects.Vector2(-100, -200);
+                enemy.died = true;
+                this.removeChild(enemy);
+            });
+        }
         //#########################################
         //      FIRE SHOOT WITH SPACE BUTTON
         //#########################################

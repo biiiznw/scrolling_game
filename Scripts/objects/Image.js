@@ -9,10 +9,20 @@ var objects;
         _checkBounds() {
         }
         Start() {
+            this.RandomPoint(false);
         }
         Update() {
         }
         Reset() {
+            this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+            this.y = -this.height;
+        }
+        RandomPoint(w) {
+            if (w == true) {
+                this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+                this.y = -this.height;
+            }
+            return new objects.Vector2(this.x, this.y);
         }
     }
     objects.Image = Image;

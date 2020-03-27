@@ -59,8 +59,6 @@ module scenes
             this._playerBullet = new objects.Bullet();
             this._bulletImg.src = "./Assets/images/beam1.png"
             this._antiBoom = new objects.Image();
-
-
             this._engine = this.EngineAnimation();
             this.Start();
         }
@@ -87,10 +85,8 @@ module scenes
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
-            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("levelup"), 200, 10, true);
-
-            //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
-            
+            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"), 
+                this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
