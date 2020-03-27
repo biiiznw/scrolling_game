@@ -31,5 +31,12 @@ module objects
             this.x = x;
             this.y = y;
         }
+
+        public setText(newText:string)
+        {
+            this.text = newText;
+            this.regX = this.getBounds().width * 0.5;
+            this.regY = this.getMeasuredHeight() * 0.5;
+        }
     }
 }

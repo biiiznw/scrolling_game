@@ -105,7 +105,7 @@ module scenes
                     managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
 
-                        if(managers.Collision.live <= 0) {
+                        if(config.Game.SCORE_BOARD.Lives  <= 0) {
                             this.ExploreAnimation(this._player.x, this._player.y);
                         } else {
                             this.ShieldAnimation(this._player.x, this._player.y);
@@ -117,7 +117,7 @@ module scenes
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    managers.Collision.AABBCheck(enemy, bullet);
+                    managers.Collision.AABBCheck(enemy, bullet, 200);
                     if(bullet.isColliding) {
                         enemy.Live--
                         if(enemy.Live < 1) {
@@ -126,7 +126,7 @@ module scenes
                             enemy.position = new objects.Vector2(-100,-200);
                             enemy.died = true;
                             this.removeChild(enemy);
-                            Play.point += 200;
+                            //config.Game.SCORE_BOARD.Score  += 200;
                         }
                         createjs.Sound.play("./Assets/sounds/break.wav");
                         this.BreakAnimation(enemy.x, enemy.y);
@@ -140,7 +140,7 @@ module scenes
              //check Black hole Collison
              managers.Collision.squaredRadiusCheck(this._player, this._blackhole)
              if(this._blackhole.isColliding) {
-                 if(managers.Collision.live <= 0) {
+                 if(config.Game.SCORE_BOARD.Lives  <= 0) {
                      this.ExploreAnimation(this._player.x, this._player.y);
                  } else {
                      this.ShieldAnimation(this._player.x, this._player.y);
@@ -197,9 +197,9 @@ module scenes
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + Play.point;
+            //this._pointLabel.text = " : " + Play.point;
 
-            this._liveLabel.text = " : " + managers.Collision.live;
+            //this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             // if(managers.Collision.count == this._numOfEnemy)
             // {
@@ -207,7 +207,7 @@ module scenes
             //     config.Game.SCENE_STATE = scenes.State.COMPLETE;
             // }
             //if attacked more than 3 times, game over
-            if(managers.Collision.live <= 0)
+            if(config.Game.SCORE_BOARD.Lives  <= 0)
             {
                 setTimeout(() => {
                     this.removeChild(this._player);
@@ -257,7 +257,7 @@ module scenes
             this._levelup.y += 5;
             this._levelup.position.y +=5;
 
-            managers.Collision.AABBCheck(this._player, this._levelup, true);
+            managers.Collision.AABBCheck(this._player, this._levelup,0, true);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 this._bulletImg.src = "./Assets/images/beam3.png";
@@ -265,7 +265,7 @@ module scenes
             }
             this._antiBoom.y += 5;
             this._antiBoom.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom, true);
+            managers.Collision.AABBCheck(this._player, this._antiBoom,0, true);
             if(this._antiBoom.isColliding) {
                 this.removeChild(this._antiBoom);
                 this.killAll();

@@ -22,6 +22,11 @@ var objects;
             this.x = x;
             this.y = y;
         }
+        setText(newText) {
+            this.text = newText;
+            this.regX = this.getBounds().width * 0.5;
+            this.regY = this.getMeasuredHeight() * 0.5;
+        }
     }
     objects.Label = Label;
 })(objects || (objects = {}));

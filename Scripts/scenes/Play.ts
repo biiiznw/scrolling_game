@@ -2,7 +2,8 @@ module scenes
 {
     export class Play extends objects.Scene
     {
-        public static point:number = 0;
+        private _scoreBoard: managers.ScoreBoard = new managers.ScoreBoard;
+        //public static point:number = 0;
         // PRIVATE INSTANCE MEMBERS
         private _player:objects.Player;
         private _background: objects.Background;
@@ -15,8 +16,8 @@ module scenes
         private _bulletNum = 20;
         private _bulletNumLabel: objects.Label;
         // private point:number;
-        private _pointLabel:objects.Label;
-        private _liveLabel:objects.Label;
+        //private _pointLabel:objects.Label;
+        //private _liveLabel:objects.Label;
         private fire = true;
         private _bulletImage:objects.Button;
         private _lifeImage:objects.Button;
@@ -27,7 +28,6 @@ module scenes
         private _antiBoom:objects.Image;
 
         /////Test
-
         private _engine:createjs.Sprite;
 
 
@@ -49,8 +49,8 @@ module scenes
             this._bulletNum = 30;
             this._bulletNumLabel = new objects.Label();
             // this.point = 0;
-            this._pointLabel = new objects.Label();
-            this._liveLabel = new objects.Label();
+            //this._pointLabel = new objects.Label();
+            //this._liveLabel = new objects.Label();
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
@@ -82,8 +82,8 @@ module scenes
             this._scoreImage = new objects.Button(config.Game.ASSETS.getResult("score"), 420,30, true);
             this._lifeImage = new objects.Button(config.Game.ASSETS.getResult("life"), 30,30, true);
             this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
-            this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
-            this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
+            //this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
+            //this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"), 
                 this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
@@ -92,6 +92,8 @@ module scenes
             this.AddEnemies(this._numOfEnemy);
             //this.AddEnemies(10, this._enemybullets);
             this._engine = this.EngineAnimation();
+            config.Game.SCORE_BOARD = this._scoreBoard;
+            this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
             this.Main();
         }
 
@@ -120,29 +122,9 @@ module scenes
                 enemy.position = new objects.Vector2(-100,-200);
                 enemy.died = true;
                 this.removeChild(enemy);
+                //config.Game.SCORE_BOARD.Score += 100
             });
         }
-
-        // public Controls(e:KeyboardEvent):void
-        // {
-        //     if(e.keyCode == config.Keys.FIREGUN)
-        //     {
-        //         this._bulletNum--;
-        //         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
-        //         this._bullets.push(bullet);
-        //         console.log("FIRE GUN");
-        //         this.addChild(bullet);
-        //     }
-
-        // }
-        
-        // public AddEnemies(EnemyNum:number):void{
-        //     for(let count = 0; count < EnemyNum; count++)
-        //     {
-        //         this._ememies[count] = new objects.Enemy();
-        //     }
-        // }
-
         
         public Update(): void 
         {   
@@ -155,7 +137,7 @@ module scenes
             this.UpdateWinOrLoseCondition();
             this._levelup.y += 5;
             this._levelup.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._levelup, true);
+            managers.Collision.AABBCheck(this._player, this._levelup,0,true);
             if(this._levelup.isColliding) {
                 this.removeChild(this._levelup);
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
@@ -163,14 +145,12 @@ module scenes
             }
             this._antiBoom.y += 5;
             this._antiBoom.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom, true);
+            managers.Collision.AABBCheck(this._player, this._antiBoom,500,true);
             if(this._antiBoom.isColliding) {
                 this.removeChild(this._antiBoom);
                 this.killAll();
             }           
         }
-
-        
 
         public Main(): void {
             // adds background to the stage
@@ -181,11 +161,14 @@ module scenes
             //gitthis.addChild(this._level);
             this.addChild(this._player);
             this.addChild(this._bulletNumLabel);
-            this.addChild(this._pointLabel);
-            this.addChild(this._liveLabel);
+            //this.addChild(this._pointLabel);
+            //this.addChild(this._liveLabel);
             this.addChild(this._levelup);
             this.addChild(this._antiBoom);
             this.addChild(this._engine);
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard.HighScoreLabel);
             // this.EngineAnimation();
         }//end public Main() method
 
@@ -219,7 +202,7 @@ module scenes
                     managers.Collision.Check(this._player, bullet);
                     if(bullet.isColliding) {
 
-                        if(managers.Collision.live <= 0) {
+                        if(config.Game.SCORE_BOARD.Lives  <= 0) {
                             this.ExploreAnimation(this._player.x, this._player.y);
                         } else {
                             this.ShieldAnimation(this._player.x, this._player.y);
@@ -231,7 +214,7 @@ module scenes
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    managers.Collision.AABBCheck(enemy, bullet);
+                    managers.Collision.AABBCheck(enemy, bullet, 100);
                     if(bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
@@ -240,18 +223,9 @@ module scenes
                         this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200,-200);
                         this.removeChild(bullet);
-                        Play.point += 100;
+                        //config.Game.SCORE_BOARD.Score += 100
                     }
                 });
-            //check collision player and enemies
-            //managers.Collision.Check(enemy, this._player);
-            // if(this._player.isColliding)
-            // {
-            //     console.log("debug: Player collision");
-            //     //createjs.Sound.play("./Assets/sounds/crash.wav");
-            //     //config.Game.SCENE_STATE = scenes.State.END;
-            //     //createjs.Sound.stop();//
-            // }
 
             });
 
@@ -281,11 +255,6 @@ module scenes
             //});
         }//end public FireGun
 
-        // for(var i = 0; i < 3; i++) {
-        //     (function(index) {
-        //         setTimeout(function() { alert(index); }, index*5000);
-        //     })(i);
-        // }
         public UpdateBullets() {
             this._bullets.forEach((bullet) => {
                 this.BulletSpeed(bullet, 8, 8, false);
@@ -515,7 +484,6 @@ module scenes
                 animation.y = this._player.y + 20;
                 animation.spriteSheet.getAnimation('engine').speed = 0.4;
                 animation.gotoAndPlay('engine');
-
                 return animation;
         }
 
@@ -525,108 +493,23 @@ module scenes
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + Play.point;
 
-            this._liveLabel.text = " : " + managers.Collision.live;
-            //if player kill all the enemies
-            if(managers.Collision.count > this._numOfEnemy)
+            if(managers.Collision.count >= this._numOfEnemy || this._numOfEnemy == 0)
             {
                 config.Game.SCENE_STATE = scenes.State.STAGE2;
                 managers.Collision.count = 0;
-                
             }
+
             //if attacked more than 3 times, game over
-            if(managers.Collision.live <= 0)
+            if(config.Game.SCORE_BOARD.Lives  <= 0)
             {
-                
                 setTimeout(() => {
                     this.removeChild(this._player);
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
-                
             }
         }
 
 
     }//end class
 }//end module
-
-// this._player.addEventListener("click", () =>{
-            //     console.log("click");
-            //     this._bulletNum--;
-            //     let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
-            //     this._bullets.push(bullet);
-            //     console.log(this._bullets.length);
-            //     this.addChild(bullet);
-            //     this.Update();
-            // });
-
-// // Shot fire until enemies are colliding
-// public FireGun(newArray:Array<objects.Enemy>, bullArray:Array<objects.Bullet>):void
-// {
-//     newArray.forEach(enemy => {
-//         this.addChild(enemy);
-//             if(enemy.canShoot()){
-//                 let fire = setInterval(()=>{
-//                     if(!enemy.isColliding)
-//                     {
-//                         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
-//                         bullArray.push(bullet);
-//                         this.addChild(bullet);
-//                     }
-//                     else clearInterval(fire)
-//                 }, 500)
-//             }
-//     });
-// }//end public FireGun
-
-            //Update
-            // if (this._enemy1.y == 480)
-            // {
-            //     this._enemy1.y = 100;
-            // } else
-            // {
-            //     this._enemy1.y += 1;
-            // }
-
-            // if (this._enemy2.y == 480)
-            // {
-            //     this._enemy2.y = 50;
-            // } else
-            // {
-            //     this._enemy2.y += 2;
-            // }
-
-            // if (this._enemy3.y == 480)
-            // {
-            //     this._enemy3.y = 50;
-            // } else
-            // {
-            //     this._enemy3.y += 2.5;
-            // }
-            // this._enemy1.position = new objects.Vector2(this._enemy1.x, this._enemy1.y);
-            // this._enemy2.position = new objects.Vector2(this._enemy2.x, this._enemy2.y);
-            // this._enemy3.position = new objects.Vector2(this._enemy3.x, this._enemy3.y);
-            // console.log("player: " + this._player.x + " " +this._player.y);
-            // console.log(this._enemy3.x, this._enemy3.y);
-            // managers.Collision.AABBCheck(this._player, this._enemy1);
-            // managers.Collision.AABBCheck(this._player, this._enemy2);
-            //managers.Collision.AABBCheck(this._player, this._ememies[10]);
-
-
-            // main
-            // this._enemy1 = new objects.Enemy();
-            // this._enemy1.x = 150;
-            // this._enemy1.y = 100;
-            //this.addChild(this._enemy1);
-
-            // this._enemy2 = new objects.Enemy();
-            // this._enemy2.x = 280;
-            // this._enemy2.y = 50;
-            // this.addChild(this._enemy2);
-
-            // this._enemy3 = new objects.Enemy();
-            // this._enemy3.x = 450;
-            // this._enemy3.y = 70;
-            // this._enemy3.position = new objects.Vector2(this._enemy3.x, this._enemy3.y);
-            // this.addChild(this._enemy3);

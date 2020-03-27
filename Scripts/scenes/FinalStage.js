@@ -92,7 +92,7 @@ var scenes;
                 this._enemybullets.forEach((bullet) => {
                     managers.Collision.Check(this._player, bullet);
                     if (bullet.isColliding) {
-                        if (managers.Collision.live <= 0) {
+                        if (config.Game.SCORE_BOARD.Lives <= 0) {
                             this.ExploreAnimation(this._player.x, this._player.y);
                         }
                         else {
@@ -119,7 +119,7 @@ var scenes;
             this._enemybullets.forEach((bullet) => {
                 managers.Collision.Check(this._player, bullet);
                 if (bullet.isColliding) {
-                    if (managers.Collision.live <= 0) {
+                    if (config.Game.SCORE_BOARD.Lives <= 0) {
                         this.ExploreAnimation(this._player.x, this._player.y);
                     }
                     else {
@@ -138,10 +138,10 @@ var scenes;
                     this.SmallExploreAnimation(bullet.x - 40, bullet.y - 66);
                     bullet.position = new objects.Vector2(-200, -200);
                     this.removeChild(bullet);
-                    scenes.Play.point += 100;
+                    config.Game.SCORE_BOARD.Score += 100;
                     if (this._boss.Live < 1) {
                         this.BigExploreAnimation(this._boss.x - 130, this._boss.y - 90);
-                        scenes.Play.point += 1000;
+                        config.Game.SCORE_BOARD.Score += 1000;
                         this.removeChild(this._boss);
                         this._boss.position = new objects.Vector2(-500, -500);
                     }
@@ -213,14 +213,14 @@ var scenes;
             if (this._bulletNum == 0) {
                 config.Game.SCENE_STATE = scenes.State.END;
             }
-            this._pointLabel.text = " : " + scenes.Play.point;
-            this._liveLabel.text = " : " + managers.Collision.live;
+            //this._pointLabel.text = " : " + Play.point;
+            //this._liveLabel.text = " : " + managers.Collision.live;
             //if player kill all the enemies
             if (managers.Collision.count == this._numOfEnemy) {
                 config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
             }
             //if attacked more than 3 times, game over
-            if (managers.Collision.live <= 0) {
+            if (config.Game.SCORE_BOARD.Lives <= 0) {
                 setTimeout(() => {
                     this.removeChild(this._player);
                     config.Game.SCENE_STATE = scenes.State.END;

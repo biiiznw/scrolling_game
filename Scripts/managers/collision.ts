@@ -3,7 +3,15 @@ module managers
     export class Collision
     {
         static count:number = 0;
-        static live:number = 100;
+        //static live:number = 100;
+
+        public static _checkHighScore()
+        {
+            if(config.Game.SCORE > config.Game.HIGH_SCORE)
+            {
+                config.Game.HIGH_SCORE = config.Game.SCORE;
+            }
+        }
 
         public static Check(object1: objects.GameObject, object2: objects.GameObject)
         {
@@ -15,15 +23,13 @@ module managers
                 
                 if(!object2.isColliding)
                 {
-                    this.live--
-                    console.log("Attack " + this.live);
-                    object2.isColliding = true;
-                    createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
-                    // if(!config.Game.keyboardManager)
-                    // {
-                    //     createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
-                    // }
-                    // config.Game.SCENE_STATE = scenes.State.END;
+                    if(config.Game.SCORE_BOARD.Lives > 0)
+                    {
+                        config.Game.SCORE_BOARD.Lives -=1;
+                        console.log("Attack " + config.Game.SCORE_BOARD.Lives);
+                        object2.isColliding = true;
+                        createjs.Sound.play("./Assets/sounds/crashPlayer.wav");
+                    }
                 }
             }
             else
@@ -42,8 +48,8 @@ module managers
             {
                 if(!object2.isColliding)
                     {
-                        this.live--
-                        console.log("Attack BlackHole" + this.live);
+                        config.Game.SCORE_BOARD.Lives -=1;
+                        console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
                         object2.isColliding = true;
                         return true;
@@ -56,27 +62,7 @@ module managers
             return false;
         }
 
-        // public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject)
-        // {
-        //     let sqrDistance = objects.Vector2.sqrDistance(object1.position, object2.position);
-        //     let radii = object1.halfWidth + object2.halfWidth
-    
-        //     if(sqrDistance < (radii * radii))
-        //     {
-        //         if(!object2.isColliding)
-        //         {
-        //             console.log("Collision!");
-        //             object2.isColliding = true;
-        //         }
-                
-        //     }
-        //     else
-        //     {
-        //         object2.isColliding = false;
-        //     }
-        // }
-
-        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject, sound:boolean = false)
+        public static AABBCheck(object1:objects.GameObject, object2:objects.GameObject, point: number = 0, sound:boolean = false)
         {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);
@@ -106,18 +92,18 @@ module managers
                     Collision.count += 1;
                     console.log("Collision!");
                     object2.isColliding = true;
-                   
                     console.log("Kill enemies"+ Collision.count);
+                    config.Game.SCORE_BOARD.Score += point;
+                    
                     //alert("You died!")
                     // config.Game.SCENE_STATE = scenes.State.END;
                 }
+                this._checkHighScore()
             }
             else
             {
                 object2.isColliding = false;
             }
         }
-
-       
     }
 }
