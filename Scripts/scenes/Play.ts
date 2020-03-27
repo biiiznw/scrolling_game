@@ -24,6 +24,7 @@ module scenes
         private _levelup:objects.Image;
         private _playerBullet:objects.Bullet;
         private _bulletImg = new Image();
+        private _antiBoom:objects.Image;
 
         /////Test
 
@@ -57,6 +58,7 @@ module scenes
             this._levelup = new objects.Image();
             this._playerBullet = new objects.Bullet();
             this._bulletImg.src = "./Assets/images/beam1.png"
+            this._antiBoom = new objects.Image();
 
 
             this._engine = this.EngineAnimation();
@@ -85,6 +87,7 @@ module scenes
             this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
+            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("levelup"), 200, 10, true);
 
             //this.bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam1"), this._player.x, this._player.y-20, true);
             
@@ -110,6 +113,18 @@ module scenes
                     clearInterval(createEnemy)
                 }
             }, 1000)
+        }
+        
+        //ANTI-Matter-Boom
+        public killAll():void
+        {
+            this._ememies.forEach(enemy => {
+                this.ExploreAnimation(enemy.x, enemy.y);
+                createjs.Sound.play("./Assets/sounds/crash.wav");
+                enemy.position = new objects.Vector2(-100,-200);
+                enemy.died = true;
+                this.removeChild(enemy);
+            });
         }
 
         // public Controls(e:KeyboardEvent):void
@@ -150,6 +165,13 @@ module scenes
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
+            this._antiBoom.y += 5;
+            this._antiBoom.position.y +=5;
+            managers.Collision.AABBCheck(this._player, this._antiBoom, true);
+            if(this._antiBoom.isColliding) {
+                this.removeChild(this._antiBoom);
+                this.killAll();
+            }           
         }
 
         
@@ -166,6 +188,7 @@ module scenes
             this.addChild(this._pointLabel);
             this.addChild(this._liveLabel);
             this.addChild(this._levelup);
+            this.addChild(this._antiBoom);
             this.addChild(this._engine);
             // this.EngineAnimation();
         }//end public Main() method
@@ -273,7 +296,6 @@ module scenes
             })
             this._ememies.forEach(enemy => {
                 enemy.addEventListener("tick", ()=>{
-                
                     if(enemy.canShoot())
                     {
                         let bullet = new objects.Bullet(config.Game.ASSETS.getResult("beam2"), enemy.x+20, enemy.y+50, true);
