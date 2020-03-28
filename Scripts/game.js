@@ -30,6 +30,7 @@ let game1 = (function () {
         { id: "score", src: "./Assets/images/score.png" },
         { id: "life", src: "./Assets/images/life.png" },
         { id: "levelup", src: "./Assets/images/levelup.png" },
+        { id: "health", src: "./Assets/images/h01.png" },
         { id: "antiBoom", src: "./Assets/images/antiBoom.png" },
         { id: "Blackhole", src: "./Assets/images/Blackhole.png" },
         { id: "Tuto", src: "./Assets/images/tuto.png" },

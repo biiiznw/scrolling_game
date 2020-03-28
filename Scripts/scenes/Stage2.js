@@ -28,6 +28,7 @@ var scenes;
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
             this._levelup = new objects.Image();
+            this._healthup = new objects.Image();
             this._blackhole = new objects.Blackhole();
             this._antiBoom = new objects.Image();
             this._numOfEnemy;
@@ -94,6 +95,16 @@ var scenes;
                             this.count++;
                             this.ExploreAnimation(enemy.x, enemy.y);
                             createjs.Sound.play("./Assets/sounds/crash.wav");
+                            let randNum = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+                            console.log(randNum);
+                            if (randNum == 1) {
+                                this._healthup = new objects.Image(config.Game.ASSETS.getResult("health"), enemy.x, enemy.y + 40, true);
+                                this.addChild(this._healthup);
+                                config.Game.SCORE_BOARD.Lives += 1;
+                                setTimeout(() => {
+                                    this.removeChild(this._healthup);
+                                }, 800);
+                            }
                             enemy.position = new objects.Vector2(-100, -200);
                             enemy.died = true;
                             this.removeChild(enemy);

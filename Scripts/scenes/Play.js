@@ -33,6 +33,7 @@ var scenes;
             this._lifeImage = new objects.Button();
             this._player = new objects.Player();
             this._levelup = new objects.Image();
+            this._healthup = new objects.Image();
             this._playerBullet = new objects.Bullet();
             this._bulletImg.src = "./Assets/images/beam1.png";
             this._antiBoom = new objects.Image();
@@ -178,6 +179,16 @@ var scenes;
                     if (bullet.isColliding) {
                         this.ExploreAnimation(enemy.x, enemy.y);
                         createjs.Sound.play("./Assets/sounds/crash.wav");
+                        let randNum = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+                        console.log(randNum);
+                        if (randNum == 1) {
+                            this._healthup = new objects.Image(config.Game.ASSETS.getResult("health"), enemy.x, enemy.y + 40, true);
+                            this.addChild(this._healthup);
+                            config.Game.SCORE_BOARD.Lives += 1;
+                            setTimeout(() => {
+                                this.removeChild(this._healthup);
+                            }, 800);
+                        }
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;
                         this.removeChild(enemy);
