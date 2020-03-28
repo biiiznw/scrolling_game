@@ -11,6 +11,7 @@ var scenes;
             this._numOfEnemy = 10;
             this._bulletNum = 20;
             this._bulletImg = new Image();
+            this.count = 0;
             // initialization
             this._player = new objects.Player;
             this._ememies = new Array();
@@ -90,6 +91,7 @@ var scenes;
                     if (bullet.isColliding) {
                         enemy.Live--;
                         if (enemy.Live < 1) {
+                            this.count++;
                             this.ExploreAnimation(enemy.x, enemy.y);
                             createjs.Sound.play("./Assets/sounds/crash.wav");
                             enemy.position = new objects.Vector2(-100, -200);
@@ -173,7 +175,7 @@ var scenes;
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
-            if (managers.Collision.count / 2 >= this._numOfEnemy) {
+            if (this.count > 5) {
                 config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
                 managers.Collision.count = 0;
             }
