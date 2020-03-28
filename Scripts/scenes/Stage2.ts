@@ -28,7 +28,7 @@ module scenes
         private _bulletImg = new Image();
         private _antiBoom:objects.Image;
         
-
+        private count:number = 0;
         // PUBLIC PROPERTIES
 
         // CONSTRUCTOR
@@ -122,6 +122,7 @@ module scenes
                     if(bullet.isColliding) {
                         enemy.Live--
                         if(enemy.Live < 1) {
+                            this.count++;
                             this.ExploreAnimation(enemy.x, enemy.y);
                             createjs.Sound.play("./Assets/sounds/crash.wav");
                             enemy.position = new objects.Vector2(-100,-200);
@@ -217,7 +218,7 @@ module scenes
                 
             }
 
-            if(managers.Collision.count/2 >= this._numOfEnemy)
+            if(this.count > 5)
             {
                 config.Game.SCENE_STATE = scenes.State.FINALSTAGE;
                 managers.Collision.count = 0;
