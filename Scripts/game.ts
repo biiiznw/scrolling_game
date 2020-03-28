@@ -13,7 +13,7 @@ let game1 = (function(){
         {id: "placeholder1", src: "./Assets/images/placeholder1.png"},
         {id: "background", src: "./Assets/images/background.gif"},
         {id: "background2", src: "./Assets/images/Testing-01.gif"},
-        {id: "background3", src: "./Assets/images/back03.gif"},
+        {id: "background3", src: "./Assets/images/background3.gif"},
         {id: "enemy", src: "./Assets/images/enemy.png"},
         {id: "boss", src: "./Assets/images/finalEnamy.png"},
         {id: "enemy02", src: "./Assets/images/enemy02.png"},
@@ -32,6 +32,8 @@ let game1 = (function(){
         {id: "levelup", src: "./Assets/images/levelup.png"},
         {id: "antiBoom", src: "./Assets/images/antiBoom.png"},
         {id: "Blackhole", src: "./Assets/images/Blackhole.png"},
+        {id: "Tuto", src: "./Assets/images/tuto.png"},
+        {id: "startPage", src: "./Assets/images/startPage.png"},
         // {id: "explore", src: "./Assets/images/explore.gif"},
         // {id: "explore1", src: "./Assets/images/explore1.gif"},
         //buttons
@@ -101,7 +103,6 @@ let game1 = (function(){
     function Main():void
     {
         console.log(`%c Switching Scenes`, "color: green; font-size:16px;");
-
         // cleanup
         if(currentSceneState != scenes.State.NO_SCENE)
         {
@@ -114,6 +115,9 @@ let game1 = (function(){
         {
             case scenes.State.START:
                 currentScene = new scenes.Start();
+                break;
+            case scenes.State.TUTORIAL:
+                currentScene = new scenes.Tutorial();
                 break;
             case scenes.State.PLAY:
                 currentScene = new scenes.Play();
@@ -132,13 +136,9 @@ let game1 = (function(){
                 break;
 
         }
-
         // add the scene to the stage and setup the current scene
         stage.addChild(currentScene);
         currentSceneState = config.Game.SCENE_STATE;
-
     }
-
     window.addEventListener("load", Preload);
-
 })();

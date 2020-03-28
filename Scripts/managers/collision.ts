@@ -94,7 +94,7 @@ module managers
                     console.log("Collision!");
                     object2.isColliding = true;
                     console.log("Kill enemies"+ Collision.count);
-                    if(died == true)
+                    if((config.Game.SCENE_STATE != scenes.State.TUTORIAL) && (died == true))
                     {
                         config.Game.SCORE_BOARD.Score += point;
                     }

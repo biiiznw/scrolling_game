@@ -268,7 +268,7 @@ module scenes
             }
             this._antiBoom.y += 5;
             this._antiBoom.position.y +=5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom,500, true);
+            managers.Collision.AABBCheck(this._player, this._antiBoom, 500, true);
             if(this._antiBoom.isColliding) {
                 this.removeChild(this._antiBoom);
                 this.killAll();
