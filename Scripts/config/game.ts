@@ -8,7 +8,7 @@ module config
         public static SCREEN_WIDTH:number = 640;
         public static SCREEN_HEIGHT:number = 800;
         public static keyboardManager: managers.Keyboard;
-        public static LIVES:number = 100;
+        public static LIVES:number = 3;
         public static SCORE: number = 0;
         public static HIGH_SCORE: number = 0;
         public static SCORE_BOARD: managers.ScoreBoard;

@@ -18,8 +18,8 @@ var scenes;
         // PUBLIC METHODS
         Start() {
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
-            this.endLabel = new objects.Label("Game Over", "80px", "Consolas", "#FFFFFF", 320, 200, true);
-            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
+            this.endLabel = new objects.Label("GAME OVER", "80px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 300, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 500, true);
             managers.Collision._checkHighScore;
             this._scoreBoard = new managers.ScoreBoard();
             this._scoreBoard.HighScore = config.Game.HIGH_SCORE;

@@ -4,14 +4,15 @@ module scenes
     {
         // PRIVATE INSTANCE MEMBERS
         private _background: objects.Background;
-        private _pointLabel:objects.Label;
-        private _liveLabel:objects.Label;
+        private _scoreBoard: managers.ScoreBoard = new managers.ScoreBoard;
+        //private _pointLabel:objects.Label;
+        //private _liveLabel:objects.Label;
         private _lifeImage:objects.Button;
         private _scoreImage:objects.Button;
         private _levelup:objects.Image;
         private _bulletNumLabel: objects.Label;
         private fire = true;
-        private _point:number;
+        // private _point:number;
         private _blackhole:objects.Blackhole;
 
         private _ememies:objects.Enemy[];
@@ -45,8 +46,8 @@ module scenes
             this._bulletImg.src = "./Assets/images/beam1.png"
             this._bulletNumLabel = new objects.Label();
             this._playerBullet = new objects.Bullet();
-            this._pointLabel = new objects.Label();
-            this._liveLabel = new objects.Label();
+            // this._pointLabel = new objects.Label();
+            // this._liveLabel = new objects.Label();
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
@@ -54,7 +55,7 @@ module scenes
             this._blackhole = new objects.Blackhole();
             this._numOfEnemy;
             this._bulletNum = 30;
-            this._point = 0;
+            // this._point = 0;
             this._boss = new objects.Boss();
             this._bossLabel = new objects.Label;
             this.Start();
@@ -139,7 +140,7 @@ module scenes
                     }
                 });
                 this._bullets.forEach((bullet) => {
-                    managers.Collision.AABBCheck(enemy, bullet);
+                    managers.Collision.AABBCheck(enemy, bullet, 300, true);
                     if(bullet.isColliding) {
                         //this.ExploreAnimation(enemy.x, enemy.y);
                         enemy.position = new objects.Vector2(-100,-200);
@@ -147,7 +148,7 @@ module scenes
                         this.removeChild(enemy);
                         bullet.position = new objects.Vector2(-200,-200);
                         this.removeChild(bullet);
-                        this._point += 200;
+                        //this._point += 200;
                     }
                 });
             });
@@ -275,7 +276,6 @@ module scenes
                     this.removeChild(this._player);
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
-                
             }
 
         }
@@ -291,13 +291,15 @@ module scenes
             this._scoreImage = new objects.Button(config.Game.ASSETS.getResult("score"), 420,30, true);
             this._lifeImage = new objects.Button(config.Game.ASSETS.getResult("life"), 30,30, true);
             this._bulletNumLabel = new objects.Label("bullets:", "23px", "Impact, Charcoal, sans-serif", "#fff", 610, 30, true);
-            this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
-            this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
+            //this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
+            //this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
             this._numOfEnemy =10;
             this._boss = new objects.Boss(config.Game.ASSETS.getResult("boss"));
             this._bossLabel = new objects.Label("0", "12px", "Impact, Charcoal, sans-serif", "#ffffff", -100, -100, true);
             // this.AddEnemies(this._numOfEnemy);
+            config.Game.SCORE_BOARD = this._scoreBoard;
+            this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
             this.Main();
         }//end start
         
@@ -330,11 +332,14 @@ module scenes
             this.addChild(this._lifeImage);
             this.addChild(this._scoreImage);
             this.addChild(this._player);
-            this.addChild(this._pointLabel);
-            this.addChild(this._liveLabel);
+            // this.addChild(this._pointLabel);
+            // this.addChild(this._liveLabel);
             this.addChild(this._levelup);
             this.addChild(this._boss);
             this.addChild(this._bossLabel);
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard.HighScoreLabel);
             
         }//end main
 

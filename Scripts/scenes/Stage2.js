@@ -31,7 +31,7 @@ var scenes;
             this._blackhole = new objects.Blackhole();
             this._antiBoom = new objects.Image();
             this._numOfEnemy;
-            this._bulletNum = 30;
+            this._bulletNum = 20;
             // this._point = 0;
             this.Start();
         }

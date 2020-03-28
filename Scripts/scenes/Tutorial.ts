@@ -297,12 +297,13 @@ module scenes
             
         }
 
-        
-
 
         public UpdateWinOrLoseCondition() {
             if(managers.Collision.count >= this._numOfEnemy)
             {
+                setTimeout(() => {
+                    this._startPage = new objects.Image(config.Game.ASSETS.getResult("startPage"), 320, 200, true);
+                }, 5000);
                 config.Game.SCENE_STATE = scenes.State.PLAY;
                 managers.Collision.count = 0;
             }
