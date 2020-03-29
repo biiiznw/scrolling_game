@@ -53,7 +53,7 @@ module scenes
             this._playBackSound= new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5});
             createjs.Sound.play("playSound", this._playBackSound)
             this._ememies = new Array<objects.Enemy>();
-            this._tuto = new objects.Image(config.Game.ASSETS.getResult("Tuto"), 320, 200, true);
+            this._tuto = new objects.Image(config.Game.ASSETS.getResult("TutoK"), 320, 200, true);
             this.AddEnemies(this._numOfEnemy);
             this._text = new objects.Label("Press Space Key : Fire gun \n\nPress Arrow Key : Move", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 380, true);
             //this._engine = this.EngineAnimation();
