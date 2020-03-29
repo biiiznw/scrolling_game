@@ -13,6 +13,7 @@ module scenes {
         private _numOfEnemy: Number = 0;
         private _bulletNum = 20;
         private _bulletNumLabel: objects.Label;
+        private _antiBoom = true;
         // private point:number;
         //private _pointLabel:objects.Label;
         //private _liveLabel:objects.Label;
@@ -24,7 +25,7 @@ module scenes {
         private _healthup: objects.Image;
         private _playerBullet: objects.Bullet;
         private _bulletImg = new Image();
-        private _antiBoom: objects.Image;
+        private _antiBoomImage: objects.Image;
         private _count: boolean;
         /////Test
         private _engine: createjs.Sprite;
@@ -58,7 +59,7 @@ module scenes {
             this._healthup = new objects.Image();
             this._playerBullet = new objects.Bullet();
             this._bulletImg.src = "./Assets/images/beam1.png"
-            this._antiBoom = new objects.Image();
+            this._antiBoomImage = new objects.Image();
             this._engine = this.EngineAnimation();
             this.Start();
         }
@@ -85,8 +86,8 @@ module scenes {
             //this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
 
-            this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"),
-                this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
+            this._antiBoomImage = new objects.Image(config.Game.ASSETS.getResult("antiBoom"),
+                this._antiBoomImage.RandomPoint(true).x, this._antiBoomImage.RandomPoint(true).y, true);
             // this._enemyNum =4;
             //Add ememies
             this.AddEnemies(this._numOfEnemy);
@@ -114,14 +115,26 @@ module scenes {
 
         //ANTI-Matter-Boom
         public killAll(): void {
-            this._ememies.forEach(enemy => {
-                this.ExploreAnimation(enemy.x, enemy.y);
-                createjs.Sound.play("./Assets/sounds/crash.wav");
-                enemy.position = new objects.Vector2(-100, -200);
-                enemy.died = true;
-                this.removeChild(enemy);
-                //config.Game.SCORE_BOARD.Score += 100
-            });
+            if (config.Game.keyboardManager.antiBoom){
+                if (this._antiBoom){
+                    if(config.Game.SCORE_BOARD.AntiBoomItem > 0)
+                    {
+                        config.Game.SCORE_BOARD.Score += 500;
+                        console.log("antianti")
+                        this._ememies.forEach(enemy => {
+                            this.ExploreAnimation(enemy.x, enemy.y);
+                            createjs.Sound.play("./Assets/sounds/crash.wav");
+                            enemy.position = new objects.Vector2(-100, -200);
+                            enemy.died = true;
+                            this.removeChild(enemy);
+                        });
+                        config.Game.SCORE_BOARD.AntiBoomItem -=1;
+                    }
+                }
+            }
+            if (!config.Game.keyboardManager.antiBoom) {
+                this._antiBoom = true;
+            }
         }
 
         public Update(): void {
@@ -132,6 +145,7 @@ module scenes {
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
+            this.killAll();
 
             if (this._healthup.getStatus()) {
                 this._healthup.Update()
@@ -152,12 +166,12 @@ module scenes {
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
                 this._bulletImg.src = "./Assets/images/beam3.png";
             }
-            this._antiBoom.y += 5;
-            this._antiBoom.position.y += 5;
-            managers.Collision.AABBCheck(this._player, this._antiBoom, 500, true);
-            if (this._antiBoom.isColliding) {
-                this.removeChild(this._antiBoom);
-                this.killAll();
+            this._antiBoomImage.y += 5;
+            this._antiBoomImage.position.y += 5;
+            managers.Collision.AABBCheck(this._player, this._antiBoomImage, 0, true);
+            if (this._antiBoomImage.isColliding) {
+                config.Game.SCORE_BOARD.AntiBoomItem +=1;
+                this.removeChild(this._antiBoomImage);
             }
         }
 
@@ -173,11 +187,12 @@ module scenes {
             //this.addChild(this._pointLabel);
             //this.addChild(this._liveLabel);
             this.addChild(this._levelup);
-            this.addChild(this._antiBoom);
+            this.addChild(this._antiBoomImage);
             this.addChild(this._engine);
             this.addChild(this._scoreBoard.LivesLabel);
             this.addChild(this._scoreBoard.ScoreLabel);
             this.addChild(this._scoreBoard.HighScoreLabel);
+            this.addChild(this._scoreBoard.ItemLabel);
             // this.EngineAnimation();
         }//end public Main() method
 

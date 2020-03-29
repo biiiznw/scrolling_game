@@ -11,7 +11,9 @@ module managers {
       public enabled?: boolean;
       public paused?: boolean;
       public mute?: boolean;
+      public antiBoom?: boolean;
       public fireOnce = true;
+      public antiBoomOnce = true;
   
       // constructors
       constructor() {
@@ -55,6 +57,17 @@ module managers {
               this.fire = false;
               break;
             }
+
+          case config.Keys.B:
+          if (this.antiBoomOnce) {
+            this.antiBoom = true;
+            this.antiBoomOnce= false;
+            console.debug("debug: anti boom once" + this.antiBoomOnce)
+          break;
+          } else {
+            this.antiBoom = false;
+            break;
+          }
             
         }
       }
@@ -84,6 +97,11 @@ module managers {
           case config.Keys.SPACE:
             this.fireOnce = true;
             this.fire = false;
+          break;
+
+          case config.Keys.B:
+            this.antiBoomOnce = true;
+            this.antiBoom = false;
           break;
   
         }

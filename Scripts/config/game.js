@@ -8,6 +8,7 @@ var config;
     Game.LIVES = 3;
     Game.SCORE = 0;
     Game.HIGH_SCORE = 0;
+    Game.ANTIBOOMITEM = 0;
     config.Game = Game;
 })(config || (config = {}));
 //# sourceMappingURL=game.js.map

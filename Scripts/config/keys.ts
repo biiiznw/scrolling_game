@@ -19,6 +19,8 @@ module config{
         //Control key
         public static PAUSE:number=17;
         //M key_mute music
-        public static MUTE:number=77;
+        //public static MUTE:number=77;
+        //Alt key_anti_boom
+        public static B:number=66;
     }
 }

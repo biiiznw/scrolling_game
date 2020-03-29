@@ -20,7 +20,9 @@ var config;
     //Control key
     Keys.PAUSE = 17;
     //M key_mute music
-    Keys.MUTE = 77;
+    //public static MUTE:number=77;
+    //Alt key_anti_boom
+    Keys.B = 66;
     config.Keys = Keys;
 })(config || (config = {}));
 //# sourceMappingURL=keys.js.map

@@ -9,7 +9,25 @@ module managers
         private _scoreLabel : objects.Label = new objects.Label;
         private _highScoreLabel : objects.Label = new objects.Label;
         private _highScore : number =0;
+        private _antiBoomItem : number =0;
+        private _itemLabel : objects.Label = new objects.Label;;
 
+        public get ItemLabel() : objects.Label 
+        {
+            return this._itemLabel;
+        }
+
+        public get AntiBoomItem() : number 
+        {
+            return this._antiBoomItem;
+        }
+
+        public set AntiBoomItem(v : number) 
+        {
+            this._antiBoomItem = v;
+            config.Game.ANTIBOOMITEM = this._antiBoomItem;
+            this._itemLabel.setText("ANTI_BOOM: " + this._antiBoomItem);
+        }
         
         public get HighScore() : number 
         {
@@ -74,9 +92,11 @@ module managers
             this._livesLabel = new objects.Label("3", "23px", "Impact, Charcoal, sans-serif", "#fff", 50, 30, true);
             this._scoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 450, 30, true);
             this._highScoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 30, true);
+            this._itemLabel= new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 450, 60, true);
             this.Lives = config.Game.LIVES;
             this.Score = config.Game.SCORE;
             this.HighScore = config.Game.HIGH_SCORE;
+            this.AntiBoomItem = config.Game.ANTIBOOMITEM;
         }
     }
 }
