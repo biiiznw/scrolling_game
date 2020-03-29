@@ -55,7 +55,7 @@ module scenes
             this._ememies = new Array<objects.Enemy>();
             this._tuto = new objects.Image(config.Game.ASSETS.getResult("TutoK"), 320, 200, true);
             this.AddEnemies(this._numOfEnemy);
-            this._text = new objects.Label("Press Space Key : Fire gun \n\nPress Arrow Key : Move", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 380, true);
+            this._text = new objects.Label("Press Space Key : Fire gun \n\nPress Arrow Key : Move\n\nPress 'B' key : Anti-Matter-Boom", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 380, true);
             //this._engine = this.EngineAnimation();
             this.Main();
         }

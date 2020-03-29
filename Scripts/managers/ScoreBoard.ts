@@ -38,7 +38,7 @@ module managers
         {
             this._antiBoomItem = v;
             config.Game.ANTIBOOMITEM = this._antiBoomItem;
-            this._itemLabel.setText("ANTI_BOOM: " + this._antiBoomItem);
+            this._itemLabel.setText("Anti Boom: " + this._antiBoomItem);
         }
         
         public get HighScore() : number 
@@ -49,7 +49,7 @@ module managers
         {
             this._highScore = v;
             config.Game.HIGH_SCORE = this._highScore;
-            this._highScoreLabel.setText("High Score: " + this._highScore);
+            this._highScoreLabel.setText("HIGH SCORE: " + this._highScore);
         }
  
         public get HighScoreLabel() : objects.Label 
@@ -104,7 +104,7 @@ module managers
             this._livesLabel = new objects.Label("3", "23px", "Impact, Charcoal, sans-serif", "#fff", 50, 30, true);
             this._scoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 450, 30, true);
             this._highScoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 30, true);
-            this._itemLabel= new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 450, 60, true);
+            this._itemLabel= new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 550, 60, true);
             this.Lives = config.Game.LIVES;
             this.Score = config.Game.SCORE;
             this.HighScore = config.Game.HIGH_SCORE;
