@@ -31,6 +31,7 @@ var scenes;
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
+            this._count = false;
             this._player = new objects.Player();
             this._levelup = new objects.Image();
             this._healthup = new objects.Image();
@@ -103,6 +104,16 @@ var scenes;
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
+            if (this._healthup.getStatus()) {
+                this._healthup.Update();
+                managers.Collision.AABBCheck(this._player, this._healthup);
+                if (this._healthup.isColliding) {
+                    config.Game.SCORE_BOARD.Lives += 1;
+                    console.log("collided my nnigaa");
+                    this.removeChild(this._healthup);
+                    this._healthup.setStatus(false);
+                }
+            }
             this._levelup.y += 5;
             this._levelup.position.y += 5;
             managers.Collision.AABBCheck(this._player, this._levelup, 0);
@@ -184,10 +195,7 @@ var scenes;
                         if (randNum == 1) {
                             this._healthup = new objects.Image(config.Game.ASSETS.getResult("health"), enemy.x, enemy.y + 40, true);
                             this.addChild(this._healthup);
-                            config.Game.SCORE_BOARD.Lives += 1;
-                            setTimeout(() => {
-                                this.removeChild(this._healthup);
-                            }, 800);
+                            this._healthup.setStatus(true);
                         }
                         enemy.position = new objects.Vector2(-100, -200);
                         enemy.died = true;

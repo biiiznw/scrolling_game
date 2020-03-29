@@ -125,10 +125,7 @@ module scenes {
                             if (randNum == 1) {
                                 this._healthup = new objects.Image(config.Game.ASSETS.getResult("health"), enemy.x, enemy.y + 40, true);
                                 this.addChild(this._healthup);
-                                config.Game.SCORE_BOARD.Lives += 1;
-                                setTimeout(() => {
-                                    this.removeChild(this._healthup);
-                                }, 800);
+                                this._healthup.setStatus(true);
                             }
                             enemy.position = new objects.Vector2(-100, -200);
                             enemy.died = true;
@@ -266,6 +263,18 @@ module scenes {
                 this._bulletImg.src = "./Assets/images/beam3.png";
                 createjs.Sound.play("./Assets/sounds/powerup.wav");
             }
+
+            if (this._healthup.getStatus()) {
+                this._healthup.Update()
+                managers.Collision.AABBCheck(this._player, this._healthup);
+                if (this._healthup.isColliding) {
+                    config.Game.SCORE_BOARD.Lives += 1;
+                    console.log("collided my nnigaa")
+                    this.removeChild(this._healthup);
+                    this._healthup.setStatus(false);
+                }
+            }
+
             this._antiBoom.y += 5;
             this._antiBoom.position.y += 5;
             managers.Collision.AABBCheck(this._player, this._antiBoom, 500, true);

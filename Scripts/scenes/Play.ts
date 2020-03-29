@@ -25,7 +25,7 @@ module scenes {
         private _playerBullet: objects.Bullet;
         private _bulletImg = new Image();
         private _antiBoom: objects.Image;
-
+        private _count: boolean;
         /////Test
         private _engine: createjs.Sprite;
 
@@ -52,6 +52,7 @@ module scenes {
             this._bulletImage = new objects.Button();
             this._scoreImage = new objects.Button();
             this._lifeImage = new objects.Button();
+            this._count = false;
             this._player = new objects.Player();
             this._levelup = new objects.Image();
             this._healthup = new objects.Image();
@@ -83,6 +84,7 @@ module scenes {
             //this._pointLabel = new objects.Label("Scores: 0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 480, 30, true);
             //this._liveLabel = new objects.Label("Live: 3", "23px", "Impact, Charcoal, sans-serif", "#fff", 75, 30, true);
             this._levelup = new objects.Image(config.Game.ASSETS.getResult("levelup"), 400, 50, true);
+
             this._antiBoom = new objects.Image(config.Game.ASSETS.getResult("antiBoom"),
                 this._antiBoom.RandomPoint(true).x, this._antiBoom.RandomPoint(true).y, true);
             // this._enemyNum =4;
@@ -130,6 +132,18 @@ module scenes {
             //this.updateBullet();
             this.UpdatePosition();
             this.UpdateWinOrLoseCondition();
+
+            if (this._healthup.getStatus()) {
+                this._healthup.Update()
+                managers.Collision.AABBCheck(this._player, this._healthup);
+                if (this._healthup.isColliding) {
+                    config.Game.SCORE_BOARD.Lives += 1;
+                    console.log("collided my nnigaa")
+                    this.removeChild(this._healthup);
+                    this._healthup.setStatus(false);
+                }
+            }
+
             this._levelup.y += 5;
             this._levelup.position.y += 5;
             managers.Collision.AABBCheck(this._player, this._levelup, 0);
@@ -216,10 +230,7 @@ module scenes {
                         if (randNum == 1) {
                             this._healthup = new objects.Image(config.Game.ASSETS.getResult("health"), enemy.x, enemy.y + 40, true);
                             this.addChild(this._healthup);
-                            config.Game.SCORE_BOARD.Lives += 1;
-                            setTimeout(() => {
-                                this.removeChild(this._healthup);
-                            }, 800);
+                            this._healthup.setStatus(true);
                         }
 
                         enemy.position = new objects.Vector2(-100, -200);
