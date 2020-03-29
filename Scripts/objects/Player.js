@@ -64,12 +64,12 @@ var objects;
         Update() {
             this._move();
             this._checkBounds();
-            //this._shootGun();
-            // this._keyboardInput();
-            // let mouseX = config.Game.STAGE.mouseX;
-            // let mouseY = config.Game.STAGE.mouseY;
-            // this.position = new Vector2(mouseX, mouseY);
-            //this.position = new Vector2(this.stage.mouseX, this.stage.mouseY);
+            this.Options();
+        }
+        Options() {
+            if (config.Game.keyboardManager.escape) {
+                config.Game.SCENE_STATE = scenes.State.END;
+            }
         }
         Reset() {
         }

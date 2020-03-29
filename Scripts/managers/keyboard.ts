@@ -14,6 +14,7 @@ module managers {
       public antiBoom?: boolean;
       public fireOnce = true;
       public antiBoomOnce = true;
+      public escape?: boolean;
   
       // constructors
       constructor() {
@@ -45,6 +46,10 @@ module managers {
           case config.Keys.D:
           case config.Keys.RIGHT_ARROW:
             this.moveRight = true;
+          break;
+
+          case config.Keys.ESCAPE:
+            this.escape = true;
           break;
   
           case config.Keys.SPACE:
@@ -92,6 +97,10 @@ module managers {
           case config.Keys.D:
           case config.Keys.RIGHT_ARROW:
             this.moveRight = false;
+          break;
+
+          case config.Keys.ESCAPE:
+            this.escape = false;
           break;
   
           case config.Keys.SPACE:

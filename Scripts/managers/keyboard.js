@@ -30,6 +30,9 @@ var managers;
                 case config.Keys.RIGHT_ARROW:
                     this.moveRight = true;
                     break;
+                case config.Keys.ESCAPE:
+                    this.escape = true;
+                    break;
                 case config.Keys.SPACE:
                     if (this.fireOnce) {
                         this.fire = true;
@@ -71,6 +74,9 @@ var managers;
                 case config.Keys.D:
                 case config.Keys.RIGHT_ARROW:
                     this.moveRight = false;
+                    break;
+                case config.Keys.ESCAPE:
+                    this.escape = false;
                     break;
                 case config.Keys.SPACE:
                     this.fireOnce = true;
