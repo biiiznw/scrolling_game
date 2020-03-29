@@ -91,6 +91,10 @@ module objects
         public Options():void{
             if(config.Game.keyboardManager.escape){
                 config.Game.SCENE_STATE = scenes.State.END;
+                config.Game.STATUS = true;
+            }
+            else{
+                config.Game.STATUS = false;
             }
         }
 

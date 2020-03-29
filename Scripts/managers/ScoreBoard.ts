@@ -10,7 +10,19 @@ module managers
         private _highScoreLabel : objects.Label = new objects.Label;
         private _highScore : number =0;
         private _antiBoomItem : number =0;
-        private _itemLabel : objects.Label = new objects.Label;;
+        private _itemLabel : objects.Label = new objects.Label;
+        private _status : boolean = false;
+
+        public get status() : boolean 
+        {
+            return this._status;
+        }
+        public set status(v : boolean ) 
+        {
+            this._status = v;
+            config.Game.STATUS = this._status;
+        }
+        
 
         public get ItemLabel() : objects.Label 
         {

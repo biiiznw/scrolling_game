@@ -14,9 +14,16 @@ var managers;
             this._highScore = 0;
             this._antiBoomItem = 0;
             this._itemLabel = new objects.Label;
+            this._status = false;
             this._initialize();
         }
-        ;
+        get status() {
+            return this._status;
+        }
+        set status(v) {
+            this._status = v;
+            config.Game.STATUS = this._status;
+        }
         get ItemLabel() {
             return this._itemLabel;
         }

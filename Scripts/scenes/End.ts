@@ -31,7 +31,14 @@ module scenes
         public Start(): void 
         {
             this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
-            this.endLabel = new objects.Label("GAME OVER", "80px","Impact, Charcoal, sans-serif", "#ffffff", 320, 300, true);
+            if(config.Game.STATUS == true)
+            {
+                this.endLabel = new objects.Label("SEE YOU AGAIN", "80px","Impact, Charcoal, sans-serif", "#ffffff", 320, 300, true);
+            }
+            else{
+                this.endLabel = new objects.Label("GAME OVER", "80px","Impact, Charcoal, sans-serif", "#ffffff", 320, 300, true);
+            }
+            
             this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 500, true);
             managers.Collision._checkHighScore;
             this._scoreBoard = new managers.ScoreBoard();
@@ -56,6 +63,7 @@ module scenes
                 managers.Collision.count = 0;
                 config.Game.SCENE_STATE = scenes.State.PLAY;
                 config.Game.SCORE_BOARD.Score = 0;
+                config.Game.ANTIBOOMITEM = 0;
                 //Play.point = 0;
                 createjs.Sound.stop();
             });
