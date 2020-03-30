@@ -274,6 +274,7 @@ module scenes
             {
                 setTimeout(() => {
                     this.removeChild(this._player);
+                    config.Game.STATUS = true;
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }

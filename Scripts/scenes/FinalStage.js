@@ -224,6 +224,7 @@ var scenes;
             if (config.Game.SCORE_BOARD.Lives <= 0) {
                 setTimeout(() => {
                     this.removeChild(this._player);
+                    config.Game.STATUS = true;
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
