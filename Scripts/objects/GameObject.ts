@@ -11,6 +11,16 @@ module objects
         private _isCentered:boolean = false;
         private _position:Vector2 = new Vector2(0, 0);
         private _velocity:Vector2 = new Vector2(0, 0);
+        
+        
+        private _imagePath : Object;
+        public get ImagePath() : Object {
+            return this._imagePath;
+        }
+        public set ImagePath(v : Object) {
+            this._imagePath = v;
+        }
+        
 
         // PROPERTIES
 
@@ -117,11 +127,12 @@ module objects
          * @param {boolean} [centered=false]
          * @memberof GameObject
          */
-        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder"),
+        constructor(imagePath?:Object,
                     x:number = 0, y:number = 0, centered:boolean = false)
         {
             super(imagePath);
             this.isColliding = false;
+
 
             // this.position = new Vector2(x, y);
 

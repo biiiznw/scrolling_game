@@ -2,26 +2,26 @@
 var objects;
 (function (objects) {
     class Background extends objects.GameObject {
-        //public properities
         //constructor
         constructor(imagePath = config.Game.ASSETS.getResult("placeholder")) {
             super(imagePath);
-            //super(config.Game.ASSETS.getResult("background"));
+            this._startMove = 200;
             this.Start();
         }
-        //provate method
         _checkBounds() {
-            if (this.position.y >= 0) {
-                this.Reset();
+            if (this.x >= 4400) {
+                console.log("end");
             }
         }
         _move() {
-            this.position = objects.Vector2.add(this.position, this.velocity);
+            if (config.Game.SCENE_STATE != scenes.State.START) {
+                config.Game.USERACTIVE;
+                this.x = -(config.Game.USERACTIVE);
+            }
+            config.Game.BACKGROUND = this.x;
         }
         //public method
         Start() {
-            this._verticalSpeed = 10;
-            this.velocity = new objects.Vector2(0, this._verticalSpeed);
             this.Reset();
         }
         Update() {
@@ -29,7 +29,7 @@ var objects;
             this._checkBounds();
         }
         Reset() {
-            this.position.y = -2400;
+            this.position.x = -4480;
         }
     }
     objects.Background = Background;

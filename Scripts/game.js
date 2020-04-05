@@ -1,6 +1,14 @@
 "use strict";
 //IIFE -- Immediately Invoked Function Expression
 // mean? is an anonymous self-executing function
+/**
+ * AUTHOR: YERIN AN
+ * STUDENT NUMBER: 300947515
+ * LAST MODIFIED BY: YERIN AN
+ * DATE LAST MODIFIED: APRIL 05
+ * PROGRAM DESCRIPTION: SCROLLING GAME
+ * REVISON HISTORY: VERSION 02
+ */
 let game1 = (function () {
     let canvas = document.getElementsByTagName('canvas')[0];
     let stage;
@@ -10,23 +18,6 @@ let game1 = (function () {
     let keyboardManager;
     let assetManifast = [
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
-        { id: "placeholder1", src: "./Assets/images/placeholder1.png" },
-        { id: "background", src: "./Assets/images/background.gif" },
-        { id: "background2", src: "./Assets/images/Testing-01.gif" },
-        { id: "background3", src: "./Assets/images/background3.gif" },
-        { id: "enemy", src: "./Assets/images/enemy.png" },
-        { id: "boss", src: "./Assets/images/finalEnamy.png" },
-        { id: "enemy02", src: "./Assets/images/enemy02.png" },
-        { id: "enemy03", src: "./Assets/images/enemy03.png" },
-        { id: "player", src: "./Assets/images/Player.png" },
-        { id: "firstScreen", src: "./Assets/images/firstScreen.png" },
-        { id: "beam1", src: "./Assets/images/beam1.png" },
-        { id: "beam2", src: "./Assets/images/enemyBeam01.png" },
-        { id: "beam3", src: "./Assets/images/beam2.png" },
-        { id: "beam4", src: "./Assets/images/beam4.png" },
-        { id: "beam5", src: "./Assets/images/beam5.png" },
-        { id: "enemyBeam", src: "./Assets/images/enemyBeamYellow.png" },
-        { id: "bullet", src: "./Assets/images/bullet.png" },
         { id: "score", src: "./Assets/images/score.png" },
         { id: "life", src: "./Assets/images/life.png" },
         { id: "levelup", src: "./Assets/images/levelup.png" },
@@ -36,9 +27,6 @@ let game1 = (function () {
         { id: "Tuto", src: "./Assets/images/tutorial.png" },
         { id: "TutoK", src: "./Assets/images/tuto.png" },
         { id: "startPage", src: "./Assets/images/startPage.png" },
-        // {id: "explore", src: "./Assets/images/explore.gif"},
-        // {id: "explore1", src: "./Assets/images/explore1.gif"},
-        //buttons
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },
         //Sounds
@@ -48,7 +36,16 @@ let game1 = (function () {
         { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
         { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
         { id: "break", src: "./Assets/sounds/break.wav" },
-        { id: "powerup", src: "./Assets/sounds/powerup.wav" }
+        { id: "powerup", src: "./Assets/sounds/powerup.wav" },
+        { id: "back", src: "./Assets/images/back.png" },
+        { id: "movement01", src: "./Assets/images/move03.png" },
+        { id: "movement02", src: "./Assets/images/move02.png" },
+        { id: "movement03", src: "./Assets/images/move01.png" },
+        { id: "alien", src: "./Assets/images/WALK_2.png" },
+        { id: "cloud", src: "./Assets/images/cloud.png" },
+        { id: "flower", src: "./Assets/images/flower.png" },
+        { id: "finish", src: "./Assets/images/finish.png" },
+        { id: "coin", src: "./Assets/images/coin.png" },
     ];
     // comments from Tom
     function Preload() {
@@ -101,18 +98,21 @@ let game1 = (function () {
             case scenes.State.START:
                 currentScene = new scenes.Start();
                 break;
-            case scenes.State.TUTORIAL:
-                currentScene = new scenes.Tutorial();
+            case scenes.State.STAGE01:
+                currentScene = new scenes.Stage01();
                 break;
-            case scenes.State.PLAY:
-                currentScene = new scenes.Play();
-                break;
-            case scenes.State.STAGE2:
-                currentScene = new scenes.Stage2();
-                break;
-            case scenes.State.FINALSTAGE:
-                currentScene = new scenes.FinalStage();
-                break;
+            // case scenes.State.TUTORIAL:
+            //     currentScene = new scenes.Tutorial();
+            //     break;
+            // case scenes.State.PLAY:
+            //     currentScene = new scenes.Play();
+            //     break;
+            // case scenes.State.STAGE2:
+            //     currentScene = new scenes.Stage2();
+            //     break;
+            // case scenes.State.FINALSTAGE:
+            //     currentScene = new scenes.FinalStage();
+            //     break;
             case scenes.State.COMPLETE:
                 currentScene = new scenes.Complete();
                 break;

@@ -16,9 +16,9 @@ var scenes;
         }
         // PUBLIC METHODS
         Start() {
-            this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
+            this._background = new objects.Background(config.Game.ASSETS.getResult("back"));
             this.endLabel = new objects.Label("CONGRATES", "80px", "Consolas", "#FFFFFF", 320, 200, true);
-            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 400, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 300, true);
             this.Main();
         }
         Update() {
@@ -32,9 +32,12 @@ var scenes;
             this._backButton.on("click", function () {
                 config.Game.SCORE_BOARD.Lives = 0;
                 managers.Collision.count = 0;
-                config.Game.SCENE_STATE = scenes.State.PLAY;
+                config.Game.SCENE_STATE = scenes.State.STAGE01;
                 createjs.Sound.stop();
             });
+        }
+        Clean() {
+            this.removeAllChildren();
         }
     }
     scenes.Complete = Complete;

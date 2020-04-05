@@ -2,51 +2,48 @@ module objects
 {
     export class Background extends GameObject
     {
-        // private instance menbers
-        private _verticalSpeed?: number; // 5 px per frame
-
-        //public properities
-
+        
+        private _startMove:number = 200;
+        private currentSceneState: scenes.State;
+        
         //constructor
         constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder")){
             super(imagePath);
-            //super(config.Game.ASSETS.getResult("background"));
             this.Start();
         }
 
-        //provate method
-        protected _checkBounds():void{
-            if(this.position.y >= 0)
+        protected _checkBounds(): void {
+            if(this.x >= 4400)
             {
-                this.Reset();
+                console.log("end");
             }
-
         }
 
         private _move():void
         {
-            this.position = Vector2.add(this.position, this.velocity);
+            if(config.Game.SCENE_STATE != scenes.State.START)
+            {
+                config.Game.USERACTIVE;
+                this.x = -(config.Game.USERACTIVE);
+            }
+            config.Game.BACKGROUND = this.x;
         }
 
         //public method
         public Start():void
         {
-            this._verticalSpeed = 10;
-            this.velocity = new Vector2(0, this._verticalSpeed);
             this.Reset();
-
         }
 
         public Update():void
         {
             this._move();
             this._checkBounds();
-
+            
         }
 
         public Reset():void{
-            this.position.y = -2400;
-
+            this.position.x = -4480;
         }
     }
 }

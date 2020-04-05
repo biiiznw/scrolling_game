@@ -11,7 +11,7 @@ var objects;
          * @param {boolean} [centered=false]
          * @memberof GameObject
          */
-        constructor(imagePath = config.Game.ASSETS.getResult("placeholder"), x = 0, y = 0, centered = false) {
+        constructor(imagePath, x = 0, y = 0, centered = false) {
             super(imagePath);
             // MEMBER VARIABLES
             this._width = 0;
@@ -34,6 +34,12 @@ var objects;
             // });
             // set the GameObject's position
             this.position = new objects.Vector2(x, y);
+        }
+        get ImagePath() {
+            return this._imagePath;
+        }
+        set ImagePath(v) {
+            this._imagePath = v;
         }
         // PROPERTIES
         get width() {

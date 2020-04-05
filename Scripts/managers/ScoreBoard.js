@@ -58,7 +58,7 @@ var managers;
         set Score(v) {
             this._score = v;
             config.Game.SCORE = this._score;
-            this._scoreLabel.text = " : " + this._score;
+            this._scoreLabel.text = "POINTS : " + this._score;
         }
         get Lives() {
             return this._lives;
@@ -66,16 +66,16 @@ var managers;
         set Lives(v) {
             this._lives = v;
             config.Game.LIVES = this._lives;
-            this._livesLabel.text = " : " + this._lives;
+            this._livesLabel.text = "LIVES : " + this._lives;
         }
         //private method
         // public ScoreLabel:objects.Label;
         // public LivesLabel:objects.Label;
         _initialize() {
-            this._livesLabel = new objects.Label("3", "23px", "Impact, Charcoal, sans-serif", "#fff", 50, 30, true);
-            this._scoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 450, 30, true);
-            this._highScoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 320, 30, true);
-            this._itemLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#ffffff", 550, 60, true);
+            this._livesLabel = new objects.Label("3", "23px", "Impact, Charcoal, sans-serif", "#000000", 40, 30, true);
+            this._scoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 500, 30, true);
+            this._highScoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 320, 30, true);
+            this._itemLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 550, 60, true);
             this.Lives = config.Game.LIVES;
             this.Score = config.Game.SCORE;
             this.HighScore = config.Game.HIGH_SCORE;

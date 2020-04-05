@@ -5,6 +5,7 @@ module scenes
         NO_SCENE = -1,
         START,
         TUTORIAL,
+        STAGE01,
         PLAY,
         STAGE2,
         FINALSTAGE,

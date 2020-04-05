@@ -3,9 +3,8 @@ module objects
     export class Button extends GameObject
     {
         // constructor
-        constructor(
-            imagePath:Object = config.Game.ASSETS.getResult("placeholder"), 
-            x:number = 0, y:number = 0, isCentered:boolean = true)
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder"), 
+        x:number = 0, y:number = 0, isCentered:boolean = true)
         {
             super(imagePath, x, y, isCentered);
 
