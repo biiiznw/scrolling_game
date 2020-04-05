@@ -9,6 +9,7 @@ var scenes;
             // initialization
             this._startButton = new objects.Button();
             this._background = new objects.Background();
+            this._startLabel = new objects.Label();
             // this._user = new objects.User();
             // this._firstSceen = new objects.Image();
             // this._tutorialButton = new objects.Button();
@@ -19,6 +20,7 @@ var scenes;
             //this._background = new objects.Background(config.Game.ASSETS.getResult("background"));
             // this._firstSceen = new objects.Image(config.Game.ASSETS.getResult("firstScreen"), 320, 400, true);
             this._startButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 200, true);
+            this._startLabel = new objects.Label("SEE YOU AGAIN", "80px", "Impact, Charcoal, sans-serif", "#142950", 320, 150, true);
             this._background = new objects.Background(config.Game.ASSETS.getResult("back"));
             // this._tutorialButton = new objects.Button("Tuto", 550, 700, true);
             createjs.Sound.play("startSound");
@@ -29,6 +31,7 @@ var scenes;
         }
         Main() {
             this.addChild(this._background);
+            this.addChild(this._startLabel);
             // this.addChild(this._firstSceen);
             this.addChild(this._startButton);
             // this.addChild(this._tutorialButton);
