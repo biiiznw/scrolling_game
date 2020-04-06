@@ -20,16 +20,6 @@ let game1 = (function () {
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },
-
-        //Sounds
-        { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
-        { id: "startSound", src: "./Assets/sounds/BackSound.mp3" },
-        { id: "crashSound", src: "./Assets/sounds/crash.wav" },
-        { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
-        { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
-        { id: "break", src: "./Assets/sounds/break.wav" },
-        { id: "powerup", src: "./Assets/sounds/powerup.wav" },
-
         { id: "back", src: "./Assets/images/back.png" },
         { id: "movement01", src: "./Assets/images/move03.png" },
         { id: "movement02", src: "./Assets/images/move02.png" },
@@ -41,6 +31,17 @@ let game1 = (function () {
         { id: "coin", src: "./Assets/images/coin.png" },
         { id: "firstScreen", src: "./Assets/images/firstPage.png" },
         { id: "tutorial", src: "./Assets/images/TutorialButton.png" },
+
+        //Sounds
+        { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
+        { id: "startSound", src: "./Assets/sounds/BackSound.mp3" },
+        { id: "crashSound", src: "./Assets/sounds/crash.wav" },
+        { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
+        { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
+        { id: "break", src: "./Assets/sounds/break.wav" },
+        { id: "powerup", src: "./Assets/sounds/powerup.wav" },
+
+        
     ];
 
     // comments from Tom

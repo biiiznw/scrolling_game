@@ -24,7 +24,7 @@ module objects
         }
 
         // CONSTRUCTOR
-        constructor(imagePath:Object = config.Game.ASSETS.getResult("alien"))
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder"))
         {
             super(imagePath);
             this.Start();
