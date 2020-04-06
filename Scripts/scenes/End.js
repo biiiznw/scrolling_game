@@ -34,7 +34,7 @@ var scenes;
             else {
                 this.endLabel = new objects.Label("GAME OVER", "80px", "Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
             }
-            this._backButton = new objects.Button(config.Game.ASSETS.getResult("startButton"), 320, 300, true);
+            this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 300, true);
             //this._backButton = new objects.Button("startButton", 320, 300, true);
             managers.Collision._checkHighScore;
             this._scoreBoard = new managers.ScoreBoard();

@@ -40,7 +40,7 @@ module managers
 
         }//end check
 
-        public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject):boolean
+        public static squaredRadiusCheck(object1:objects.GameObject, object2:objects.GameObject, life:boolean = false, point:number =0):boolean
         {
             // squared radius check
             let radii = object1.halfHeight + object2.halfHeight;
@@ -49,9 +49,16 @@ module managers
             {
                 if(!object2.isColliding)
                     {
-                        config.Game.SCORE_BOARD.Lives -=1;
-                        console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
-                        createjs.Sound.play("./Assets/sounds/crash.wav");
+                        if(life == true)
+                        {
+                            config.Game.SCORE_BOARD.Lives -=1;
+                        }
+                        if((config.Game.SCENE_STATE != scenes.State.TUTORIAL))
+                        {
+                            config.Game.SCORE_BOARD.Score += point;
+                        }
+                        // console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
+                        // createjs.Sound.play("./Assets/sounds/crash.wav");
                         object2.isColliding = true;
                         return true;
                     }

@@ -5,7 +5,7 @@
  * LAST MODIFIED BY: YERIN AN
  * DATE LAST MODIFIED: APRIL 05
  * PROGRAM DESCRIPTION: SCROLLING GAME
- * REVISON HISTORY: VERSION 02
+ * REVISON HISTORY: VERSION 03
  */
 var scenes;
 (function (scenes) {
@@ -73,7 +73,7 @@ var scenes;
             });
             this._clouds.forEach(cloud => {
                 cloud.Update();
-                managers.Collision.AABBCheckWithoutP(this._user, cloud);
+                managers.Collision.squaredRadiusCheck(this._user, cloud, true);
                 if (cloud.isColliding) {
                     //ADD SOUND
                 }
@@ -83,7 +83,7 @@ var scenes;
             // });
             this._coins.forEach(coin => {
                 coin.Update();
-                managers.Collision.AABBCheck(this._user, coin, 100, true);
+                managers.Collision.squaredRadiusCheck(this._user, coin, false, 100);
                 if (coin.isColliding) {
                     //ADD SOUND
                     this.removeChild(coin);

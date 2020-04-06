@@ -11,7 +11,7 @@ var objects;
 (function (objects) {
     class Alien extends objects.GameObject {
         // CONSTRUCTOR
-        constructor(imagePath = config.Game.ASSETS.getResult("placeholder")) {
+        constructor(imagePath = config.Game.ASSETS.getResult("alien")) {
             super(imagePath);
             this._died = false;
             this._limitBottom = 300;

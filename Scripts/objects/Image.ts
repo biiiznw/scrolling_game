@@ -8,7 +8,7 @@ module objects {
             this.Start();
         }
         protected _checkBounds(): void {
-            if (this.y >= 800 + this.height) {
+            if (this.y >= 400 + this.height) {
                 this.Resets();
             }
         }

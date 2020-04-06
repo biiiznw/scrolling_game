@@ -26,14 +26,19 @@ var managers;
                 object2.isColliding = false;
             }
         } //end check
-        static squaredRadiusCheck(object1, object2) {
+        static squaredRadiusCheck(object1, object2, life = false, point = 0) {
             // squared radius check
             let radii = object1.halfHeight + object2.halfHeight;
             if (objects.Vector2.sqrDistance(object1.position, object2.position) < (radii * radii)) {
                 if (!object2.isColliding) {
-                    config.Game.SCORE_BOARD.Lives -= 1;
-                    console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
-                    createjs.Sound.play("./Assets/sounds/crash.wav");
+                    if (life == true) {
+                        config.Game.SCORE_BOARD.Lives -= 1;
+                    }
+                    if ((config.Game.SCENE_STATE != scenes.State.TUTORIAL)) {
+                        config.Game.SCORE_BOARD.Score += point;
+                    }
+                    // console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
+                    // createjs.Sound.play("./Assets/sounds/crash.wav");
                     object2.isColliding = true;
                     return true;
                 }

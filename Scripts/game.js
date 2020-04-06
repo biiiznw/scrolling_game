@@ -7,7 +7,7 @@
  * LAST MODIFIED BY: YERIN AN
  * DATE LAST MODIFIED: APRIL 05
  * PROGRAM DESCRIPTION: SCROLLING GAME
- * REVISON HISTORY: VERSION 02
+ * REVISON HISTORY: VERSION 03
  */
 let game1 = (function () {
     let canvas = document.getElementsByTagName('canvas')[0];
@@ -18,15 +18,6 @@ let game1 = (function () {
     let keyboardManager;
     let assetManifast = [
         { id: "placeholder", src: "./Assets/images/placeholder.png" },
-        { id: "score", src: "./Assets/images/score.png" },
-        { id: "life", src: "./Assets/images/life.png" },
-        { id: "levelup", src: "./Assets/images/levelup.png" },
-        { id: "health", src: "./Assets/images/h01.png" },
-        { id: "antiBoom", src: "./Assets/images/antiBoom.png" },
-        { id: "Blackhole", src: "./Assets/images/Blackhole.png" },
-        { id: "Tuto", src: "./Assets/images/tutorial.png" },
-        { id: "TutoK", src: "./Assets/images/tuto.png" },
-        { id: "startPage", src: "./Assets/images/startPage.png" },
         { id: "startButton", src: "./Assets/images/startButton.png" },
         { id: "returnButton", src: "./Assets/images/restartButton.png" },
         //Sounds
@@ -46,6 +37,8 @@ let game1 = (function () {
         { id: "flower", src: "./Assets/images/flower.png" },
         { id: "finish", src: "./Assets/images/finish.png" },
         { id: "coin", src: "./Assets/images/coin.png" },
+        { id: "firstScreen", src: "./Assets/images/firstPage.png" },
+        { id: "tutorial", src: "./Assets/images/TutorialButton.png" },
     ];
     // comments from Tom
     function Preload() {
@@ -101,18 +94,9 @@ let game1 = (function () {
             case scenes.State.STAGE01:
                 currentScene = new scenes.Stage01();
                 break;
-            // case scenes.State.TUTORIAL:
-            //     currentScene = new scenes.Tutorial();
-            //     break;
-            // case scenes.State.PLAY:
-            //     currentScene = new scenes.Play();
-            //     break;
-            // case scenes.State.STAGE2:
-            //     currentScene = new scenes.Stage2();
-            //     break;
-            // case scenes.State.FINALSTAGE:
-            //     currentScene = new scenes.FinalStage();
-            //     break;
+            case scenes.State.TUTORIAL:
+                currentScene = new scenes.Tutorial();
+                break;
             case scenes.State.COMPLETE:
                 currentScene = new scenes.Complete();
                 break;

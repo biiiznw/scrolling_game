@@ -8,7 +8,7 @@ var objects;
             this.Start();
         }
         _checkBounds() {
-            if (this.y >= 800 + this.height) {
+            if (this.y >= 400 + this.height) {
                 this.Resets();
             }
         }
