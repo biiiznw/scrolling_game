@@ -66,14 +66,14 @@ var scenes;
                 this._coins.push(new objects.Coin(config.Game.ASSETS.getResult("coin")));
             }
             this._coins.forEach(coin => {
-                coin.Speed = 2;
+                coin.Speed = 1.5;
                 coin.Update();
             });
             for (let coin = 0; coin < 10; coin++) {
                 this._redCoins.push(new objects.Coin(config.Game.ASSETS.getResult("redCoin")));
             }
             this._redCoins.forEach(coin => {
-                coin.Speed = 1.5;
+                coin.Speed = 1;
                 coin.Update();
             });
             for (let coin = 0; coin < 5; coin++) {

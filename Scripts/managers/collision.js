@@ -34,9 +34,10 @@ var managers;
                     if (life == true) {
                         config.Game.SCORE_BOARD.Lives -= 1;
                     }
-                    if ((config.Game.SCENE_STATE != scenes.State.TUTORIAL)) {
-                        config.Game.SCORE_BOARD.Score += point;
-                    }
+                    // if((config.Game.SCENE_STATE != scenes.State.TUTORIAL))
+                    // {
+                    config.Game.SCORE_BOARD.Score += point;
+                    // }
                     // console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
                     // createjs.Sound.play("./Assets/sounds/crash.wav");
                     object2.isColliding = true;
@@ -92,9 +93,10 @@ var managers;
                     //console.log("Collision!");
                     object2.isColliding = true;
                     //console.log("Kill enemies"+ Collision.count);
-                    if ((config.Game.SCENE_STATE != scenes.State.TUTORIAL) && (died == true)) {
-                        config.Game.SCORE_BOARD.Score += point;
-                    }
+                    // if((config.Game.SCENE_STATE != scenes.State.TUTORIAL) && (died == true))
+                    // {
+                    config.Game.SCORE_BOARD.Score += point;
+                    // }
                 }
                 this._checkHighScore();
             }

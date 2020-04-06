@@ -37,6 +37,7 @@ let game1 = (function () {
         { id: "screen", src: "./Assets/images/duggy.png" },
         { id: "back2", src: "./Assets/images/back2.png" },
         { id: "item", src: "./Assets/images/item.png" },
+        { id: "totoro", src: "./Assets/images/totoro.png" },
 
         //Sounds
         { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
