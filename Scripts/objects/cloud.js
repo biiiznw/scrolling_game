@@ -7,6 +7,12 @@ var objects;
             this._isActive = false;
             this.Start();
         }
+        get Speed() {
+            return this._speed;
+        }
+        set Speed(v) {
+            this._speed = v;
+        }
         _checkBounds() {
             if (this.x >= 4400 + this.width || this.x <= -150) {
                 //console.log("cloud " + this.x);
@@ -19,10 +25,10 @@ var objects;
         _move() {
             this.x -= this._dx;
             if (this._isActive == false) {
-                this.y += 0.5;
+                this.y += this._speed;
             }
             else {
-                this.y -= 0.5;
+                this.y -= this._speed;
                 if (this.y <= 140)
                     this._isActive = false;
             }

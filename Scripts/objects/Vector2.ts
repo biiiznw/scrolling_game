@@ -170,6 +170,13 @@ module objects
             return  Xs * Xs + Ys * Ys;
         }
 
+        public static circleDistance(P1:Vector2, P2:Vector2):number
+        {
+            let Xs = (P2.x - P1.x);
+            let Ys = (P2.y - P1.y);
+            return  Xs + Ys;
+        }
+
         public static add(lhs:Vector2, rhs:Vector2):Vector2{
             let dx = lhs.x + rhs.x;
             let dy = lhs.y + rhs.y;

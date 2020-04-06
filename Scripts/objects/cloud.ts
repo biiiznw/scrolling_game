@@ -5,6 +5,16 @@ module objects
         private _dx?:number;
         private _dy?:number;
         private _isActive:boolean = false;
+        
+        
+        private _speed : number;
+        public get Speed() : number {
+            return this._speed;
+        }
+        public set Speed(v : number) {
+            this._speed = v;
+        }
+        
 
         constructor()
         {
@@ -30,11 +40,11 @@ module objects
             this.x -= this._dx;
             if(this._isActive == false)
             {
-                this.y += 0.5;
+                this.y += this._speed;
             }
             else
             {
-                this.y -= 0.5;
+                this.y -= this._speed;
                 if(this.y <= 140) this._isActive =false;
             }
             

@@ -48,6 +48,28 @@ var managers;
             }
             return false;
         }
+        static circleRadiusCheck(object1, object2, life = false, point = 0) {
+            // squared radius check
+            let radii = object1.halfHeight + object2.halfHeight;
+            if (objects.Vector2.circleDistance(object1.position, object2.position) < (radii * radii)) {
+                if (!object2.isColliding) {
+                    if (life == true) {
+                        config.Game.SCORE_BOARD.Lives -= 1;
+                    }
+                    if ((config.Game.SCENE_STATE != scenes.State.TUTORIAL)) {
+                        config.Game.SCORE_BOARD.Score += point;
+                    }
+                    // console.log("Attack BlackHole" + config.Game.SCORE_BOARD.Lives);
+                    // createjs.Sound.play("./Assets/sounds/crash.wav");
+                    object2.isColliding = true;
+                    return true;
+                }
+            }
+            else {
+                object2.isColliding = false;
+            }
+            return false;
+        }
         static AABBCheck(object1, object2, point = 0, died = false) {
             let object1Offset = new objects.Vector2(0, 0);
             let object2Offset = new objects.Vector2(0, 0);

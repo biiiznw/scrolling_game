@@ -6,9 +6,8 @@ module scenes
         START,
         TUTORIAL,
         STAGE01,
-        PLAY,
-        STAGE2,
-        FINALSTAGE,
+        STORY,
+        STAGE02,
         COMPLETE,
         END,
         NUM_OF_SCENES

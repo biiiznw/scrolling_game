@@ -12,11 +12,20 @@ module objects
     export class Alien extends GameObject
     {
         private _died:boolean = false;
-        private _limitBottom: number = 300;
+        private _limitBottom: number = 305;
         private _horizontalSpeed?:number;
         private _dy: number =0; //speed
         private _dx:number =0;
         private _isActive:boolean = false;
+        private _speed : number;
+
+        public get Speed() : number {
+            return this._speed;
+        }
+        public set Speed(v : number) {
+            this._speed = v;
+        }
+        
 
         //PUBLIC PROPERTIES
         set died(status:boolean) {
@@ -56,12 +65,12 @@ module objects
         {
             if(this._isActive == false)
             {
-                this.x -= 3;
+                this.x -= this._speed;
                 //this.x -= this._dx;
             }
             else
             {
-                this.x += 3;
+                this.x += this._speed;
                 //this.x += this._dx;
                 if(this.x <= 250) this._isActive =false;
             }

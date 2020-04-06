@@ -5,10 +5,21 @@ module objects
         private _dx?:number;
         private _dy?:number;
         private _isActive:boolean = false;
+        private _high:number = 150;
+        private _low:number = 200;
 
-        constructor()
+        private _speed : number;
+        public get Speed() : number {
+            return this._speed;
+        }
+        public set Speed(v : number) {
+            this._speed = v;
+        }
+        
+
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("placeholder"))
         {
-            super(config.Game.ASSETS.getResult("coin"));
+            super(imagePath);
             this.Start();
         }
 
@@ -19,7 +30,7 @@ module objects
                 //console.log("cloud " + this.x);
                 this.Reset();
             }
-            if(this.y >= 230)
+            if(this.y >= this._low)
             {
                 this._isActive = true;
             }
@@ -30,12 +41,12 @@ module objects
             this.x -= this._dx;
             if(this._isActive == false)
             {
-                this.y += 0.5;
+                this.y += this._speed;
             }
             else
             {
-                this.y -= 0.5;
-                if(this.y <= 160) this._isActive =false;
+                this.y -= this._speed;
+                if(this.y <= this._high) this._isActive =false;
             }
             
             this.position = new Vector2(this.x, this.y);

@@ -11,7 +11,7 @@ module config
         public static LIVES:number = 3;
         public static SCORE: number = 0;
         public static HIGH_SCORE: number = 0;
-        public static ANTIBOOMITEM: number = 0;
+        public static MISSON: number = 0;
         public static STATUS: boolean;
         public static SCORE_BOARD: managers.ScoreBoard;
         public static IMAGE: objects.Button;

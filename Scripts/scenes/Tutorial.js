@@ -36,7 +36,7 @@ var scenes;
                 this._aliens.push(new objects.Alien(config.Game.ASSETS.getResult("alien")));
             }
             for (let coin = 0; coin < 10; coin++) {
-                this._coins.push(new objects.Coin());
+                this._coins.push(new objects.Coin(config.Game.ASSETS.getResult("coin")));
             }
             //config.Game.SCORE_BOARD = this._scoreBoard;
             this.Main();

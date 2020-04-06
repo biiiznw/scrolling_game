@@ -40,16 +40,17 @@ module scenes
         {
             this._background = new objects.Background(config.Game.ASSETS.getResult("back"));
 
-            if(config.Game.STATUS == true && config.Game.ENDSCENE == false)
+            if(config.Game.STATUS == true)
             {
                 this.endLabel = new objects.Label("SEE YOU AGAIN", "80px","Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
             }
-            else if(config.Game.STATUS == true && config.Game.ENDSCENE == false)
+            else if(config.Game.ENDSCENE == true)
             {
-                this.endLabel = new objects.Label("CONGRATULATION", "80px","Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
+                this.endLabel = new objects.Label("YOU ARE HERO", "80px","Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
+                config.Game.ENDSCENE = false;
             }
             else{
-                this.endLabel = new objects.Label("GAME OVER", "80px","Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
+                this.endLabel = new objects.Label("MISSION FAIL", "80px","Impact, Charcoal, sans-serif", "#000000", 320, 150, true);
             }
             this._backButton = new objects.Button(config.Game.ASSETS.getResult("returnButton"), 320, 300, true);
             //this._backButton = new objects.Button("startButton", 320, 300, true);

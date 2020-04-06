@@ -8,7 +8,7 @@ var config;
     Game.LIVES = 3;
     Game.SCORE = 0;
     Game.HIGH_SCORE = 0;
-    Game.ANTIBOOMITEM = 0;
+    Game.MISSON = 0;
     Game.ENDSCENE = false;
     config.Game = Game;
 })(config || (config = {}));

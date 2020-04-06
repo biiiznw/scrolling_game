@@ -117,6 +117,11 @@ var objects;
             let Ys = (P2.y - P1.y);
             return Xs * Xs + Ys * Ys;
         }
+        static circleDistance(P1, P2) {
+            let Xs = (P2.x - P1.x);
+            let Ys = (P2.y - P1.y);
+            return Xs + Ys;
+        }
         static add(lhs, rhs) {
             let dx = lhs.x + rhs.x;
             let dy = lhs.y + rhs.y;

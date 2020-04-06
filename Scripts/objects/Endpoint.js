@@ -6,10 +6,23 @@ var objects;
             super(imagePath);
             this.Start();
         }
+        get Dy() {
+            return this._dy;
+        }
+        set Dy(v) {
+            this._dy = v;
+        }
+        get Dx() {
+            return this._dx;
+        }
+        set Dx(v) {
+            this._dx = v;
+        }
         _checkBounds() {
         }
         Start() {
             this.alpha = 0;
+            this.scaleX = -1;
             this.Reset();
         }
         Update() {
@@ -18,9 +31,9 @@ var objects;
             this.Reset();
         }
         Reset() {
-            this.x = 4500;
+            this.x = this._dx;
             this.x += config.Game.BACKGROUND;
-            this.y = 200;
+            this.y = this._dy;
             this.position = new objects.Vector2(this.x, this.y);
         }
     }

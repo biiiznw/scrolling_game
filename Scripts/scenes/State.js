@@ -7,12 +7,11 @@ var scenes;
         State[State["START"] = 0] = "START";
         State[State["TUTORIAL"] = 1] = "TUTORIAL";
         State[State["STAGE01"] = 2] = "STAGE01";
-        State[State["PLAY"] = 3] = "PLAY";
-        State[State["STAGE2"] = 4] = "STAGE2";
-        State[State["FINALSTAGE"] = 5] = "FINALSTAGE";
-        State[State["COMPLETE"] = 6] = "COMPLETE";
-        State[State["END"] = 7] = "END";
-        State[State["NUM_OF_SCENES"] = 8] = "NUM_OF_SCENES";
+        State[State["STORY"] = 3] = "STORY";
+        State[State["STAGE02"] = 4] = "STAGE02";
+        State[State["COMPLETE"] = 5] = "COMPLETE";
+        State[State["END"] = 6] = "END";
+        State[State["NUM_OF_SCENES"] = 7] = "NUM_OF_SCENES";
     })(State = scenes.State || (scenes.State = {}));
 })(scenes || (scenes = {}));
 //# sourceMappingURL=State.js.map

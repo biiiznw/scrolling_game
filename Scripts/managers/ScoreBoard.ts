@@ -9,8 +9,8 @@ module managers
         private _scoreLabel : objects.Label = new objects.Label;
         private _highScoreLabel : objects.Label = new objects.Label;
         private _highScore : number =0;
-        private _antiBoomItem : number =0;
-        private _itemLabel : objects.Label = new objects.Label;
+        private _missionCoin : number =0;
+        private _missionLabel : objects.Label = new objects.Label;
         private _status : boolean = false;
 
         public get status() : boolean 
@@ -24,21 +24,22 @@ module managers
         }
         
 
-        public get ItemLabel() : objects.Label 
+        public get MissionLabel() : objects.Label 
         {
-            return this._itemLabel;
+            return this._missionLabel;
         }
 
-        public get AntiBoomItem() : number 
+        public get MissionCoin() : number 
         {
-            return this._antiBoomItem;
+            return this._missionCoin;
         }
 
-        public set AntiBoomItem(v : number) 
+        public set MissionCoin(v : number) 
         {
-            this._antiBoomItem = v;
-            config.Game.ANTIBOOMITEM = this._antiBoomItem;
-            this._itemLabel.setText("Anti Boom: " + this._antiBoomItem);
+            this._missionCoin = v;
+            //config.Game.MISSON = this._missionCoin;
+            this._missionCoin = config.Game.MISSON;
+            this._missionLabel.setText("MISSION: COLLECT " + this._missionCoin + " COINS");
         }
         
         public get HighScore() : number 
@@ -74,7 +75,7 @@ module managers
         public set Score(v : number) {
             this._score = v;
             config.Game.SCORE = this._score;
-            this._scoreLabel.text = "POINTS : " + this._score;
+            this._scoreLabel.text = "COINS : " + this._score;
         }
         
         public get Lives() : number {
@@ -104,11 +105,11 @@ module managers
             this._livesLabel = new objects.Label("3", "23px", "Impact, Charcoal, sans-serif", "#000000", 40, 30, true);
             this._scoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 500, 30, true);
             this._highScoreLabel = new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 320, 30, true);
-            this._itemLabel= new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#000000", 550, 60, true);
+            this._missionLabel= new objects.Label("0", "23px", "Impact, Charcoal, sans-serif", "#FF0000", 320, 70, true);
             this.Lives = config.Game.LIVES;
             this.Score = config.Game.SCORE;
             this.HighScore = config.Game.HIGH_SCORE;
-            this.AntiBoomItem = config.Game.ANTIBOOMITEM;
+            this.MissionCoin = config.Game.MISSON;
         }
     }
 }

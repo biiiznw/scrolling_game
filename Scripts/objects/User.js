@@ -49,7 +49,7 @@ var objects;
                 }
                 this.scaleX = 1;
             }
-            this.position = new objects.Vector2(this.x, this.y);
+            //this.position = new Vector2(this.x, this.y);
             //jump
             if (config.Game.keyboardManager.moveForward) {
                 this._keyUp = true;
@@ -57,6 +57,7 @@ var objects;
                     this.y -= 5;
                     this.position = new objects.Vector2(this.x, this.y);
                     this._isActive = true;
+                    console.log("???");
                 }
                 if (this.y < this._limitY) {
                     //this.y = this._limitBottom;
@@ -65,11 +66,12 @@ var objects;
                     this.Reset();
                     //console.log("jaaa")
                 }
-                if (this.y > this._limitBottom) {
-                    this._keyPress = false;
-                    console.log("dddddd");
-                    //this.Reset();
-                }
+                // if(this.y > this._limitBottom)
+                // {
+                //     this._keyPress = false;
+                //     console.log("dddddd")
+                //     //this.Reset();
+                // }
             }
             this.position = new objects.Vector2(this.x, this.y);
             this._keyRight = false;
@@ -121,17 +123,30 @@ var objects;
         }
         Reset() {
             if (this._keyPress == true || this._isActive == true) {
-                if (this.y <= this._limitBottom) {
+                if (this.y < this._limitBottom && this.y > this._limitY) {
                     console.log("chekc");
+                    this.y -= 5;
+                    if (this.y > this._limitBottom)
+                        this.y = this._limitBottom;
+                }
+                else if (this.y <= this._limitY) {
                     this.y += 5;
                 }
                 else
                     this._isActive = false;
                 // if(this.y < this._limitBottom) this._keyPress = false;
             }
+            else if (this.y > this._limitBottom && this._keyUp == true)
+                this._move();
             else {
                 console.log("ZZZ");
-                this.y = this._limitBottom;
+                if (this._keyUp == true)
+                    this.y -= 5;
+                // {
+                //this._move();
+                //this._keyUp = false;
+                // }
+                // else this.y = this._limitBottom;
             }
             this.position = new objects.Vector2(this.position.x, this.y);
         }

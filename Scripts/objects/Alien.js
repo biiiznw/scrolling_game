@@ -14,11 +14,17 @@ var objects;
         constructor(imagePath = config.Game.ASSETS.getResult("placeholder")) {
             super(imagePath);
             this._died = false;
-            this._limitBottom = 300;
+            this._limitBottom = 305;
             this._dy = 0; //speed
             this._dx = 0;
             this._isActive = false;
             this.Start();
+        }
+        get Speed() {
+            return this._speed;
+        }
+        set Speed(v) {
+            this._speed = v;
         }
         //PUBLIC PROPERTIES
         set died(status) {
@@ -43,11 +49,11 @@ var objects;
         }
         Move() {
             if (this._isActive == false) {
-                this.x -= 3;
+                this.x -= this._speed;
                 //this.x -= this._dx;
             }
             else {
-                this.x += 3;
+                this.x += this._speed;
                 //this.x += this._dx;
                 if (this.x <= 250)
                     this._isActive = false;
