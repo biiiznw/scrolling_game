@@ -4,8 +4,7 @@ module objects
     {
         private _dx?:number;
         private _dy?:number;
-        private _isActive:boolean = false;
-        
+        private _isActive:boolean = false; 
         
         private _speed : number;
         public get Speed() : number {
@@ -16,6 +15,7 @@ module objects
         }
         
 
+        //imagePath:Object = config.Game.ASSETS.getResult("placeholder")
         constructor()
         {
             super(config.Game.ASSETS.getResult("cloud"));

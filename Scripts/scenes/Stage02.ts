@@ -129,6 +129,7 @@ module scenes {
                 if(alien.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("monsterSound");
                 }
             });
 
@@ -138,6 +139,7 @@ module scenes {
                 if(cloud.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("cloudSound");
                 }
             });
 
@@ -147,6 +149,7 @@ module scenes {
                 if(cloud.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                 }
             });
 
@@ -156,6 +159,7 @@ module scenes {
                 if(coin.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -166,6 +170,7 @@ module scenes {
                 if(coin.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -176,6 +181,7 @@ module scenes {
                 if(coin.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });

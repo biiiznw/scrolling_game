@@ -10,18 +10,17 @@
 var scenes;
 (function (scenes) {
     class Stage01 extends objects.Scene {
-        //private _duck: objects.Image;
         constructor() {
             super();
             //take
+            this._playBackSound = new createjs.PlayPropsConfig();
             this._scoreBoard = new managers.ScoreBoard;
             // initialization
             this._background = new objects.Background();
+            this._playBackSound = new createjs.PlayPropsConfig();
             this._user = new objects.User();
             this._clouds = new Array();
             this._aliens = new Array();
-            this._duck = new objects.Endpoint();
-            //this._duck = new objects.Image();
             this._finish = new objects.Endpoint();
             this._coins = new Array();
             this.Start();
@@ -30,14 +29,15 @@ var scenes;
             // config.Game.SCORE_BOARD = this._scoreBoard;
             // this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
             this._background = new objects.Background(config.Game.ASSETS.getResult("back"));
+            //unlimited background sound
+            this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
+            createjs.Sound.play("startSound", this._playBackSound);
             this._user = new objects.User();
             this._aliens = new Array();
             this._clouds = new Array();
             this._coins = new Array();
-            this._duck = new objects.Endpoint(config.Game.ASSETS.getResult("duck"));
             this._finish = new objects.Endpoint(config.Game.ASSETS.getResult("duck"));
-            //this._duck = new objects.Image(config.Game.ASSETS.getResult("duck"), 320, 200, true);
-            //this.AddAliens(4);
+            //create multiple 
             for (let cloud = 0; cloud < 15; cloud++) {
                 this._clouds.push(new objects.cloud());
             }
@@ -77,6 +77,7 @@ var scenes;
                 managers.Collision.AABBCheckWithoutP(this._user, alien);
                 if (alien.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("monsterSound");
                 }
             });
             this._clouds.forEach(cloud => {
@@ -84,6 +85,7 @@ var scenes;
                 managers.Collision.AABBCheckWithoutP(this._user, cloud);
                 if (cloud.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("cloudSound");
                 }
             });
             this._coins.forEach(coin => {
@@ -91,6 +93,7 @@ var scenes;
                 managers.Collision.AABBCheck(this._user, coin, 100, true);
                 if (coin.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -122,7 +125,6 @@ var scenes;
         Main() {
             this.addChild(this._background);
             this.addChild(this._user);
-            this.addChild(this._duck);
             this.addChild(this._finish);
             for (const alien of this._aliens) {
                 this.addChild(alien);

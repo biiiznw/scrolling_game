@@ -11,26 +11,24 @@ module scenes {
     export class Stage01 extends objects.Scene {
 
         //take
+        private _playBackSound = new createjs.PlayPropsConfig();
         private _scoreBoard: managers.ScoreBoard = new managers.ScoreBoard;
         private _background: objects.Background;
         private _user: objects.User;
         private _clouds: Array<objects.cloud>;
         private _aliens: Array<objects.Alien>;
-        private _duck:objects.Endpoint;
         private _finish: objects.Endpoint;
         private _coins: Array<objects.Coin>;
-        //private _duck: objects.Image;
 
         constructor()
         {
             super();
             // initialization
             this._background = new objects.Background();
+            this._playBackSound = new createjs.PlayPropsConfig();
             this._user = new objects.User();
             this._clouds= new Array<objects.cloud>();
             this._aliens = new Array<objects.Alien>();
-            this._duck = new objects.Endpoint();
-            //this._duck = new objects.Image();
             this._finish = new objects.Endpoint();
             this._coins = new Array<objects.Coin>();
             this.Start();
@@ -41,15 +39,16 @@ module scenes {
             // config.Game.SCORE_BOARD = this._scoreBoard;
             // this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
             this._background = new objects.Background(config.Game.ASSETS.getResult("back"));
+            //unlimited background sound
+            this._playBackSound = new createjs.PlayPropsConfig().set({ interrupt: createjs.Sound.INTERRUPT_ANY, loop: -1, volume: 0.5 });
+            createjs.Sound.play("startSound", this._playBackSound)
             this._user = new objects.User();
             this._aliens = new Array<objects.Alien>();
             this._clouds = new Array<objects.cloud>();
             this._coins = new Array<objects.Coin>();
-            this._duck = new objects.Endpoint(config.Game.ASSETS.getResult("duck"));
             this._finish = new objects.Endpoint(config.Game.ASSETS.getResult("duck"));
-            //this._duck = new objects.Image(config.Game.ASSETS.getResult("duck"), 320, 200, true);
-            
-            //this.AddAliens(4);
+
+            //create multiple 
             for(let cloud = 0; cloud < 15; cloud ++)
             {
                 this._clouds.push(new objects.cloud());
@@ -101,6 +100,7 @@ module scenes {
                 if(alien.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("monsterSound");
                 }
             });
 
@@ -110,6 +110,7 @@ module scenes {
                 if(cloud.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("cloudSound");
                 }
             });
 
@@ -119,6 +120,7 @@ module scenes {
                 if(coin.isColliding)
                 {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -134,7 +136,7 @@ module scenes {
                     config.Game.SCENE_STATE = scenes.State.END;
                 }, 300);
             }
-            
+        
             if(this._finish.isColliding)
             {
                 console.log("Money " + config.Game.SCORE_BOARD.Score);
@@ -156,7 +158,6 @@ module scenes {
         {
             this.addChild(this._background);
             this.addChild(this._user);
-            this.addChild(this._duck);
             this.addChild(this._finish);
             
             for (const alien of this._aliens){ this.addChild(alien);};

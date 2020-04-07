@@ -2,6 +2,7 @@
 var objects;
 (function (objects) {
     class cloud extends objects.GameObject {
+        //imagePath:Object = config.Game.ASSETS.getResult("placeholder")
         constructor() {
             super(config.Game.ASSETS.getResult("cloud"));
             this._isActive = false;

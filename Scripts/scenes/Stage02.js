@@ -101,6 +101,7 @@ var scenes;
                 managers.Collision.AABBCheckWithoutP(this._user, alien);
                 if (alien.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("monsterSound");
                 }
             });
             this._clouds.forEach(cloud => {
@@ -108,6 +109,7 @@ var scenes;
                 managers.Collision.AABBCheckWithoutP(this._user, cloud);
                 if (cloud.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("cloudSound");
                 }
             });
             this._clouds2.forEach(cloud => {
@@ -115,6 +117,7 @@ var scenes;
                 managers.Collision.AABBCheckWithoutP(this._user, cloud);
                 if (cloud.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                 }
             });
             this._coins.forEach(coin => {
@@ -122,6 +125,7 @@ var scenes;
                 managers.Collision.AABBCheck(this._user, coin, 100, true);
                 if (coin.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -130,6 +134,7 @@ var scenes;
                 managers.Collision.AABBCheck(this._user, coin, 200, true);
                 if (coin.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });
@@ -138,6 +143,7 @@ var scenes;
                 managers.Collision.AABBCheck(this._user, coin, 300, true);
                 if (coin.isColliding) {
                     //ADD SOUND
+                    createjs.Sound.play("coinSound");
                     this.removeChild(coin);
                 }
             });

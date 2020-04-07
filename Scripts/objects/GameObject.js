@@ -23,9 +23,6 @@ var objects;
             this._position = new objects.Vector2(0, 0);
             this._velocity = new objects.Vector2(0, 0);
             this.isColliding = false;
-            // this.position = new Vector2(x, y);
-            // // wait for the  image to load before calculating its width and height
-            // this.image.addEventListener('load', ()=>{
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.halfWidth = this.width * 0.5;

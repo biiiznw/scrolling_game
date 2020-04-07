@@ -1,3 +1,12 @@
+/**
+ * AUTHOR: YERIN AN
+ * STUDENT NUMBER: 300947515
+ * LAST MODIFIED BY: YERIN AN
+ * DATE LAST MODIFIED: APRIL 05
+ * PROGRAM DESCRIPTION: SCROLLING GAME
+ * REVISON HISTORY: VERSION 03
+ */
+
 module scenes
 {
     export class Story extends objects.Scene

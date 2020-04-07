@@ -115,6 +115,8 @@ var managers;
                 object2Offset.x = object2.halfWidth;
                 object2Offset.y = object2.halfHeight;
             }
+            // let object1TopLeft = objects.Vector2.subtract(object1.position, object1Offset);
+            // let object2TopLeft = objects.Vector2.subtract(object2.position, object2Offset);
             let object1TopLeft = objects.Vector2.subtract(object1.position, object1Offset);
             let object2TopLeft = objects.Vector2.subtract(object2.position, object2Offset);
             if (object1TopLeft.x < object2TopLeft.x + object2.width &&

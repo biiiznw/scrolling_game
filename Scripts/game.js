@@ -24,7 +24,7 @@ let game1 = (function () {
         { id: "movement01", src: "./Assets/images/move03.png" },
         { id: "movement02", src: "./Assets/images/move02.png" },
         { id: "movement03", src: "./Assets/images/move01.png" },
-        { id: "alien", src: "./Assets/images/WALK_2.png" },
+        { id: "alien", src: "./Assets/images/alien.png" },
         { id: "cloud", src: "./Assets/images/cloud.png" },
         { id: "flower", src: "./Assets/images/flower.png" },
         { id: "finish", src: "./Assets/images/finish.png" },
@@ -39,13 +39,11 @@ let game1 = (function () {
         { id: "item", src: "./Assets/images/item.png" },
         { id: "totoro", src: "./Assets/images/totoro.png" },
         //Sounds
-        { id: "playSound", src: "./Assets/sounds/BackSound.mp3" },
-        { id: "startSound", src: "./Assets/sounds/BackSound.mp3" },
-        { id: "crashSound", src: "./Assets/sounds/crash.wav" },
-        { id: "powerup", src: "./Assets/sounds/PowerUp.wav" },
-        { id: "crashSoundP", src: "./Assets/sounds/crashPlayer.wav" },
-        { id: "break", src: "./Assets/sounds/break.wav" },
-        { id: "powerup", src: "./Assets/sounds/powerup.wav" },
+        { id: "startSound", src: "./Assets/sounds/background.wav" },
+        { id: "cloudSound", src: "./Assets/sounds/cloud.wav" },
+        { id: "coinSound", src: "./Assets/sounds/coin.wav" },
+        { id: "jumpSound", src: "./Assets/sounds/jump.mp3" },
+        { id: "monsterSound", src: "./Assets/sounds/monster.mp3" },
     ];
     // comments from Tom
     function Preload() {

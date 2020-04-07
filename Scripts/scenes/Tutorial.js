@@ -59,6 +59,7 @@ var scenes;
             console.log(config.Game.MISSON);
             this._scoreBoard.MissionCoin = config.Game.MISSON;
             this._scoreBoard.HighScore = config.Game.HIGH_SCORE;
+            createjs.Sound.play("startSound");
             this.Main();
         }
         Update() {
@@ -94,6 +95,7 @@ var scenes;
                 config.Game.SCORE_BOARD.HighScore = 0;
                 config.Game.SCORE_BOARD.Score = 0;
                 config.Game.SCENE_STATE = scenes.State.STAGE01;
+                createjs.Sound.stop();
             }
         }
         Main() {
